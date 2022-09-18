@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fourward.linkchart.persistence.mapper.IChartMapper">
+    <insert id="insertStockData" parameterType="StockDTO">
+        insert into STOCK_DATA
+            (CODE, PRICE_DATE, PRICE_OPEN, PRICE_HIGH, PRICE_LOW, PRICE_CLOSE, PRICE_VOLUME)
+        values (#{code}, #{date}, #{open}, #{high}, #{low}, #{close}, #{volume})
+
+    </insert>
+
+    <select id="getChartData" resultType="StockDTO">
+        select
+            pr.date, pr.open, pr.high, pr.low, pr.close, pr.volume
+        from stock_price pr
+        where pr.code = (select c.code from stock_code c where c.name = #{selected_name})
+    </select>
+</mapper>
