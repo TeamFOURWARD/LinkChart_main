@@ -50,30 +50,6 @@ public class ChartService implements IChartService {
 
         //api 크롤링 로직
 
-        /*final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36";
-        try {
-            // 1. URL 선언
-            String connUrl = "https://api.finance.naver.com/siseJson.naver?symbol=" + code + "&requestType=1&startTime=" + start_date + "&endTime=" + end_date + "&timeframe=day";
-            log.info(connUrl);
-            //String connUrl = "https://api.finance.naver.com/siseJson.naver?symbol=000020&requestType=1&startTime=20200409&endTime=20220917&timeframe=day";
-            // 2. HTML 가져오기
-            Connection conn = Jsoup.connect(connUrl)
-                    .header("Content-Type", "application/json;charset=UTF-8")
-                    .userAgent(USER_AGENT)
-                    .method(Connection.Method.GET)
-                    .ignoreContentType(true);
-            Document doc = conn.get();
-            Elements elements = doc.select("body");
-
-            log.info("다큐먼트 : "+doc.toString());
-            log.info("요소 : "+elements.toString());
-
-            log.info(this.getClass().getName() + ".insertStockData end");
-        } catch (Exception e) {
-            //에러처리
-        }*/
-
-
         final String USER_AGENT = "Mozila/5.0";
         final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code + "&requestType=1&startTime=" + start_date + "&endTime=" + end_date + "&timeframe=day";
         String json = "";
@@ -91,10 +67,6 @@ public class ChartService implements IChartService {
             //get 요청
             CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
 
-            /*
-            System.out.println("GET Response Status");
-            System.out.println(httpResponse.getStatusLine().getStatusCode());
-            */
             json = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 
             httpClient.close();
@@ -124,6 +96,7 @@ public class ChartService implements IChartService {
             chartMapper.insertStockData(tmpDTO);
             tmpDTO = null;
         }
+
 
         log.info(this.getClass().getName() + ".insertStockData end");
     }
