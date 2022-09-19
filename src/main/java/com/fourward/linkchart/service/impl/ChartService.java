@@ -36,8 +36,10 @@ public class ChartService implements IChartService {
     }
 
     @Override
-    public List<StockDTO> getChartData() throws Exception {
-        log.info(this.getClass().getName() + ".getStockData start");
+    public List<StockDTO> getChartData(StockDTO pDTO) throws Exception {
+        log.info(this.getClass().getName() + ".getChartData start");
+
+        log.info(this.getClass().getName() + ".getChartData end");
 
         return chartMapper.getChartData();
     }
@@ -47,8 +49,11 @@ public class ChartService implements IChartService {
         log.info(this.getClass().getName() + ".insertStockData start");
 
         //api 크롤링 로직 1 [전날까지]
-        final String code = pDTO.getCode();
         final String start_date = pDTO.getStart_date();
+
+        final String code = pDTO.getCode();
+        log.info(this.getClass().getName()+"getStockCodeByName done : "+code);
+
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Calendar c1 = Calendar.getInstance();
@@ -106,4 +111,11 @@ public class ChartService implements IChartService {
 
         log.info(this.getClass().getName() + ".insertStockData end");
     }
+
+    @Override
+    public StockDTO getStockCodeByName(StockDTO pDTO) throws Exception {
+        log.info(this.getClass().getName()+".getStockCodeByName start");
+        return chartMapper.getStockCodeByName(pDTO);
+    }
+
 }

@@ -14,4 +14,11 @@
         from stock_price pr
         where pr.code = (select c.code from stock_code c where c.name = #{selected_name})
     </select>
+
+    <select id="getStockCodeByName" resultType="StockDTO">
+        select
+            c.code
+        from stock_code c
+        where c.name = #{name}
+    </select>
 </mapper>

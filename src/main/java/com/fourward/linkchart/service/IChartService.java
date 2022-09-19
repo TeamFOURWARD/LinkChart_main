@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface IChartService {
 
-    List<StockDTO> getStockData() throws Exception;
+    List<StockDTO> getChartData(StockDTO pDTO) throws Exception;
 
     void insertStockData(StockDTO pDTO) throws Exception;
+
+    StockDTO getStockCodeByName(StockDTO pDTO) throws Exception;
 }
