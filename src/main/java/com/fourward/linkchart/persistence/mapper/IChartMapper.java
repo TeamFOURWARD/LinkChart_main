@@ -9,7 +9,7 @@ import java.util.List;
 public interface IChartMapper {
 
     //jsp 에 일자별 주식 가격 리스트 가져옴
-    List<StockDTO> getChartData() throws Exception;
+    List<StockDTO> getChartData(StockDTO pDTO) throws Exception;
 
     void insertStockData(StockDTO pDTO) throws Exception;
 

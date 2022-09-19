@@ -63,17 +63,13 @@ public class ChartController {
     @GetMapping(value = "/chart/getStockData")
     public String getStockData(HttpServletRequest request,ModelMap model) throws Exception {
         log.info(this.getClass().getName()+".getStockData start");
-        String name = request.getParameter("name");
-
         StockDTO pDTO = new StockDTO();
+        String name = request.getParameter("name");
         pDTO.setName(name);
 
-        chartService.getChartData(pDTO);
+        List<StockDTO> rList = chartService.getChartData(pDTO);
 
-
-        List<StockDTO> pList = new ArrayList<>();
-
-        model.getAttribute(name);
+        model.addAttribute(rList);
 
         log.info(this.getClass().getName()+".getStockData end");
 

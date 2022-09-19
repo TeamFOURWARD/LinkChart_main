@@ -12,7 +12,8 @@
         select
             pr.date, pr.open, pr.high, pr.low, pr.close, pr.volume
         from stock_price pr
-        where pr.code = (select c.code from stock_code c where c.name = #{selected_name})
+        where pr.code = (select c.code from stock_code c where c.name = #{name})
+        order by pr.date asc
     </select>
 
     <select id="getStockCodeByName" resultType="StockDTO">

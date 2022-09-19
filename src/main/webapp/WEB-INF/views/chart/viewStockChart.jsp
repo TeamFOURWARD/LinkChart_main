@@ -2,7 +2,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.fourward.linkchart.dto.StockDTO" %>
-<!doctype html>
+<%
+    List<StockDTO> rList = (List<StockDTO>) request.getAttribute("rList");
+%>
 <!doctype html>
 <html lang="en">
 <head>
