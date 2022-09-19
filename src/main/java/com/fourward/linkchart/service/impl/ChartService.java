@@ -19,8 +19,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 @Slf4j
@@ -34,24 +36,28 @@ public class ChartService implements IChartService {
     }
 
     @Override
-    public List<StockDTO> getStockData() throws Exception {
-        log.info(this.getClass().getName() + ".getStockData done");
+    public List<StockDTO> getChartData() throws Exception {
+        log.info(this.getClass().getName() + ".getStockData start");
 
-        return chartMapper.getStockData();
+        return chartMapper.getChartData();
     }
 
     @Override
     public void insertStockData(StockDTO pDTO) throws Exception {
         log.info(this.getClass().getName() + ".insertStockData start");
 
+        //api 크롤링 로직 1 [전날까지]
         final String code = pDTO.getCode();
         final String start_date = pDTO.getStart_date();
-        final String end_date = pDTO.getEnd_date();
 
-        //api 크롤링 로직
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        Calendar c1 = Calendar.getInstance();
+        c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1
+        String yesterday = sdf.format(c1.getTime());
 
         final String USER_AGENT = "Mozila/5.0";
-        final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code + "&requestType=1&startTime=" + start_date + "&endTime=" + end_date + "&timeframe=day";
+        final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code + "&requestType=1&startTime=" + start_date + "&endTime=" + yesterday + "&timeframe=day";
+        log.info(this.getClass().getName() + ".getUrl : \n" + GET_URL);
         String json = "";
         try {
             //http client 생성
