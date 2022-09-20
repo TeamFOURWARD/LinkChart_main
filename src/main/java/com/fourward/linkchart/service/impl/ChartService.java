@@ -36,65 +36,71 @@ public class ChartService implements IChartService {
     }
 
     @Override
-    public List<StockDTO> getChartData(StockDTO pDTO) throws Exception {
-        log.info(this.getClass().getName() + ".getChartData start");
-        log.info("value code : "+pDTO.getCode());
-        log.info(this.getClass().getName() + ".getChartData end");
+    public List<StockDTO> getStockData() throws Exception {
+        log.info(this.getClass().getName() + ".getStockData start");
 
-        return chartMapper.getChartData(pDTO);
+        return chartMapper.getStockData();
     }
 
+    @Transactional
     @Override
     public void insertStockData(StockDTO pDTO) throws Exception {
         log.info(this.getClass().getName() + ".insertStockData start");
 
-        //api 크롤링 로직 1 [전날까지]
-        final String start_date = pDTO.getStart_date();
+        // api 크롤링 로직 1 [전날까지]
 
         final String code = pDTO.getCode();
-        log.info(this.getClass().getName()+"getStockCodeByName done : "+code);
-
+        final String start_date = pDTO.getStart_date();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Calendar c1 = Calendar.getInstance();
-        c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1
-        String yesterday = sdf.format(c1.getTime());
+        c1.add(Calendar.DATE, -1);
+        final String yesterday = sdf.format(c1.getTime());
 
         final String USER_AGENT = "Mozila/5.0";
-        final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code + "&requestType=1&startTime=" + start_date + "&endTime=" + yesterday + "&timeframe=day";
-        log.info(this.getClass().getName() + ".getUrl : \n" + GET_URL);
+        final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code
+                + "&requestType=1&startTime=" + start_date + "&endTime=" + yesterday + "&timeframe=day";
+
+        log.info("code : " + code);
+        log.info("start_date : " + start_date);
+        log.info("end_date : " + yesterday);
+        log.info("GET_URL : " + GET_URL);
+
         String json = "";
         try {
-            //http client 생성
+            // http client 생성
             CloseableHttpClient httpClient = HttpClients.createDefault();
 
-            //get 메서드와 URL 설정
+            // get 메서드와 URL 설정
             HttpGet httpGet = new HttpGet(GET_URL);
 
-            //agent 정보 설정
+            // agent 정보 설정
             httpGet.addHeader("User-Agent", USER_AGENT);
             httpGet.addHeader("Content-type", "application/json");
 
-            //get 요청
+            // get 요청
             CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
 
             json = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 
             httpClient.close();
         } catch (ClientProtocolException e) {
-            //예외처리 예정
+            // 예외처리 예정
         } catch (IOException e) {
+        } catch (Exception e) {
+            log.debug("error : " + e);
         }
-        //파싱부분
+        // 파싱부분
         String res = json.substring(json.indexOf("[", (json.indexOf("외국인"))), json.lastIndexOf("]"));
         res = res.trim().replaceAll("\\s", "").replaceAll("\"", "");
         res = res.substring(1, res.length() - 1);
-        List<String> resList = Arrays.asList(res.split("],\\["));
+        String[] resList = res.split("],\\[");
 
+        int insertedCount = 0;
         StockDTO tmpDTO;
-        for (int i = 0; i < resList.size(); i++) {
+        for (String s : resList) {
             tmpDTO = new StockDTO();
-            String[] tmpArr = resList.get(i).split(",");
+            String[] tmpArr = s.split(",");
 
             log.info("추출 날짜 : " + tmpArr[0]);
             tmpDTO.setCode(code);
@@ -104,17 +110,17 @@ public class ChartService implements IChartService {
             tmpDTO.setLow(tmpArr[3]);
             tmpDTO.setClose(tmpArr[4]);
             tmpDTO.setVolume(tmpArr[5]);
-            chartMapper.insertStockData(tmpDTO);
+            insertedCount += chartMapper.insertStockData(tmpDTO);
             tmpDTO = null;
         }
 
-
+        log.info("insertedCount : " + insertedCount);
         log.info(this.getClass().getName() + ".insertStockData end");
     }
 
     @Override
     public StockDTO getStockCodeByName(StockDTO pDTO) throws Exception {
-        log.info(this.getClass().getName()+".getStockCodeByName start");
+        log.info(this.getClass().getName() + ".getStockCodeByName start");
         return chartMapper.getStockCodeByName(pDTO);
     }
 
