@@ -3,14 +3,31 @@
 <mapper namespace="com.fourward.linkchart.persistence.mapper.IChartMapper">
     <insert id="insertStockData" parameterType="StockDTO">
         insert into STOCK_DATA
-            (CODE, PRICE_DATE, PRICE_OPEN, PRICE_HIGH, PRICE_LOW, PRICE_CLOSE, PRICE_VOLUME)
-        values (#{code}, #{date}, #{open}, #{high}, #{low}, #{close}, #{volume})
+        (CODE, PRICE_DATE, PRICE_OPEN, PRICE_HIGH, PRICE_LOW, PRICE_CLOSE, PRICE_VOLUME)
+        select #{code},
+               #{date},
+               #{open},
+               #{high},
+               #{low},
+               #{close},
+               #{volume}
+        from dual
+        where not exists(
+                select 1
+                from stock_data
+                where code = #{code}
+                  and price_date = #{date}
+            )
 
     </insert>
 
     <select id="getStockData" resultType="StockDTO">
-        select
-            pr.date, pr.open, pr.high, pr.low, pr.close, pr.volume
+        select pr.date,
+               pr.open,
+               pr.high,
+               pr.low,
+               pr.close,
+               pr.volume
         from stock_price pr
         where pr.code = (select c.code from stock_code c where c.name = #{selected_name})
     </select>
