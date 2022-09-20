@@ -17,7 +17,7 @@
     <input type="submit"/>
     <input type="reset"/>
 </form>
-<a href="searchStockData.jsp" target="_blank">데이터 가져오기</a>
+<a href="searchStockData" target="_blank">데이터 가져오기</a>
 <iframe name="ifr" style="display: none"></iframe>
 </body>
 </html>

@@ -52,16 +52,15 @@ public class ChartController {
         log.info(this.getClass().getName() + ".insertStockData end");
     }
 
-    @GetMapping(value = "/chart/searchStockData")
-    public String getStockNameByCode() throws Exception {
-        log.info(this.getClass().getName() + ".getStockNameByCode start");
+    @GetMapping(value = "/chart/viewStockChart")
+    public String viewStockChart() {
 
-        return "/chart/searchStockData";
+        return "chart/viewStockChart";
     }
-
     // 종목명 입력시 db에서 가져온후 차트그리기
     @GetMapping(value = "/chart/getStockData")
     public String getStockData(HttpServletRequest request, ModelMap model) throws Exception {
+
         log.info(this.getClass().getName() + ".getStockData start");
         StockDTO pDTO = new StockDTO();
         String name = request.getParameter("name");

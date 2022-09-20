@@ -11,7 +11,7 @@
 <body>
 <h1>Hello</h1>
 <a href="chart/searchStockData" target="_blank">종목 가져오기</a>
-<a href="chart/getStockData" target="_self">차트 페이지</a>
+<a href="chart/viewStockChart" target="_self">차트 페이지</a>
 
 </body>
 </html>
