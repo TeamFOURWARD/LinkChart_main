@@ -1,8 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="linkchart.dto.StockDTO" %>
-<!doctype html>
+<%@ page import="com.fourward.linkchart.dto.StockDTO" %>
 <!doctype html>
 <html lang="en">
 <head>
