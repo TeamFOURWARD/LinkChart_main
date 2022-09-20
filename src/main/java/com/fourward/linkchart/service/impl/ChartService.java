@@ -36,10 +36,10 @@ public class ChartService implements IChartService {
     }
 
     @Override
-    public List<StockDTO> getStockData() throws Exception {
+    public List<StockDTO> getStockData(StockDTO rDTO) throws Exception {
         log.info(this.getClass().getName() + ".getStockData start");
 
-        return chartMapper.getStockData();
+        return chartMapper.getStockData(rDTO);
     }
 
     @Transactional

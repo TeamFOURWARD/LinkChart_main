@@ -67,7 +67,7 @@ public class ChartController {
         String name = request.getParameter("name");
         pDTO.setName(name);
 
-        List<StockDTO> rList = chartService.getChartData(pDTO);
+        List<StockDTO> rList = chartService.getStockData(pDTO);
 
         model.addAttribute(rList);
 
