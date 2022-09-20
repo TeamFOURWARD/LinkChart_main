@@ -10,19 +10,16 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -36,10 +33,23 @@ public class ChartService implements IChartService {
     }
 
     @Override
-    public List<StockDTO> getStockData(StockDTO rDTO) throws Exception {
+    public JSONArray getStockData(StockDTO rDTO) throws Exception {
         log.info(this.getClass().getName() + ".getStockData start");
 
-        return chartMapper.getStockData(rDTO);
+        List<StockDTO> rList = chartMapper.getStockData(rDTO);
+
+        JSONArray jsonList = new JSONArray();
+        for (StockDTO stockDTO : rList) {
+            JSONObject json = new JSONObject();
+            json.put("date", Integer.parseInt(stockDTO.getDate()));
+            json.put("low", Integer.parseInt(stockDTO.getLow()));
+            json.put("high", Integer.parseInt(stockDTO.getHigh()));
+            json.put("open", Integer.parseInt(stockDTO.getOpen()));
+            json.put("close", Integer.parseInt(stockDTO.getClose()));
+            jsonList.add(json);
+        }
+
+        return jsonList;
     }
 
     @Transactional
