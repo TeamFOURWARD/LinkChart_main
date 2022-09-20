@@ -22,13 +22,21 @@
     </insert>
 
     <select id="getStockData" resultType="StockDTO">
-        select pr.date,
-               pr.open,
-               pr.high,
-               pr.low,
-               pr.close,
-               pr.volume
-        from stock_price pr
-        where pr.code = (select c.code from stock_code c where c.name = #{selected_name})
+        select pr.price_date,
+               pr.price_open,
+               pr.price_high,
+               pr.price_low,
+               pr.price_close,
+               pr.price_volume
+        from stock_data pr
+        where pr.code = (select c.code from stock_code c where c.name = #{name})
+        order by pr.price_date asc
+    </select>
+
+    <select id="getStockCodeByName" resultType="StockDTO">
+        select
+            c.code
+        from stock_code c
+        where c.name = #{name}
     </select>
 </mapper>

@@ -36,10 +36,10 @@ public class ChartService implements IChartService {
     }
 
     @Override
-    public List<StockDTO> getStockData() throws Exception {
+    public List<StockDTO> getStockData(StockDTO rDTO) throws Exception {
         log.info(this.getClass().getName() + ".getStockData start");
 
-        return chartMapper.getStockData();
+        return chartMapper.getStockData(rDTO);
     }
 
     @Transactional
@@ -47,18 +47,19 @@ public class ChartService implements IChartService {
     public void insertStockData(StockDTO pDTO) throws Exception {
         log.info(this.getClass().getName() + ".insertStockData start");
 
-        //api 크롤링 로직 1 [전날까지]
+        // api 크롤링 로직 1 [전날까지]
 
         final String code = pDTO.getCode();
         final String start_date = pDTO.getStart_date();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Calendar c1 = Calendar.getInstance();
-        c1.add(Calendar.DATE, -1); // 오늘날짜로부터 -1
+        c1.add(Calendar.DATE, -1);
         final String yesterday = sdf.format(c1.getTime());
 
         final String USER_AGENT = "Mozila/5.0";
-        final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code + "&requestType=1&startTime=" + start_date + "&endTime=" + yesterday + "&timeframe=day";
+        final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code
+                + "&requestType=1&startTime=" + start_date + "&endTime=" + yesterday + "&timeframe=day";
 
         log.info("code : " + code);
         log.info("start_date : " + start_date);
@@ -67,29 +68,29 @@ public class ChartService implements IChartService {
 
         String json = "";
         try {
-            //http client 생성
+            // http client 생성
             CloseableHttpClient httpClient = HttpClients.createDefault();
 
-            //get 메서드와 URL 설정
+            // get 메서드와 URL 설정
             HttpGet httpGet = new HttpGet(GET_URL);
 
-            //agent 정보 설정
+            // agent 정보 설정
             httpGet.addHeader("User-Agent", USER_AGENT);
             httpGet.addHeader("Content-type", "application/json");
 
-            //get 요청
+            // get 요청
             CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
 
             json = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 
             httpClient.close();
         } catch (ClientProtocolException e) {
-            //예외처리 예정
+            // 예외처리 예정
         } catch (IOException e) {
         } catch (Exception e) {
             log.debug("error : " + e);
         }
-        //파싱부분
+        // 파싱부분
         String res = json.substring(json.indexOf("[", (json.indexOf("외국인"))), json.lastIndexOf("]"));
         res = res.trim().replaceAll("\\s", "").replaceAll("\"", "");
         res = res.substring(1, res.length() - 1);
@@ -116,4 +117,11 @@ public class ChartService implements IChartService {
         log.info("insertedCount : " + insertedCount);
         log.info(this.getClass().getName() + ".insertStockData end");
     }
+
+    @Override
+    public StockDTO getStockCodeByName(StockDTO pDTO) throws Exception {
+        log.info(this.getClass().getName() + ".getStockCodeByName start");
+        return chartMapper.getStockCodeByName(pDTO);
+    }
+
 }
