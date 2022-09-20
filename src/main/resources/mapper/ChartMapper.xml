@@ -8,7 +8,7 @@
 
     </insert>
 
-    <select id="getChartData" resultType="StockDTO">
+    <select id="getStockData" resultType="StockDTO">
         select
             pr.date, pr.open, pr.high, pr.low, pr.close, pr.volume
         from stock_price pr
