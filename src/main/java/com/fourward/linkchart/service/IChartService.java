@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface IChartService {
 
-    JSONArray getStockData(StockDTO pDTO) throws Exception;
+    List<StockDTO> getStockData(StockDTO pDTO) throws Exception;
 
     void insertStockData(StockDTO pDTO) throws Exception;
 

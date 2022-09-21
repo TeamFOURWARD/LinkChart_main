@@ -33,12 +33,10 @@ public class ChartService implements IChartService {
     }
 
     @Override
-    public JSONArray getStockData(StockDTO rDTO) throws Exception {
+    public List<StockDTO> getStockData(StockDTO rDTO) throws Exception {
         log.info(this.getClass().getName() + ".getStockData start");
 
-        List<StockDTO> rList = chartMapper.getStockData(rDTO);
-
-        JSONArray jsonList = new JSONArray();
+        /*JSONArray jsonList = new JSONArray();
         for (StockDTO stockDTO : rList) {
             JSONObject json = new JSONObject();
             json.put("date", Integer.parseInt(stockDTO.getDate()));
@@ -47,9 +45,9 @@ public class ChartService implements IChartService {
             json.put("open", Integer.parseInt(stockDTO.getOpen()));
             json.put("close", Integer.parseInt(stockDTO.getClose()));
             jsonList.add(json);
-        }
+        }*/
 
-        return jsonList;
+        return chartMapper.getStockData(rDTO);
     }
 
     @Transactional
