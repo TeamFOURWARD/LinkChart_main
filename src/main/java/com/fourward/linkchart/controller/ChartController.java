@@ -3,14 +3,9 @@ package com.fourward.linkchart.controller;
 import com.fourward.linkchart.dto.StockDTO;
 import com.fourward.linkchart.service.IChartService;
 import lombok.extern.slf4j.Slf4j;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -62,6 +57,7 @@ public class ChartController {
 
         return "chart/viewStockChart";
     }
+
     // 종목명 입력시 db에서 가져온후 차트그리기
     @GetMapping(value = "/chart/getStockData")
     public String getStockData(HttpServletRequest request, ModelMap model) throws Exception {
@@ -70,9 +66,11 @@ public class ChartController {
         StockDTO pDTO = new StockDTO();
         pDTO.setName(request.getParameter("name"));
 
-        log.info(this.getClass().getName() + ".getStockData end");
         List<StockDTO> rList = chartService.getStockData(pDTO);
-        model.addAttribute("rList",rList);
+
+        model.addAttribute("rList", rList);
+
+        log.info(this.getClass().getName() + ".getStockData end");
 
         return "/chart/viewStockChart";
     }

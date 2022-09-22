@@ -1,9 +1,6 @@
 package com.fourward.linkchart.service;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fourward.linkchart.dto.StockDTO;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import java.util.List;
 

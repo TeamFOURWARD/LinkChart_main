@@ -34,8 +34,7 @@
     </select>
 
     <select id="getStockCodeByName" resultType="StockDTO">
-        select
-            c.code
+        select c.code
         from stock_code c
         where c.name = #{name}
     </select>

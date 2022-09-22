@@ -32,17 +32,6 @@ public class ChartService implements IChartService {
     public List<StockDTO> getStockData(StockDTO rDTO) throws Exception {
         log.info(this.getClass().getName() + ".getStockData start");
 
-        /*JSONArray jsonList = new JSONArray();
-        for (StockDTO stockDTO : rList) {
-            JSONObject json = new JSONObject();
-            json.put("date", Integer.parseInt(stockDTO.getDate()));
-            json.put("low", Integer.parseInt(stockDTO.getLow()));
-            json.put("high", Integer.parseInt(stockDTO.getHigh()));
-            json.put("open", Integer.parseInt(stockDTO.getOpen()));
-            json.put("close", Integer.parseInt(stockDTO.getClose()));
-            jsonList.add(json);
-        }*/
-
         return chartMapper.getStockData(rDTO);
     }
 
@@ -88,6 +77,7 @@ public class ChartService implements IChartService {
             json = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 
             httpClient.close();
+
         } catch (ClientProtocolException e) {
             // 예외처리 예정
         } catch (IOException e) {
@@ -125,6 +115,7 @@ public class ChartService implements IChartService {
     @Override
     public StockDTO getStockCodeByName(StockDTO pDTO) throws Exception {
         log.info(this.getClass().getName() + ".getStockCodeByName start");
+
         return chartMapper.getStockCodeByName(pDTO);
     }
 
