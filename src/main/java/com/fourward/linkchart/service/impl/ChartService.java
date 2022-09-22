@@ -10,18 +10,11 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -84,6 +77,7 @@ public class ChartService implements IChartService {
             json = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
 
             httpClient.close();
+
         } catch (ClientProtocolException e) {
             // 예외처리 예정
         } catch (IOException e) {
@@ -121,6 +115,7 @@ public class ChartService implements IChartService {
     @Override
     public StockDTO getStockCodeByName(StockDTO pDTO) throws Exception {
         log.info(this.getClass().getName() + ".getStockCodeByName start");
+
         return chartMapper.getStockCodeByName(pDTO);
     }
 
