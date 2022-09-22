@@ -73,7 +73,7 @@
             <artifactId>httpclient</artifactId>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
@@ -81,13 +81,13 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.13.1</version>
-        </dependency>
-        <dependency>
+            <version>2.13.4</version>
+        </dependency>-->
+        <!--<dependency>
             <groupId>com.oracle.ojdbc</groupId>
             <artifactId>orai18n</artifactId>
             <version>19.3.0.0</version>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <build>
