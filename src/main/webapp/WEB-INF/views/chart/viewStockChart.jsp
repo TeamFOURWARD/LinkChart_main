@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=utf-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.fourward.linkchart.dto.StockDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
@@ -16,56 +15,57 @@
     <script type="text/javascript">
         google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
-        <%
-            List<StockDTO> rList = (List<StockDTO>) request.getAttribute("rList");
-            if (rList == null) {
-                rList = new ArrayList<StockDTO>();
-                StockDTO pDTO = new StockDTO();
-                pDTO.setDate("0");
-                pDTO.setLow("0");
-                pDTO.setHigh("0");
-                pDTO.setOpen("0");
-                pDTO.setClose("0");
-                rList.add(pDTO);
-            }
-        %>
-
 
         var list = [];
-        //for (var i = 0; i <<%=rList.size()%>; i++) {
-        var tmpList = [
-            <%=Integer.parseInt(rList.get(0).getDate())%>,
-            <%=Integer.parseInt(rList.get(0).getLow())%>,
-            <%=Integer.parseInt(rList.get(0).getHigh())%>,
-            <%=Integer.parseInt(rList.get(0).getOpen())%>,
-            <%=Integer.parseInt(rList.get(0).getClose())%>
-        ]
 
-        list[0] = tmpList;
+        <%
+        List<StockDTO> rList = (List<StockDTO>) request.getAttribute("rList");
+        if (rList == null) {
+            rList = new ArrayList<StockDTO>();
+            StockDTO pDTO = new StockDTO();
+            pDTO.setDate("0");
+            pDTO.setLow("0");
+            pDTO.setHigh("0");
+            pDTO.setOpen("0");
+            pDTO.setClose("0");
+            rList.add(pDTO);
 
-        // }
+        %>
+        var tmpList = [<%=pDTO.getDate()%>, <%=pDTO.getLow()%>, <%=pDTO.getHigh()%>, <%=pDTO.getOpen()%>, <%=pDTO.getClose()%>]
+        list.push(tmpList)
+
+        <%
+        }else{
+        for (int i = 0; i < rList.size(); i++){
+            String date = rList.get(i).getDate();
+            int low = Integer.parseInt(rList.get(i).getLow());
+            int high = Integer.parseInt(rList.get(i).getHigh());
+            int open = Integer.parseInt(rList.get(i).getOpen());
+            int close = Integer.parseInt(rList.get(i).getClose());
+        %>
+        var tmpList = [new Date(<%=date%>), <%=low%>, <%=high%>, <%=open%>, <%=close%>]
+        list.push(tmpList)
+        <%
+            }
+        }
+        %>
+
         function drawChart() {
-            var data = google.visualization.arrayToDataTable(
-                list
-                , true);
+            var data = google.visualization.arrayToDataTable(list, true);
 
-
-            console.log("data : " + data);
-
-            var options = {
-                legend: 'none'
-            };
+            var options = {legend: 'none'};
 
             var chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
-
             chart.draw(data, options);
+
+            console.log("data : " + data);
         }
     </script>
 
 </head>
 <body>
 <div id="chart_div" style="width: 900px; height: 500px;"></div>
-<form method="get" action="chart/getStockData" >
+<form method="get" action="chart/getStockData">
     종목명<input type="text" name="name"/>
     <input type="submit"/>
     <input type="reset"/>

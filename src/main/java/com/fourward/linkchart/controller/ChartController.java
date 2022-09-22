@@ -63,7 +63,7 @@ public class ChartController {
         return "chart/viewStockChart";
     }
     // 종목명 입력시 db에서 가져온후 차트그리기
-    @RequestMapping(value = "/chart/getStockData")
+    @GetMapping(value = "/chart/getStockData")
     public String getStockData(HttpServletRequest request, ModelMap model) throws Exception {
         log.info(this.getClass().getName() + ".getStockData start");
 
@@ -71,8 +71,8 @@ public class ChartController {
         pDTO.setName(request.getParameter("name"));
 
         log.info(this.getClass().getName() + ".getStockData end");
-        List<StockDTO> rlist = chartService.getStockData(pDTO);
-        model.addAttribute("rList",rlist);
+        List<StockDTO> rList = chartService.getStockData(pDTO);
+        model.addAttribute("rList",rList);
 
         return "/chart/viewStockChart";
     }
