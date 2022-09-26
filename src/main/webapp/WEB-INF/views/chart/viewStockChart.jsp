@@ -66,5 +66,6 @@
     <input type="reset"/>
 </form>
 <a href="${pageContext.request.contextPath}/chart/searchStockData" target="_blank">데이터 가져오기</a>
+<div id="news_div" style="width: 900px; height: 500px;"</div>
 </body>
 </html>
