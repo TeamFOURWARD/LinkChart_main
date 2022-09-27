@@ -123,7 +123,7 @@ public class UserInfoController {
             /*
              * 회원가입
              * */
-            int res = userInfoService.inserUserInfo(pDTO);
+            int res = userInfoService.insertUserInfo(pDTO);
 
             log.info("회원가입 결과(res) : " + res);
 

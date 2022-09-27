@@ -20,7 +20,7 @@ public class EncrytTest {
 
         System.out.println("AES-128 암호화 결과 : "+ aesEnc);
 
-        String aesDec = EncryptUtil.decAEX128CBC(aesEnc); // 복호화 문자열
+        String aesDec = EncryptUtil.decAES128CBC(aesEnc); // 복호화 문자열
 
         System.out.println("AES-128 복호화 결과 : "+ aesDec);
         System.out.println("------------------------------------");

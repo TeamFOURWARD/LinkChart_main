@@ -10,7 +10,6 @@ import com.fourward.linkchart.util.DateUtil;
 import com.fourward.linkchart.util.EncryptUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.omg.CORBA.UserException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -26,11 +25,12 @@ public class UserInfoService implements IUserInfoService {
     private final IUserInfoMapper userInfoMapper;
 
     //메일 발송을 위한 MailService 자바 객체 가져오기
-    @Resource(name = "")
+    @Resource(name = "MailService")
     private IMailService mailService;
 
+
     @Override
-    public int inserUserInfo(UserInfoDTO pDTO) throws Exception {
+    public int insertUserInfo(UserInfoDTO pDTO) throws Exception {
 
         // 회원가입 성공 : 1, 아이디 중복으로인한 가입 취소 : 2, 기타 에러 발생 : 0
         int res = 0;
@@ -71,7 +71,7 @@ public class UserInfoService implements IUserInfoService {
                 MailDTO mDTO = new MailDTO();
 
                 //회원정보화면에서 입력받은 이메일 변수(아직 암호화되어 넘어오기 때문에 복호화 수행함)
-                mDTO.setToMail(EncryptUtil.decAEX128CBC(CmmUtil.nvl(pDTO.getEmail())));
+                mDTO.setToMail(EncryptUtil.decAES128CBC(CmmUtil.nvl(pDTO.getEmail())));
 
                 mDTO.setTitle("회원가입을 축하드립니다."); //제목
 
@@ -97,24 +97,19 @@ public class UserInfoService implements IUserInfoService {
         return res;
     }
 
-    @Override
-    public UserInfoDTO gertUserExists(UserException pDTO) throws Exception {
-        return null;
-    }
-
     /**
      * 로그인을 위해 아이디와 비밀번호가 일치하는지 확인하기
      *
      * @param pDTO 로그인을 위한 회원아이디, 비밀번호
      * @return 로그인된 회원아이디 정보
      */
-
     @Override
-    public int getUserLoginCheck(UserInfoDTO pDTO) throws  Exception {
+    public int getUserLoginCheck(UserInfoDTO pDTO) throws Exception {
 
-        //로그인 성공 : 1, 실패 : 0
+        // 로그인 성공 : 1, 실패 : 0
         int res = 0;
 
+        // 로그인을 위해 아이디와 비밀번호가 일치하는지 확인하기 위한 mapper 호출하기
         UserInfoDTO rDTO = userInfoMapper.getUserLoginCheck(pDTO);
 
         if (rDTO == null) {
@@ -141,13 +136,13 @@ public class UserInfoService implements IUserInfoService {
             /*
              * #######################################################
              *        				메일 발송 로직 추가 시작!!
-                    * #######################################################
+             * #######################################################
              */
 
             MailDTO mDTO = new MailDTO();
 
             //아이디, 패스워드 일치하는지 체크하는 쿼리에서 이메일 값 받아오기(아직 암호화되어 넘어오기 때문에 복호화 수행함)
-            mDTO.setToMail(EncryptUtil.decAEX128CBC(CmmUtil.nvl(rDTO.getEmail())));
+            mDTO.setToMail(EncryptUtil.decAES128CBC(CmmUtil.nvl(rDTO.getEmail())));
 
             mDTO.setTitle("로그인 알림!"); //제목
 
@@ -172,7 +167,6 @@ public class UserInfoService implements IUserInfoService {
          * #######################################################
          */
 
-    return res;
+        return res;
     }
-
 }
