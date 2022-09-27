@@ -1,7 +1,11 @@
 package com.fourward.linkchart.service;
 
 
+import com.fourward.linkchart.dto.NewsDTO;
+
+import java.util.List;
+
 public interface INewsService {
 
-    String doNaverNewsContents(String url) throws Exception;
+    List<NewsDTO> getNewsContents(List<NewsDTO> rList) throws Exception;
 }
