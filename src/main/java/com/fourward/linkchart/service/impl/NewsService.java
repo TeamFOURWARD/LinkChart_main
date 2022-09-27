@@ -16,7 +16,7 @@ import java.util.List;
 public class NewsService implements INewsService {
 
 
-    public String doNaverNewsContents(String url) throws Exception {
+    public String doNewsContents(String url) throws Exception {
 
         log.info(getClass().getName() + "newscollect start");
 
