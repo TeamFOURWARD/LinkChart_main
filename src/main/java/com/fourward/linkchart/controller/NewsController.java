@@ -25,7 +25,7 @@ public class NewsController {
      * @param model view 에 전달할 news 데이터(List<NewsDTO>)
      * @return view 객체
      */
-    @GetMapping(value = "/news/viewNews")
+    @GetMapping(value = "/news/viewNewsContents")
     public String getNewsContents(HttpServletRequest request, ModelMap model) throws Exception {
         log.info(this.getClass().getName() + "getNewsContents Start");
 
@@ -38,6 +38,6 @@ public class NewsController {
 
         log.info(this.getClass().getName() + "getNewsContents End");
 
-        return "chart/viewNewsContents"; // chart와 뉴스데이터를 한페이지에 표현할 계획
+        return "viewNewsContents/";
     }
 }
