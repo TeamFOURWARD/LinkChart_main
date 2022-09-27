@@ -12,7 +12,7 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.load('current', {'packages': ['corechart'], 'language': 'ko'});
         google.charts.setOnLoadCallback(drawChart);
 
         let list = [];
@@ -59,12 +59,14 @@
 
 </head>
 <body>
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
-<form method="get" action="${pageContext.request.contextPath}/chart/getStockData">
-    종목명<input type="text" name="name"/>
-    <input type="submit"/>
-    <input type="reset"/>
-</form>
-<a href="${pageContext.request.contextPath}/chart/searchStockData" target="_blank">데이터 가져오기</a>
+<div style="text-align: center;">
+    <div id="chart_div" style="text-align:center; width: 100%;height: 500px;"></div>
+    <form method="get" action="${pageContext.request.contextPath}/chart/getStockData">
+        종목명<input type="text" name="name"/>
+        <input type="submit"/>
+        <input type="reset"/>
+    </form>
+    <a href="${pageContext.request.contextPath}/chart/searchStockData" target="_blank">데이터 가져오기</a>
+</div>
 </body>
 </html>
