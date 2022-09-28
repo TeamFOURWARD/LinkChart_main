@@ -34,8 +34,12 @@
     </select>
 
     <select id="getStockCodeByName" resultType="StockDTO">
-        select c.code
-        from stock_code c
-        where c.name = #{name}
+        select sd.code, min(sd.price_date) as "end_date"
+        from stock_data sd
+        where sd.code =
+              (select c.code
+               from stock_code c
+               where c.name = #{name})
+        group by sd.code
     </select>
 </mapper>
