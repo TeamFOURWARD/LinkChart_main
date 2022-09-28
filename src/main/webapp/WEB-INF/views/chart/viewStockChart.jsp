@@ -66,7 +66,7 @@
         <input type="submit"/>
         <input type="reset"/>
     </form>
-    <a href="${pageContext.request.contextPath}/chart/searchStockData" target="_blank">데이터 가져오기</a>
+    <a href="${pageContext.request.contextPath}/chart/searchStockData" target="_self">데이터 가져오기</a>
 </div>
 </body>
 </html>
