@@ -25,9 +25,7 @@ public class NewsController {
      * @param model view 에 전달할 news 데이터(List<NewsDTO>)
      * @return view 객체
      */
-
-
-    @GetMapping(value = "/news/viewNewsInfo")
+    @GetMapping(value = "/news/viewNewsContents")
     public String getNewsContents(HttpServletRequest request, ModelMap model) throws Exception {
         log.info(this.getClass().getName() + "getNewsContents Start");
 
