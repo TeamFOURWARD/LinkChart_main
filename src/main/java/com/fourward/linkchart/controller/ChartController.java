@@ -33,7 +33,7 @@ public class ChartController {
       * @param request 종목명, 시작날짜
      */
     @GetMapping(value = "/chart/insertStockData")
-    public void insertStockData(HttpServletRequest request) throws Exception {
+    public String insertStockData(HttpServletRequest request,ModelMap model) throws Exception {
         log.info(this.getClass().getName() + ".insertStockData start");
 
         StockDTO pDTO = new StockDTO();
@@ -53,15 +53,21 @@ public class ChartController {
         log.info("requested start_date : " + pDTO.getStart_date());
         log.info("selected code : " + pDTO.getCode());
 
+        String msg = "데이터 입력 완료";
         if (pDTO.getEnd_date() != null) {
             log.info("기존 데이터 존재. db 입력된 처음 날짜 : " + pDTO.getEnd_date());
             if (Integer.parseInt(pDTO.getStart_date()) < Integer.parseInt(pDTO.getEnd_date())) {
                 chartService.insertStockData(pDTO);
             } else {
-                log.info("데이터 입력 건너뜀");
+                msg = "데이터 입력 건너뜀";
+                log.info(msg);
             }
         }
         log.info(this.getClass().getName() + ".insertStockData end");
+
+        model.addAttribute("msg", msg);
+
+        return "returnMsg";
     }
 
     @GetMapping(value = "/chart/viewStockChart")
