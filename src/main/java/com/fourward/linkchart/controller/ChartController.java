@@ -3,6 +3,7 @@ package com.fourward.linkchart.controller;
 import com.fourward.linkchart.dto.StockDTO;
 import com.fourward.linkchart.service.IChartService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +16,12 @@ import java.util.List;
 @Slf4j
 public class ChartController {
 
-    @Resource(name = "ChartService")
-    private IChartService chartService;
+    private final IChartService chartService;
+
+    @Autowired
+    public ChartController(IChartService chartService) {
+        this.chartService = chartService;
+    }
 
     @GetMapping(value = "/chart/searchStockData")
     public String searchStockName() throws Exception {
