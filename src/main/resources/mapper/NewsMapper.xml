@@ -7,13 +7,11 @@
             news_date,
             seq,
             stock_name,
-            news_url
         )
     value (
             #{news_date},
             #{seq},
             #{stock_name},
-            #{news_url}
     )
     </insert>
 </mapper>

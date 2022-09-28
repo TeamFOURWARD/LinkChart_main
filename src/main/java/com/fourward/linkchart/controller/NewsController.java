@@ -7,17 +7,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @Controller()
 public class NewsController {
 
-    private final INewsService newsService;
+    @Resource(name = "NewsService")
+    private INewsService newsService;
 
-    public NewsController(INewsService newsService) {
-        this.newsService = newsService;
-    }
 
 
     /**
