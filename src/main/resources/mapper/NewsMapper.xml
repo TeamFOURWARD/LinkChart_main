@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fourward.linkchart.persistence.mapper.INewsMapper">
+    <insert id="InsertNewsInfo" parameterType="NewsDTO">
+    insert into NEWS_CONTENTS <!--테이블명-->
+        (
+            news_date,
+            seq,
+            stock_name,
+            news_url
+        )
+    value (
+            #{news_date},
+            #{seq},
+            #{stock_name},
+            #{news_url}
+    )
+    </insert>
+</mapper>

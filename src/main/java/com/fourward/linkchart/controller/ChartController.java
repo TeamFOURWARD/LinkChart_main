@@ -59,6 +59,7 @@ public class ChartController {
     }
 
     // 종목명 입력시 db에서 가져온후 차트그리기
+    // 페이지 데이터 반환
     @GetMapping(value = "/chart/getStockData")
     public String getStockData(HttpServletRequest request, ModelMap model) throws Exception {
         log.info(this.getClass().getName() + ".getStockData start");

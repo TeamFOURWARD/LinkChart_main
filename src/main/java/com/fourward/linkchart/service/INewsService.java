@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface INewsService {
 
+    int collectNewsInfo() throws Exception;
     List<NewsDTO> getNewsContents(List<NewsDTO> rList) throws Exception;
 }
