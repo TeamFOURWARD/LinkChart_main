@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
@@ -30,39 +29,57 @@ public class ChartController {
     }
 
     /**
-      * @param request 종목명, 시작날짜
+     * @param request 종목명, 시작날짜
      */
     @GetMapping(value = "/chart/insertStockData")
-    public String insertStockData(HttpServletRequest request,ModelMap model) throws Exception {
+    public String insertStockData(HttpServletRequest request, ModelMap model) throws Exception {
         log.info(this.getClass().getName() + ".insertStockData start");
+
+        String msg = "데이터 입력 완료";
 
         StockDTO pDTO = new StockDTO();
 
         // name 을 code 로 변환
         String name = request.getParameter("name");
         pDTO.setName(name);
-        pDTO.setCode((chartService.getStockCodeByName(pDTO)).getCode()); // 이름 잘못 입력시 에러처리 필요
+        try {
+            pDTO.setCode((chartService.getStockCodeByName(pDTO)).getCode());
+        } catch (NullPointerException e) {
+            log.info("코드 가져오기 실패. 유효하지 않은 이름.");
+            msg = "데이터 입력 실패";
+        }
+        log.info("변환된 종목 코드 : "+pDTO.getCode());
 
-        // 데이터 중복 입력 방지 위해 데이터 존재여부 검사
-        pDTO.setEnd_date((chartService.getStockCodeByName(pDTO)).getEnd_date());//데이터 db insert 시 마지막날짜(=입력된 db의 시작날짜)
+        if (pDTO.getCode()==null) {
+            msg = "이름 잘못 입력";
+            log.info("유효하지 않은 이름");
+        } else {
+            // 데이터 중복 입력 방지 위해 데이터 존재여부 검사
+            pDTO.setEnd_date((chartService.getStockCodeByName(pDTO)).getEnd_date());//데이터 db insert 시 마지막날짜(=입력된 db의 시작날짜)
 
-        String start_date = request.getParameter("start_date");
-        pDTO.setStart_date(start_date);
+            String start_date = request.getParameter("start_date");
+            pDTO.setStart_date(start_date);
 
-        log.info("requested name : " + pDTO.getName());
-        log.info("requested start_date : " + pDTO.getStart_date());
-        log.info("selected code : " + pDTO.getCode());
+            log.info("requested name : " + pDTO.getName());
+            log.info("requested start_date : " + pDTO.getStart_date());
+            log.info("selected code : " + pDTO.getCode());
+            log.info("처리된 end_date : " + pDTO.getEnd_date());
 
-        String msg = "데이터 입력 완료";
-        if (pDTO.getEnd_date() != null) {
-            log.info("기존 데이터 존재. db 입력된 처음 날짜 : " + pDTO.getEnd_date());
-            if (Integer.parseInt(pDTO.getStart_date()) < Integer.parseInt(pDTO.getEnd_date())) {
+            if (pDTO.getEnd_date() != null) {
+                log.info("기존 데이터 존재. db 입력된 처음 날짜 : " + pDTO.getEnd_date());
+                if (Integer.parseInt(pDTO.getStart_date()) < Integer.parseInt(pDTO.getEnd_date())) {
+                    chartService.insertStockData(pDTO);
+                } else {
+                    msg = "데이터 입력 건너뜀";
+                    log.info(msg);
+                }
+            }
+            else{
+                log.info("기존 데이터 없음. 입력 시작 날짜 : "+pDTO.getStart_date());
                 chartService.insertStockData(pDTO);
-            } else {
-                msg = "데이터 입력 건너뜀";
-                log.info(msg);
             }
         }
+
         log.info(this.getClass().getName() + ".insertStockData end");
 
         model.addAttribute("msg", msg);
