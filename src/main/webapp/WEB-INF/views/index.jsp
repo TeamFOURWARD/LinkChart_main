@@ -11,7 +11,7 @@
 <body>
 <h1>테스트</h1>
 <div style="text-align: right">
-    <a href="chart/searchStockData" target="_blank">종목 가져오기</a>
+    <a href="chart/searchStockData" target="_self">종목 가져오기</a>
     <br>
     <a href="chart/viewStockChart" target="_self">차트 페이지</a>
 </div>
