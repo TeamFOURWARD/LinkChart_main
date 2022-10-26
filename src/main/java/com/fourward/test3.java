@@ -14,7 +14,7 @@ public class test3 {
         final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36";
 
         try {
-            String connUrl = "https://search.naver.com/search.naver?where=news&query=애플&pd=3&ds=2022.10.23&de=2022.10.25";
+            String connUrl = "https://search.naver.com/search.naver?where=news&query=애플&pd=3&ds=20211023&de=20211025";
 
             Connection conn = Jsoup.connect(connUrl)
                     .header("Content-Type", "application/json;charset=UTF-8")

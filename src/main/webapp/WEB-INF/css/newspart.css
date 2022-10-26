@@ -1,0 +1,62 @@
+/* NEWS GROUP */
+
+.table_container{
+    width: 50%;
+    overflow-y: auto;
+    max-height: 30%;
+}
+
+.table{
+    height: 100%;
+    margin: 0 auto;
+    overflow-y: auto;
+}
+
+.table tr{
+    display: flex;
+}
+
+.table tbody{
+    overflow-y: auto;
+}
+
+.table td{
+    width: 75%;
+    max-height: 50px;
+    overflow-y: auto;
+}
+
+.table td:first-child{
+    width: 200px;
+    height: 50px;
+    background: lightskyblue;
+    text-align: center;
+}
+
+.table td:nth-child(3){
+    width: 50px;
+    height: 50px;
+}
+
+.table td:nth-child(3) a{
+    color: #50586C;
+}
+
+.table td:nth-child(3) a:hover{
+    color: #F2AA4C;
+}
+
+.table td:nth-child(4){
+    width: 50px;
+    height: 50px;
+}
+
+.table td:nth-child(4) a{
+    color: #50586C;
+}
+
+.table td:nth-child(4) a:hover{
+    color: #ed6f63;
+}
+
+/* NEWS GROUP */
