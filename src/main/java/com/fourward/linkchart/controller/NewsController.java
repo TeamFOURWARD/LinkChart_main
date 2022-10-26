@@ -31,6 +31,7 @@ public class NewsController {
         this.newsService = newsService;
     }
 
+    //서비스로 분할 예정
     @GetMapping(value = "/getNewsData")
     public String getNewsContents(HttpServletRequest request, Model model) throws Exception {
         log.info(this.getClass().getName() + "getNewsData Start");
@@ -63,7 +64,7 @@ public class NewsController {
                 log.info("\n@@@@@@@@@@@@@@@@@@@@@ 기사 목록 " + i + " @@@@@@@@@@@@@@@@@@@@@@@@@");
 
                 //날짜
-                String date = newsGroup.selectFirst("div.info_group span.info").text();
+                String date = newsGroup.select("div.info_group span.info").text();
                 log.info("@ 기사 날짜 : " + date);
                 log.info("@ ---------------------------------------------");
 
@@ -112,7 +113,7 @@ public class NewsController {
                 for (Element newsRelated : newsRelated_elements) {
                     log.info("\n############## " + (i - 1) + " 기사의 연관 기사 목록 " + j + " ###############");
                     //연관기사 날짜
-                    String date_related = newsRelated.selectFirst("span.sub_txt").text();
+                    String date_related = newsRelated.select("span.sub_txt").text();
                     log.info("# 기사 날짜 : " + date_related);
 
                     //연관기사 헤드(링크)
@@ -148,6 +149,8 @@ public class NewsController {
         ObjectMapper objectMapper = new ObjectMapper();
         model.addAttribute("newsData", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(newsGroup_list));
         model.addAttribute("newsDataTemp", newsGroup_list);
+        model.addAttribute("keyword",keyword);
+        model.addAttribute("date",end_date);
         log.info(this.getClass().getName() + "getNewsData End");
 
         return "/news/viewNewsContents";
