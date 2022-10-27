@@ -34,8 +34,39 @@
     </select>
 
     <select id="getStockCodeByName" resultType="StockDTO">
-        select c.code
-        from stock_code c
-        where c.name = #{name}
+        --코드와 입력된 처음 날짜를 가져옴
+        select sd.code as code, min(sd.price_date) as end_date
+        from stock_data sd
+        where sd.code =
+              (select c.code
+               from stock_code c
+               where c.name = #{name})
+        group by sd.code
+
+        union all
+
+        --이름이 틀렸을때 코드값 널 리턴
+        select NULL as code, NULL as end_date
+        from dual
+        where not exists(
+                select code
+                from STOCK_code
+                where #{name} = name
+            )
+
+        union all
+
+        --이름은 맞지만 입력된 데이터가 없음. 코드 리턴 , 날짜는 널로 리턴
+        select code as code, NULL as end_date
+        from (select code from STOCK_CODE where name = #{name})
+        where not exists(
+                select sd.code, min(sd.price_date)
+                from stock_data sd
+                where sd.code =
+                      (select c.code
+                       from stock_code c
+                       where c.name = #{name})
+                group by sd.code
+            )
     </select>
 </mapper>

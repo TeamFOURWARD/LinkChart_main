@@ -10,12 +10,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -24,6 +27,7 @@ public class ChartService implements IChartService {
 
     private final IChartMapper chartMapper;
 
+    @Autowired
     public ChartService(IChartMapper chartMapper) {
         this.chartMapper = chartMapper;
     }
@@ -40,23 +44,44 @@ public class ChartService implements IChartService {
     public void insertStockData(StockDTO pDTO) throws Exception {
         log.info(this.getClass().getName() + ".insertStockData start");
 
-        // api 크롤링 로직 1 [전날까지]
+        //크롤링 로직 1 [전날까지]
 
         final String code = pDTO.getCode();
         final String start_date = pDTO.getStart_date();
+        String end_date = pDTO.getEnd_date();
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        Calendar c1 = Calendar.getInstance();
-        c1.add(Calendar.DATE, -1);
-        final String yesterday = sdf.format(c1.getTime());
+        if (end_date == null) {
+            //현재날짜 -1 로
+            Calendar c1 = Calendar.getInstance();
+
+            c1.add(Calendar.DATE, -1);
+
+            end_date = sdf.format(c1.getTime());
+        } else {
+            //가져온 end_date -1 로
+            Date date = null;
+            try {
+                date = sdf.parse(end_date);
+            } catch (ParseException e) {
+                log.debug(e.getMessage());
+            }
+            Calendar c1 = Calendar.getInstance();
+            assert date != null;
+            c1.setTime(date);
+
+            c1.add(Calendar.DATE, -1);
+
+            end_date = sdf.format(c1.getTime());
+        }
 
         final String USER_AGENT = "Mozila/5.0";
         final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code
-                + "&requestType=1&startTime=" + start_date + "&endTime=" + yesterday + "&timeframe=day";
+                + "&requestType=1&startTime=" + start_date + "&endTime=" + end_date + "&timeframe=day";
 
         log.info("code : " + code);
         log.info("start_date : " + start_date);
-        log.info("end_date : " + yesterday);
+        log.info("end_date : " + end_date);
         log.info("GET_URL : " + GET_URL);
 
         String json = "";
@@ -78,37 +103,39 @@ public class ChartService implements IChartService {
 
             httpClient.close();
 
-        } catch (ClientProtocolException e) {
-            // 예외처리 예정
-        } catch (IOException e) {
         } catch (Exception e) {
             log.debug("error : " + e);
         }
+
         // 파싱부분
-        String res = json.substring(json.indexOf("[", (json.indexOf("외국인"))), json.lastIndexOf("]"));
-        res = res.trim().replaceAll("\\s", "").replaceAll("\"", "");
-        res = res.substring(1, res.length() - 1);
-        String[] resList = res.split("],\\[");
+        try {
+            String res = json.substring(json.indexOf("[", (json.indexOf("외국인"))), json.lastIndexOf("]"));
+            res = res.trim().replaceAll("\\s", "").replaceAll("\"", "");
+            res = res.substring(1, res.length() - 1);
+            String[] resList = res.split("],\\[");
 
-        int insertedCount = 0;
-        StockDTO tmpDTO;
-        for (String s : resList) {
-            tmpDTO = new StockDTO();
-            String[] tmpArr = s.split(",");
+            int insertedCount = 0;
 
-            log.info("추출 날짜 : " + tmpArr[0]);
-            tmpDTO.setCode(code);
-            tmpDTO.setDate(tmpArr[0]);
-            tmpDTO.setOpen(tmpArr[1]);
-            tmpDTO.setHigh(tmpArr[2]);
-            tmpDTO.setLow(tmpArr[3]);
-            tmpDTO.setClose(tmpArr[4]);
-            tmpDTO.setVolume(tmpArr[5]);
-            insertedCount += chartMapper.insertStockData(tmpDTO);
-            tmpDTO = null;
+            StockDTO tmpDTO;
+            for (String s : resList) {
+                tmpDTO = new StockDTO();
+                String[] tmpArr = s.split(",");
+
+                log.info("추출 날짜 : " + tmpArr[0]);
+                tmpDTO.setCode(code);
+                tmpDTO.setDate(tmpArr[0]);
+                tmpDTO.setOpen(tmpArr[1]);
+                tmpDTO.setHigh(tmpArr[2]);
+                tmpDTO.setLow(tmpArr[3]);
+                tmpDTO.setClose(tmpArr[4]);
+                tmpDTO.setVolume(tmpArr[5]);
+                insertedCount += chartMapper.insertStockData(tmpDTO);
+                tmpDTO = null;
+            }
+            log.info("insertedCount : " + insertedCount);
+        } catch (StringIndexOutOfBoundsException e) {
+            log.info("추출된 데이터 없음. 데이터 입력 종료.");
         }
-
-        log.info("insertedCount : " + insertedCount);
         log.info(this.getClass().getName() + ".insertStockData end");
     }
 
