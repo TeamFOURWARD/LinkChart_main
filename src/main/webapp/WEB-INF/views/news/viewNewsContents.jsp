@@ -19,8 +19,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>뉴스 보기</title>
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="../../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../../resources/css/all.min.css">
+    <link rel="stylesheet" href="../../../resources/css/viewNewsContents.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -33,119 +34,127 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
-<div style="text-align: center">
-
-
+<div>
     <%-- 데이터 확인용 코드    <%=request.getAttribute("newsData")%>--%>
-
     <%--    키워드와 날짜 표기--%>
-    검색 키워드 : <%=request.getAttribute("keyword")%>
-    <br/>
-        <%
-        String s =request.getAttribute("date").toString();
-            String y = s.substring(0,4);
-            String m = s.substring(4,6);
-            String d = s.substring(6);
-        %>
-        <%=y%> 년 <%=m%> 월 <%=d%> 일
+        <ul>
+            <li>
+                <p>
+                    검색 키워드 : <%=request.getAttribute("keyword")%>
+                </p>
+            </li>
+            <li>
+                <p>
+                    <%
+                        String s =request.getAttribute("date").toString();
+                        String y = s.substring(0,4);
+                        String m = s.substring(4,6);
+                        String d = s.substring(6);
+                    %>
+                    <%=y%> 년 <%=m%> 월 <%=d%> 일
+                </p>
+            </li>
+        </ul>
 
-    <div class="main_section">
-        <div class="container">
-            <div class="container table_container">
-                <table class="table">
-                    <tbody>
-                        <%
+        <table class="table">
+            <tbody>
+                <%
 //                        바깥 반복문. tr(기사목록) 을 반복 생성
-                        for (HashMap<String,Object> newsGroup_map:newsGroup_list) {
-                            NewsDTO rNewsDTO = (NewsDTO) newsGroup_map.get("news");
-                        %>
+                for (HashMap<String,Object> newsGroup_map:newsGroup_list) {
+                    NewsDTO rNewsDTO = (NewsDTO) newsGroup_map.get("news");
+                %>
 
-                    <tr>
-                        <td>
-                            <%--                            "#" 내용은 가이드라인        --%>
-                            #썸네일이미지 & 링크#
+            <tr>
+                <td>
+                    <%-- "#" 내용은 가이드라인 --%>
+                    <div>
+                        <%
+                            if (rNewsDTO.getThumb() != null) {
+                        %>
+                        <a href="<%=rNewsDTO.getLink()%>"><img width="100" height="100" src="<%=rNewsDTO.getThumb()%>" alt="썸네일 없음"></a>
+                        <%}%>
+                    </div>
+                </td>
+                <td class="n_article">
+                    <ul>
+                        <li class="linc1">
                             <div>
-                                <%
-                                    if (rNewsDTO.getThumb() != null) {
-                                %><a href="<%=rNewsDTO.getLink()%>"><img width="100" height="90"
-                                                                         src="<%=rNewsDTO.getThumb()%>"
-                                                                         alt="썸네일 없음"></a>
-                                <%}%>
+                                <a href="<%=rNewsDTO.getLink()%>"> <strong><%=rNewsDTO.getHead()%>
+                                </strong>
+                                </a>
                             </div>
-                        </td>
-                        <td>
-                            #기사 내용#
+                        </li>
+                        <li class="linc2">
+                            <ul>
+                                <li class="gs">
+                                    <%=rNewsDTO.getSummary()%>
+                                </li>
+                                <li class="gd">
+                                    <%=rNewsDTO.getDate()%>
+                                </li>
+                                <li class="gp">
+                                    <%=rNewsDTO.getPublisher()%>
+                                </li>
+                                <%--<%=rNewsDTO.getSummary()%>
+                                <br/>
+                                <hr/>
+                                <%=rNewsDTO.getDate()%>
+                                <br/>
+                                <hr/>
+                                <%=rNewsDTO.getPublisher()%>--%>
+                            </ul>
+                        </li>
+                    </ul>
+                </td>
+                <td class="ol_wrap">
+                    <ol>
+                        <%
+                            // 안쪽 반복문. 연관기사 목록(li)을 생성
+                            ArrayList<NewsRelatedDTO> rNewsRelated_list = (ArrayList<NewsRelatedDTO>) newsGroup_map.get("newsGroup_related_list");
+                            for (NewsRelatedDTO rNewsRelatedDTO : rNewsRelated_list) {
+                        %>
+                        <li>
                             <ul>
                                 <li>
-                                    <div>
-                                        #기사 헤드 & 링크#
-                                        <br/>
-                                        <a href="<%=rNewsDTO.getLink()%>"> <strong><%=rNewsDTO.getHead()%>
-                                        </strong>
-                                        </a>
-                                    </div>
+                                    <a href="<%=rNewsRelatedDTO.getLink_related()%>"><%=rNewsRelatedDTO.getHead_related()%></a>
                                 </li>
                                 <li>
-                                    <div>
-                                        #기사 본문 텍스트 & 날짜 & 작성 언론사명#
-                                        <br/>
-                                        <%=rNewsDTO.getSummary()%>
-                                        <br/>
-                                        <hr/>
-                                        <%=rNewsDTO.getDate()%>
-                                        <br/>
-                                        <hr/>
-                                        <%=rNewsDTO.getPublisher()%>
-                                    </div>
+                                    <%=rNewsRelatedDTO.getPublisher_related()%>
                                 </li>
+                                <li>
+                                    <%=rNewsRelatedDTO.getDate_related()%>
+                                </li>
+                                <%--<a href="<%=rNewsRelatedDTO.getLink_related()%>"><%=rNewsRelatedDTO.getHead_related()%>
+                                </a>
+                                <br/>
+                                <hr/>
+                                <%=rNewsRelatedDTO.getPublisher_related()%>
+                                <br/>
+                                <hr/>
+                                <%=rNewsRelatedDTO.getDate_related()%>
+                                <br/>
+                                <hr/>--%>
                             </ul>
-                        </td>
-                        <td>
-                            #연관기사 목록#
-                            <ol>
-                                <%
-                                    //                                    안쪽 반복문. 연관기사 목록(li)을 생성
-                                    ArrayList<NewsRelatedDTO> rNewsRelated_list = (ArrayList<NewsRelatedDTO>) newsGroup_map.get("newsGroup_related_list");
-                                    for (NewsRelatedDTO rNewsRelatedDTO : rNewsRelated_list) {
-                                %>
-                                <li>
-                                    <div>
-                                        #연관기사 텍스트 & 링크 & 언론사명 & 날짜#
-                                        <br/>
-                                        <a href="<%=rNewsRelatedDTO.getLink_related()%>"><%=rNewsRelatedDTO.getHead_related()%>
-                                        </a>
-                                        <br/>
-                                        <hr/>
-                                        <%=rNewsRelatedDTO.getPublisher_related()%>
-                                        <br/>
-                                        <hr/>
-                                        <%=rNewsRelatedDTO.getDate_related()%>
-                                        <br/>
-                                        <hr/>
-                                    </div>
-                                </li>
-                                <%
-                                    }
-                                %>
-                            </ol>
-                        </td>
-                        <td>
-                            <a href="#">
-                                <i class="fa-solid fa-share"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <a href="#">
-                                <i class="fa-regular fa-heart"></i>
-                            </a>
-                        </td>
-                    </tr>
+                        </li>
                         <%
-                        }
+                            }
                         %>
-                </table>
-            </div>
-        </div>
-    </div>
+                    </ol>
+                </td>
+                <td>
+                    <a href="#">
+                        <i class="fa-solid fa-share"></i>
+                    </a>
+                </td>
+                <td>
+                    <a href="#">
+                        <i class="fa-regular fa-heart"></i>
+                    </a>
+                </td>
+            </tr>
+                <%
+                }
+                %>
+        </table>
 </body>
 </html>

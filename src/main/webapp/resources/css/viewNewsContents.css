@@ -1,0 +1,95 @@
+body{
+    padding: 0 20px;
+}
+
+div>ul:nth-child(1){
+    clear: both;
+}
+
+div>ul:nth-child(1) li:nth-child(1){
+    float: left;
+}
+
+div>ul:nth-child(1) li:nth-child(2){
+    float: right;
+}
+
+tr{
+    max-height: 125px!important;
+}
+
+.n_article{
+    width: 50%;
+    height: 150px;
+}
+
+.n_article>ul{
+    height: auto;
+}
+
+.linc1{
+    height: 30px;
+    overflow: hidden;
+}
+
+.linc2{
+    height: 70px;
+}
+
+.linc2>ul{
+    position: relative;
+    height: 100%;
+}
+
+.linc2>ul>li:nth-child(1){
+    height: 70px;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.linc2>ul>li:nth-child(2){
+    position: absolute;
+    left: 0;
+    bottom: -30px;
+}
+.linc2>ul>li:nth-child(3){
+    position: absolute;
+    right: 0;
+    bottom: -30px;
+}
+
+.ol_wrap{
+    width: 30%;
+    height: 150px!important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.ol_wrap>ol{
+    height: auto;
+}
+
+.ol_wrap>ol>li{
+    height: 100%;
+    margin-bottom: 20px;
+}
+
+.ol_wrap>ol>li>ul{
+    height: 100%;
+    clear: both;
+    overflow: hidden;
+}
+
+.ol_wrap>ol>li>ul>li{
+}
+
+.ol_wrap>ol>li>ul>li:nth-child(1){
+    height: auto;
+}
+.ol_wrap>ol>li>ul>li:nth-child(2){
+    float: left;
+}
+.ol_wrap>ol>li>ul>li:nth-child(3){
+    float: right;
+}

@@ -5,17 +5,13 @@ import="com.fourward.linkchart.dto.StockDTO" %> <%@ page import="java.util.List"
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="../../../resources/css/reset.css">
+    <link rel="stylesheet" href="../../../resources/css/all.min.css">
+    <link rel="stylesheet" href="../../../resources/css/viewStockChart.css">
     <title>차트 페이지</title>
-
-    <script
-      type="text/javascript"
-      src="https://www.gstatic.com/charts/loader.js"
-    ></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages': ['corechart'], 'language': 'ko'});
       google.charts.setOnLoadCallback(drawChart);
@@ -64,23 +60,15 @@ import="com.fourward.linkchart.dto.StockDTO" %> <%@ page import="java.util.List"
   </head>
   <body>
     <div style="text-align: center">
-      <div
-        id="chart_div"
-        style="text-align: center; width: 100%; height: 500px"
-      ></div>
-      <form
-        method="get"
-        action="${pageContext.request.contextPath}/chart/getStockData"
-      >
+      <div id="chart_div" style="text-align: center;"></div>
+      <form method="get" action="${pageContext.request.contextPath}/chart/getStockData">
         종목명<input type="text" name="name" />
         <input type="submit" />
         <input type="reset" />
       </form>
-      <a
-        href="${pageContext.request.contextPath}/chart/searchStockData"
-        target="_blank"
-        >데이터 가져오기</a
-      >
+      <a href="${pageContext.request.contextPath}/chart/searchStockData" target="_blank">
+        데이터 가져오기
+      </a>
     </div>
   </body>
 </html>
