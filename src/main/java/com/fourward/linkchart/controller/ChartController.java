@@ -48,9 +48,9 @@ public class ChartController {
             log.info("코드 가져오기 실패. 유효하지 않은 이름.");
             msg = "데이터 입력 실패";
         }
-        log.info("변환된 종목 코드 : "+pDTO.getCode());
+        log.info("변환된 종목 코드 : " + pDTO.getCode());
 
-        if (pDTO.getCode()==null) {
+        if (pDTO.getCode() == null) {
             msg = "이름 잘못 입력";
             log.info("유효하지 않은 이름");
         } else {
@@ -73,9 +73,8 @@ public class ChartController {
                     msg = "데이터 입력 건너뜀";
                     log.info(msg);
                 }
-            }
-            else{
-                log.info("기존 데이터 없음. 입력 시작 날짜 : "+pDTO.getStart_date());
+            } else {
+                log.info("기존 데이터 없음. 입력 시작 날짜 : " + pDTO.getStart_date());
                 chartService.insertStockData(pDTO);
             }
         }
@@ -99,11 +98,14 @@ public class ChartController {
         log.info(this.getClass().getName() + ".getStockData start");
 
         StockDTO pDTO = new StockDTO();
-        pDTO.setName(request.getParameter("name"));
+
+        String name = request.getParameter("name");
+        pDTO.setName(name);
 
         List<StockDTO> rList = chartService.getStockData(pDTO);
 
         model.addAttribute("rList", rList);
+        model.addAttribute("name", name);
 
         log.info(this.getClass().getName() + ".getStockData end");
 
