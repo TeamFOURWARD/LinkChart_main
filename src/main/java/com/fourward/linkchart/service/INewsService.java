@@ -4,8 +4,9 @@ package com.fourward.linkchart.service;
 import com.fourward.linkchart.dto.NewsDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface INewsService {
 
-    List<NewsDTO> getNewsContents(List<NewsDTO> rList) throws Exception;
+    List<Map<String,Object>> getNewsContents(NewsDTO rDTO);
 }

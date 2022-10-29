@@ -1,4 +1,3 @@
-<%@ page import="java.util.Map" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.HashMap" %>
@@ -6,10 +5,10 @@
 <%@ page import="com.fourward.linkchart.dto.NewsRelatedDTO" %>
 <%@ page contentType="text/html; charset=utf-8" %>
 <%
-    List<HashMap<String, Object>> newsGroup_list = (List<HashMap<String, Object>>) request.getAttribute("newsDataTemp");
+    List<HashMap<String, Object>> newsGroup_list = (List<HashMap<String, Object>>) request.getAttribute("newsData");
 %>
 <script type="text/javascript">
-    console.log(<%=request.getAttribute("newsData")%>)
+    console.log('<%=newsGroup_list%>');
 </script>
 <!doctype html>
 <html lang="en">
@@ -19,8 +18,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>뉴스 보기</title>
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/all.min.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
