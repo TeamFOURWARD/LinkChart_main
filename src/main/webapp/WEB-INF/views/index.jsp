@@ -27,24 +27,88 @@
 </head>
 <body>
 
-<div class="intro">
-    <div class="intro_background_wrap">
-        <ul class="intro_background_cover" id="bpwrap">
-        </ul>
-    </div>
-    <div class="container">
+<div class="section_01_wrap">
+
+    <div class="container section_01">
+
+        <div class="lc_header">
+            <a href="#" class="logo">
+                Link Chart
+            </a>
+            <ul>
+                <li class="lc_list active">
+                    <a href="#">Home</a>
+                </li>
+                <li class="lc_list">
+                    <a href="#">Profile</a>
+                </li>
+                <li class="lc_list">
+                    <a href="#">Like</a>
+                </li>
+                <li class="lc_list">
+                    <a href="#">Share</a>
+                </li>
+            </ul>
+        </div>
+
         <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <div class="text-center">
-                    <h2 class="text">
-                        Link Chart
-                    </h2>
-                    <p>
-                        by fourward
-                    </p>
+            <div class="col-md-5 intro_content">
+                <h2>
+                    about Link Chart
+                </h2>
+                <p>
+                    Always wonder how to get the right information.<br>
+                    We provide the THINGS you want exactly.<br>
+                    and provide objectively verified information.<br>
+                    Experience it.
+                </p>
+            </div>
+            <div class="col-md-7 card_wrap">
+                <div class="row">
+                    <div class="card_content_wrap">
+                        <div class="card_content">
+                            <h2>01</h2>
+                            <h3>CHART</h3>
+                            <p>
+                                정확한 정보를, 검증된 정보를<br>
+                                당신이 원하는대로<br>
+                                정확히 제공합니다.<br>
+                                경험하십시오.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card_content_wrap">
+                        <div class="card_content">
+                            <h2>02</h2>
+                            <h3>NEWS</h3>
+                            <p>
+                                Always wonder how to get the right information.<br>
+                                We provide the THINGS you want exactly.<br>
+                                and provide objectively verified information.<br>
+                                Experience it.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card_content_wrap">
+                        <div class="card_content">
+                            <h2>03</h2>
+                            <h3>card one</h3>
+                            <p>
+                                Always wonder how to get the right information.<br>
+                                We provide the THINGS you want exactly.<br>
+                                and provide objectively verified information.<br>
+                                Experience it.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <p class="copyrightText">
+            Copyright &copy; 2022 FOURWARD All Right Reserved.
+        </p>
+
     </div>
 </div>
 
@@ -66,14 +130,10 @@
         </div>
 
         <div class="sc_chart">
-            <h2>
-                차트 부분
-            </h2>
             <iframe src="chart/viewStockChart"></iframe>
         </div>
 
         <div class="news_part">
-            <h2>뉴스 부분</h2>
             <form action="news/getNewsData" method="get" target="fNews">
                 키워드 : <input type="text" name="name">
                 날짜 : <input type="text" name="date">
@@ -85,9 +145,24 @@
     </div>
 </div>
 
+<script type="text/javascript" src="../../resources/js/vanilla-tilt.js"></script>
 <script>
 
-    for(i = 1; i < 100; i++){
+    VanillaTilt.init(document.querySelectorAll(".card_content_wrap"), {
+        max: 25,
+        speed: 400,
+        glare: true,
+        "max-glare" : 1
+    });
+
+    const lc_list = document.querySelectorAll('.lc_list');
+    function activeLink(){
+        lc_list.forEach((item) => item.classList.remove('active'));
+        this.classList.add('active');
+    }
+    list.forEach((item) => item.addEventListener('click', activeLink));
+
+    /*for(i = 1; i < 100; i++){
         j = 30;
         const para1 = document.createElement("li");
         const element = document.getElementById("bpwrap");
@@ -101,16 +176,16 @@
         para2.setAttribute('class', 'bpf');
 
         document.getElementById("bp" + i).style.left = j*i - 50 + "px";
-    }
+    }*/
 
-    function myInterval(){
+    /*function myInterval(){
         for(i = 1; i < 100; i++){
             document.getElementById("line" + i).style.height = Math.floor(Math.random() * 40) + 1 + "vh";
             document.getElementById("line" + i).style.backgroundColor = "#" +  Math.floor(Math.random() * 900 + 1);
         }
-    }
+    }*/
 
-    setInterval("myInterval()", 1500);
+    /*setInterval("myInterval()", 1500);
 
     const text = document.querySelector('.text');
     text.innerHTML = text.textContent.replace(/\S/g, "<span>$&</span>");
@@ -118,7 +193,7 @@
     const  wavyelement = document.querySelectorAll('span');
     for(let i = 0; i < wavyelement.length; i++){
         wavyelement[i].style.animationDelay = i * 0.05 + 's';
-    }
+    }*/
 </script>
 
 </body>
