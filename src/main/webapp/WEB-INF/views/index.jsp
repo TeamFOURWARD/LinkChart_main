@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../../resources/css/reset.css">
     <link rel="stylesheet" href="../../resources/css/all.min.css">
-    <link rel="stylesheet" href="../../resources/css/newspart.css">
+    <%--<link rel="stylesheet" href="../../resources/css/newspart.css">--%>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
@@ -27,77 +27,245 @@
 </head>
 <body>
 
+<div class="lc_nav_wrap" id="lc_nav_wrap">
+    <div class="lc_nav">
+        <ul>
+            <li class="lcn_list active" id="lcnav01">
+                <a href="#">
+                <span class="lcn_icon">
+                    <i class="fa-solid fa-house"></i>
+                </span>
+                    <span class="lcn_text">
+                    HOME
+                </span>
+                </a>
+            </li>
+            <li class="lcn_list" id="lcnav02">
+                <a href="#">
+                <span class="lcn_icon">
+                    <i class="fa-solid fa-chart-simple"></i>
+                </span>
+                    <span class="lcn_text">
+                    Link Chart
+                </span>
+                </a>
+            </li>
+            <li class="lcn_list" id="lcnav03">
+                <a href="#">
+                <span class="lcn_icon">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                </span>
+                    <span class="lcn_text">
+                    LOGIN
+                </span>
+                </a>
+            </li>
+            <li class="lcn_list" id="lcnav04">
+                <a href="#">
+                <span class="lcn_icon">
+                    <i class="fa-solid fa-user"></i>
+                </span>
+                    <span class="lcn_text">
+                    PROFILE
+                </span>
+                </a>
+            </li>
+            <li class="lcn_list" id="lcnav05">
+                <a href="#">
+                <span class="lcn_icon">
+                    <i class="fa-solid fa-heart"></i>
+                </span>
+                    <span class="lcn_text">
+                    LIKE
+                </span>
+                </a>
+            </li>
+            <li class="lcn_list" id="lcnav06">
+                <a href="#">
+                <span class="lcn_icon">
+                    <i class="fa-solid fa-share"></i>
+                </span>
+                    <span class="lcn_text">
+                    SHARE
+                </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
 <div class="section_01_wrap">
 
-    <div class="container section_01">
+    <div class="bubbles">
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+    </div>
 
-        <div class="lc_header">
-            <a href="#" class="logo">
-                Link Chart
-            </a>
-            <ul>
-                <li class="lc_list active">
-                    <a href="#">Home</a>
-                </li>
-                <li class="lc_list">
-                    <a href="#">Profile</a>
-                </li>
-                <li class="lc_list">
-                    <a href="#">Like</a>
-                </li>
-                <li class="lc_list">
-                    <a href="#">Share</a>
-                </li>
-            </ul>
-        </div>
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+    <div class="wave wave4"></div>
+
+    <div class="container section_01" id="bpw">
 
         <div class="row">
             <div class="col-md-5 intro_content">
-                <h2>
-                    about Link Chart
-                </h2>
-                <p>
-                    Always wonder how to get the right information.<br>
-                    We provide the THINGS you want exactly.<br>
-                    and provide objectively verified information.<br>
-                    Experience it.
-                </p>
+                <ul id="bpwrap"></ul>
+                <a href="#" onclick="toggleClass()"></a>
             </div>
-            <div class="col-md-7 card_wrap">
+            <div class="col-md-7 card_wrap" id="card_wrap">
                 <div class="row">
                     <div class="card_content_wrap">
                         <div class="card_content">
                             <h2>01</h2>
-                            <h3>CHART</h3>
+                            <h3>LOGIN</h3>
                             <p>
-                                정확한 정보를, 검증된 정보를<br>
-                                당신이 원하는대로<br>
-                                정확히 제공합니다.<br>
-                                경험하십시오.
+                                <i class="fa-solid fa-right-to-bracket"></i>
                             </p>
                         </div>
                     </div>
                     <div class="card_content_wrap">
                         <div class="card_content">
                             <h2>02</h2>
-                            <h3>NEWS</h3>
+                            <h3>PROFILE</h3>
                             <p>
-                                Always wonder how to get the right information.<br>
-                                We provide the THINGS you want exactly.<br>
-                                and provide objectively verified information.<br>
-                                Experience it.
+                                <i class="fa-solid fa-user"></i>
                             </p>
                         </div>
                     </div>
                     <div class="card_content_wrap">
                         <div class="card_content">
                             <h2>03</h2>
-                            <h3>card one</h3>
+                            <h3>LIKE</h3>
                             <p>
-                                Always wonder how to get the right information.<br>
-                                We provide the THINGS you want exactly.<br>
-                                and provide objectively verified information.<br>
-                                Experience it.
+                                <i class="fa-solid fa-heart"></i>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card_content_wrap">
+                        <div class="card_content">
+                            <h2>04</h2>
+                            <h3>SHARE</h3>
+                            <p>
+                                <i class="fa-solid fa-share"></i>
                             </p>
                         </div>
                     </div>
@@ -112,41 +280,180 @@
     </div>
 </div>
 
-<div class="container_wrap section_chart">
-    <div class="container">
-        <div class="sc_header">
-            <ul>
-                <li>
-                    <a href="chart/searchStockData" target="_blank">
-                        종목 가져오기
-                    </a>
-                </li>
-                <li>
-                    <a href="chart/viewStockChart" target="_self">
-                        차트 페이지
-                    </a>
-                </li>
-            </ul>
-        </div>
+<div id="popup1">
 
-        <div class="sc_chart">
-            <iframe src="chart/viewStockChart"></iframe>
-        </div>
+    <div class="bubbles">
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+    </div>
 
-        <div class="news_part">
-            <form action="news/getNewsData" method="get" target="fNews">
-                키워드 : <input type="text" name="name">
-                날짜 : <input type="text" name="date">
-                <input type="submit">
-            </form>
-            <%--    기본값 : 현재 날짜와 증시로 뉴스를 검색--%>
-            <iframe name="fNews" src="news/getNewsData?name=증시&date=<%=request.getAttribute("nowDate")%>"></iframe>
+    <div class="container_wrap section_chart">
+        <div class="container">
+            <div class="sc_header">
+                <ul>
+                    <li>
+                        <a href="chart/searchStockData" target="_blank">
+                            종목 가져오기
+                        </a>
+                    </li>
+                    <li>
+                        <a href="chart/viewStockChart" target="_self">
+                            차트 페이지
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sc_chart">
+                <iframe src="chart/viewStockChart"></iframe>
+            </div>
+
+            <div class="news_part">
+                <div class="news_form_wrap">
+                    <form action="news/getNewsData" method="get" target="fNews">
+                        <label for="fname">키워드 : </label>
+                        <input type="text" id="fname" name="name" placeholder="삼성전자">
+                        <label for="fdate">날짜 : </label>
+                        <input type="text" id="fdate" name="date" placeholder="20220101">
+                        <input type="submit">
+                    </form>
+                </div>
+                <%--    기본값 : 현재 날짜와 증시로 뉴스를 검색--%>
+                <iframe name="fNews" src="news/getNewsData?name=증시&date=<%=request.getAttribute("nowDate")%>"></iframe>
+            </div>
+
+            <a href="#" onclick="toggleClass()" class="popupClose">CLOSE</a>
         </div>
     </div>
 </div>
 
 <script type="text/javascript" src="../../resources/js/vanilla-tilt.js"></script>
 <script>
+
+    VanillaTilt.init(document.querySelectorAll(".intro_content"), {
+        max: 25,
+        speed: 400,
+        glare: true,
+        "max-glare" : 1
+    });
 
     VanillaTilt.init(document.querySelectorAll(".card_content_wrap"), {
         max: 25,
@@ -155,14 +462,7 @@
         "max-glare" : 1
     });
 
-    const lc_list = document.querySelectorAll('.lc_list');
-    function activeLink(){
-        lc_list.forEach((item) => item.classList.remove('active'));
-        this.classList.add('active');
-    }
-    list.forEach((item) => item.addEventListener('click', activeLink));
-
-    /*for(i = 1; i < 100; i++){
+    for(i = 1; i < 100; i++){
         j = 30;
         const para1 = document.createElement("li");
         const element = document.getElementById("bpwrap");
@@ -175,19 +475,36 @@
 
         para2.setAttribute('class', 'bpf');
 
-        document.getElementById("bp" + i).style.left = j*i - 50 + "px";
-    }*/
+        document.getElementById("bp" + i).style.left = j*i - 40 + "px";
+    }
 
-    /*function myInterval(){
+    function myInterval(){
         for(i = 1; i < 100; i++){
-            document.getElementById("line" + i).style.height = Math.floor(Math.random() * 40) + 1 + "vh";
-            document.getElementById("line" + i).style.backgroundColor = "#" +  Math.floor(Math.random() * 900 + 1);
+            document.getElementById("line" + i).style.height = Math.floor(Math.random() * 100) + 1 + "%";
         }
-    }*/
+    }
 
-    /*setInterval("myInterval()", 1500);
+    setInterval("myInterval()", 1500);
 
-    const text = document.querySelector('.text');
+    const navlist = document.querySelectorAll('.lcn_list');
+    function activeLink(){
+        navlist.forEach((item) =>
+            item.classList.remove('active'));
+            this.classList.add('active');
+    }
+    navlist.forEach((item) =>
+        item.addEventListener('click', activeLink));
+
+    function toggleClass(){
+        var cardWrap = document.getElementById('bpw');
+        cardWrap.classList.toggle('toggleActive');
+        var popup1 = document.getElementById('popup1');
+        popup1.classList.toggle('toggleActive');
+        var lcnav = document.getElementById('lc_nav_wrap');
+        lcnav.classList.toggle('toggleActive');
+    }
+
+    /*const text = document.querySelector('.text');
     text.innerHTML = text.textContent.replace(/\S/g, "<span>$&</span>");
 
     const  wavyelement = document.querySelectorAll('span');

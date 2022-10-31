@@ -59,7 +59,23 @@ import="com.fourward.linkchart.dto.StockDTO" %> <%@ page import="java.util.List"
     </script>
   </head>
   <body>
-    <div style="text-align: center">
+
+    <div class="container">
+      <div class="row">
+        <div class="chart_wrap" id="chart_div">
+          <form method="get" action="${pageContext.request.contextPath}/chart/getStockData">
+            종목명<input type="text" name="name" />
+            <input type="submit" />
+            <input type="reset" />
+          </form>
+          <a href="${pageContext.request.contextPath}/chart/searchStockData" target="_blank">
+            데이터 가져오기
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <%--<div style="text-align: center">
       <div id="chart_div" style="text-align: center;"></div>
       <form method="get" action="${pageContext.request.contextPath}/chart/getStockData">
         종목명<input type="text" name="name" />
@@ -69,6 +85,6 @@ import="com.fourward.linkchart.dto.StockDTO" %> <%@ page import="java.util.List"
       <a href="${pageContext.request.contextPath}/chart/searchStockData" target="_blank">
         데이터 가져오기
       </a>
-    </div>
+    </div>--%>
   </body>
 </html>

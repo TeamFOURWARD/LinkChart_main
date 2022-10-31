@@ -1,11 +1,3 @@
-body{
-    overflow: hidden;
-}
-
-#chart_div{
+.chart_wrap{
     height: 500px;
-}
-
-form{
-    margin-bottom: 20px;
 }
