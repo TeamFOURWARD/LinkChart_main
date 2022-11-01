@@ -1,5 +1,6 @@
 package com.fourward.linkchart.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fourward.linkchart.dto.StockDTO;
 import com.fourward.linkchart.service.IChartService;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -92,23 +94,19 @@ public class ChartController {
         return "chart/viewStockChart";
     }
 
-    // 종목명 입력시 db에서 가져온후 차트그리기
     @GetMapping(value = "/chart/getStockData")
-    public String getStockData(HttpServletRequest request, ModelMap model) throws Exception {
+    @ResponseBody
+    public List<StockDTO> getStockData(HttpServletRequest request) throws Exception {
         log.info(this.getClass().getName() + ".getStockData start");
 
         StockDTO pDTO = new StockDTO();
+        pDTO.setName(request.getParameter("stockName"));
+        log.info("requested stockName : " + pDTO.getName());
 
-        String name = request.getParameter("name");
-        pDTO.setName(name);
-
-        List<StockDTO> rList = chartService.getStockData(pDTO);
-
-        model.addAttribute("rList", rList);
-        model.addAttribute("name", name);
+        List<StockDTO> pList = chartService.getStockData(pDTO);
 
         log.info(this.getClass().getName() + ".getStockData end");
 
-        return "/chart/viewStockChart";
+        return pList;
     }
 }
