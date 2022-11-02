@@ -199,8 +199,8 @@ body{
 
 .bubbles span{
     position: relative;
-    width: 15px;
-    height: 15px;
+    width: 8px;
+    height: 5px;
     background: #ADEFD1;
     margin: 0 4px;
     border-radius: 50%;
@@ -245,7 +245,7 @@ body{
     top: 50%;
     margin-left: -570px;
     margin-top: -300px;
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.5);
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
     border-radius: 20px;
 }
@@ -261,6 +261,7 @@ body{
     position: absolute;
     left: 25px;
     top: 25px;
+    background: #FEFEFE;
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     backdrop-filter: blur(10px);
@@ -271,12 +272,8 @@ body{
     overflow: hidden;
 }
 
-.intro_content:hover{
-    background: rgba(0, 0, 0, 0.75);
-}
-
 .intro_content:hover ul li div{
-    background: #ADEFD1;
+    background: #EC4D36;
 }
 
 .intro_content ul{
@@ -297,7 +294,7 @@ body{
     width: 100%;
     height: 100%;
     opacity: 0.5;
-    background: #343148;
+    background: #8AAAE5;
 }
 
 #bpw a{
@@ -346,7 +343,7 @@ body{
 .card_content_wrap{
     box-shadow: 20px 20px 50px rgba( 0, 0, 0, 0.5);
     border-radius: 15px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.3);
     overflow: hidden;
     border-top: 1px solid rgba(255, 255, 255, 0.5);
     border-left: 1px solid rgba(255, 255, 255, 0.5);
@@ -381,59 +378,61 @@ body{
 }
 
 .card_content_wrap:hover h3{
-    font-weight: 700;
+    font-weight: 900;
+    color: #00203F;
 }
 
 .card_content_wrap:hover p{
-    font-weight: 500;
+    font-weight: 900;
+    color: #00203F;
 }
 
 .card_content_wrap:nth-child(1):hover{
     background: #F9EBDE;
 }
 
-.card_content_wrap:nth-child(1) h3{
+.card_content_wrap:nth-child(1):hover h3{
     color: #815854;
 }
 
-.card_content_wrap:nth-child(1) p{
+.card_content_wrap:nth-child(1):hover p{
     color: #815854;
 }
 
 .card_content_wrap:nth-child(2):hover{
-    background: #2D2926;
-}
-
-.card_content_wrap:nth-child(2) h3{
-    color: #ed6f63;
-}
-
-.card_content_wrap:nth-child(2) p{
-    color: #ed6f63 ;
-}
-
-.card_content_wrap:nth-child(3):hover{
     background: #ADEFD1;
 }
 
-.card_content_wrap:nth-child(3) h3{
+.card_content_wrap:nth-child(2):hover h3{
     color: #00203F;
 }
 
-.card_content_wrap:nth-child(3) p{
+.card_content_wrap:nth-child(2):hover p{
     color: #00203F;
+}
+
+.card_content_wrap:nth-child(3):hover{
+    background: #F7F7F9;
+}
+
+.card_content_wrap:nth-child(3):hover h3{
+    color: #D2302C;
+}
+
+.card_content_wrap:nth-child(3):hover p{
+    color: #D2302C ;
 }
 
 .card_content_wrap:nth-child(4):hover{
-    background: #FCF6F5;
+    background: #FAD0C9;
 }
 
-.card_content_wrap:nth-child(4) h3{
-    color: #2BAE66;
+.card_content_wrap:nth-child(4):hover h3{
+    color: #6E6E6D;
 }
 
-.card_content_wrap:nth-child(4) p{
-    color: #2BAE66;
+.card_content_wrap:nth-child(4):hover p{
+    color: #6E6E6D;
 }
 
 .card_content{
@@ -452,8 +451,12 @@ body{
     top: -80px;
     right: 30px;
     font-size: 8em;
-    color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.5);
     pointer-events: none;
+}
+
+.card_content:hover h2{
+    color: rgba(0, 0, 0, 0.15);
 }
 
 .card_content h3{
@@ -473,7 +476,7 @@ body{
     font-family: 'Nanum Gothic', sans-serif;
     height: 100vh;
     position: relative;
-    padding-top: 50px;
+    padding-top: 25px;
     box-sizing: border-box;
 }
 
@@ -507,7 +510,7 @@ body{
     width: 100%;
     height: 50px;
     position: relative;
-    background: #fff;
+    background: #FCF6F5;
     border-radius:20px 20px 0 0;
 }
 
@@ -537,7 +540,7 @@ body{
 .sc_chart{
     width: 100%;
     overflow: hidden;
-    background: #fff;
+    background: #FCF6F5;
 }
 
 .sc_chart iframe{
@@ -550,7 +553,7 @@ body{
 /*news_part*/
 
 .news_part{
-    background: #fff;
+    background: #FCF6F5;
     transform: translateY(-50px);
     height: 360px;
     border-radius: 20px;
@@ -580,8 +583,8 @@ body{
 
 .popupClose{
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 30px;
+    top: 10px;
 }
 
 /*news_part*/
@@ -595,7 +598,7 @@ body{
     bottom: 0;
     left: 0;
     text-align: center;
-    color: #343148;
+    color: #FFF;
 }
 
 /* INTRO_PAGE */
