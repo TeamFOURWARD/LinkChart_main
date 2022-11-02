@@ -4,6 +4,7 @@
 <%@ page import="com.fourward.linkchart.dto.NewsDTO" %>
 <%@ page import="com.fourward.linkchart.dto.NewsRelatedDTO" %>
 <%@ page contentType="text/html; charset=utf-8" %>
+<%--deprecated--%>
 <%
     List<HashMap<String, Object>> newsGroup_list = (List<HashMap<String, Object>>) request.getAttribute("newsData");
 %>

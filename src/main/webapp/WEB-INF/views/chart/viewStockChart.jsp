@@ -2,6 +2,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="com.fourward.linkchart.dto.StockDTO" %>
 <%@ page import="java.util.List" %>
+<%--deprecated--%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

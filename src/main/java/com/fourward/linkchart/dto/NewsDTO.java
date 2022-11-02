@@ -7,6 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NewsDTO {
     private String rank;
     private String link;

@@ -9,12 +9,12 @@ function getStockData(arg) {
 
     $.ajax({
         url: "/chart/getStockData",
-        data: {stockName},
+        data: {stockName: stockName},
         type: 'GET',
         dataType: 'json',
         async: false,
         success: function (data) {
-            console.log('getStockData_row_0 : ' + data[0].date.toString() + ' ' + parseInt(data[0].open));
+            console.log('getStockData_row[0] : ' + data[0].date.toString() + ' ' + parseInt(data[0].open));
             return loadChart(data, stockName);
         }
     });
@@ -52,7 +52,6 @@ function loadChart(data, name) {
         });
         dataTable.addRows(list);
 
-
         chart = new google.visualization.CandlestickChart(document.getElementById('chart_div'));
         google.visualization.events.addListener(chart, 'select', selectHandler);
 
@@ -75,7 +74,9 @@ function loadChart(data, name) {
         const selectedItem = chart.getSelection()[0];
         const date = dateToString(dataTable.getValue(selectedItem.row, 0));//yyyyMMdd
 
-        alert('selected date : ' + date + '\nselected stockName : ' + keyword);
+        //alert('selected date : ' + date + '\nselected stockName : ' + keyword);
         console.log('selected date : ' + date + '\nselected stockName : ' + keyword);
+
+        return getNewsData(date, keyword);
     }
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NewsRelatedDTO {
     private String rank_related;
     private String link_related;
