@@ -56,7 +56,7 @@ function loadChart(data, name) {
         google.visualization.events.addListener(chart, 'select', selectHandler);
 
         const options = {
-            title: '종목명 : ' + keyword,
+            title: '종목명  :  ' + keyword, 'height': 700, 'backgroundColor':'#FCF6F5',
             bar: {groupWidth: '100%'}, // Remove space between bars.
             candlestick: {
                 fallingColor: {strokeWidth: 0, fill: '#005cff'},

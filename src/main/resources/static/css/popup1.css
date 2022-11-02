@@ -1,0 +1,37 @@
+.section_01_content_wrap{
+    background: #FCF6F5;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 20px;
+}
+
+.chart_news_wrap{
+    overflow: hidden;
+    display: flex;
+}
+
+.chart_news_cp{
+    width: 65%;
+    padding-bottom: 50px;
+}
+
+.chart_news_np{
+    width: 35%;
+    max-height: 60vh;
+}
+
+.linksection div{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.chart_search_wrap{
+    margin: 0 auto;
+    text-align: center;
+}
+
+#newsMain table{
+}

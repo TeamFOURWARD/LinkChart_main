@@ -5,21 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../../resources/css/reset.css">
-    <link rel="stylesheet" href="../../resources/css/all.min.css">
-    <%--<link rel="stylesheet" href="../../resources/css/newspart.css">--%>
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/all.min.css">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <!-- jQuery library -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <%--<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>--%>
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="../../resources/js/index.js"></script>
-    <link rel="stylesheet" href="../../resources/css/intro.css">
+    <script type="text/javascript" src="js/vanilla-tilt.js"></script>
+    <link rel="stylesheet" href="/css/intro.css">
+    <link rel="stylesheet" href="/css/popup1.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Handlee&family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Roboto:wght@300;400;700&display=swap');
     </style>
@@ -34,6 +34,8 @@
     <script src="js/dateUtil.js" type="text/javascript">
         // date formatter
     </script>
+
+    <%--<script src="js/index.js" type="text/javascript"></script>--%>
 
     <script type="text/javascript">
         // 초기 로딩시 보여줄 데이터
@@ -56,58 +58,7 @@
 </head>
 
 <body>
-<h1>테스트</h1>
-<div style="text-align: right">
-    <a href="chart/searchStockData" target="_self">종목 가져오기 페이지</a>
-    <br>
-    <a href="chart/viewStockChart" target="_self">차트 페이지</a>
 
-    <div>
-        <label for="putKeyword">뉴스 검색 키워드 : </label><input type="text" size="10" id="putKeyword">
-        <label for="putDate">날짜 : </label><input type="text" size="8" id="putDate">
-        <button type="submit" onclick="getNews_manual()">전송</button>
-    </div>
-</div>
-
-<div style="text-align: center;">
-
-    <div style="display:inline-flex;text-align: center;width: 47%;">
-        <div style="width: 100%;">
-            <div>
-                <h2>차트 부분</h2>
-            </div>
-
-            <div>
-                <div style="text-align: center;">
-                    <div id="chart_div" style="text-align: center; width: 100%; height: 500px;">
-                        <%--    ajax 적용 차트--%>
-                    </div>
-                    <label for="stockName">종목명 :
-                        <input type="text" id="stockName"/>
-                    </label>
-                    <button onclick="getStockData();">전송</button>
-                    <br/>
-                    <a href="/chart/searchStockData" target="_blank">데이터 가져오기</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div style="display:inline-flex;text-align: center;width: 47%;">
-        <div style="width: 100%;">
-            <div>
-                <h2>뉴스 부분</h2>
-            </div>
-            <div>
-                <div id="newsMain">
-                    <%--    ajax 적용 뉴스--%>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- 추가 -->
     <div class="lc_nav_wrap" id="lc_nav_wrap">
         <div class="lc_nav">
             <ul>
@@ -360,11 +311,49 @@
     
         </div>
     </div>
-    
     <div id="popup1">
+
+        <div class="container_wrap section_chart">
+            <div class="container">
+                <div class="section_01_content_wrap">
+                    <div class="linksection">
+                        <div>
+                            <label for="putKeyword">뉴스 검색 키워드 : </label><input type="text" size="10" id="putKeyword">
+                            <label for="putDate">날짜 : </label><input type="text" size="8" id="putDate">
+                            <button type="submit" onclick="getNews_manual()">전송</button>
+                        </div>
+                    </div>
+
+                    <div class="chart_news_wrap">
+                        <div class="chart_news_cp">
+                            <div id="chart_div">
+                                <%--    ajax 적용 차트--%>
+                            </div>
+                            <div class="chart_search_wrap ">
+                                <label for="stockName">종목명 :
+                                    <input type="text" id="stockName"/>
+                                </label>
+                                <button onclick="getStockData();">전송</button>
+                                <a href="/chart/searchStockData" target="_blank">데이터 가져오기</a>
+                            </div>
+                        </div>
+                        <div class="chart_news_np">
+                            <div id="newsMain">
+                                <%--    ajax 적용 뉴스--%>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="#" onclick="toggleClass()" class="popupClose">
+                        <i class="fa-solid fa-xmark"></i>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<script type="text/javascript" src="../../resources/js/vanilla-tilt.js"></script>
 <script>
 
     VanillaTilt.init(document.querySelectorAll(".intro_content"), {
@@ -405,15 +394,6 @@
 
     setInterval("myInterval()", 1500);
 
-    const navlist = document.querySelectorAll('.lcn_list');
-    function activeLink(){
-        navlist.forEach((item) =>
-            item.classList.remove('active'));
-            this.classList.add('active');
-    }
-    navlist.forEach((item) =>
-        item.addEventListener('click', activeLink));
-
     function toggleClass(){
         var cardWrap = document.getElementById('bpw');
         cardWrap.classList.toggle('toggleActive');
@@ -423,13 +403,19 @@
         lcnav.classList.toggle('toggleActive');
     }
 
-    /*const text = document.querySelector('.text');
-    text.innerHTML = text.textContent.replace(/\S/g, "<span>$&</span>");
+    const navlist = document.querySelectorAll('.lcn_list');
+    function activeLink(){
+        navlist.forEach((item) =>
+            item.classList.remove('active'));
+        this.classList.add('active');
 
-    const  wavyelement = document.querySelectorAll('span');
-    for(let i = 0; i < wavyelement.length; i++){
-        wavyelement[i].style.animationDelay = i * 0.05 + 's';
-    }*/
+        if($('#popup1').hasClass('toggleActive')){
+            $('.lcn_list').classList.remove('active');
+            $('.lcn_list:nth-child(2)').classList.add('active');
+        }
+    }
+    navlist.forEach((item) =>
+        item.addEventListener('click', activeLink));
 </script>
 
 </body>
