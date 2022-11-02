@@ -23,11 +23,11 @@
 
     <select id="getStockData" resultType="StockDTO">
         select price_date as "date",
+               price_low  as low,
                price_open as open,
-               price_high as high,
-               price_low as low,
                price_close as close,
-               price_volume as volume
+               price_high as high
+--                price_volume as volume
         from stock_data
         where code = (select c.code from stock_code c where c.name = #{name})
         order by price_date asc

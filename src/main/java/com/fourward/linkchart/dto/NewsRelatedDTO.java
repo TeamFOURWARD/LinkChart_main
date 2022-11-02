@@ -13,5 +13,4 @@ public class NewsRelatedDTO {
     private String head_related;
     private String publisher_related;
     private String date_related;
-
 }
