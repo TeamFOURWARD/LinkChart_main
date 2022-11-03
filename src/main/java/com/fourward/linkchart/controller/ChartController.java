@@ -1,5 +1,6 @@
 package com.fourward.linkchart.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fourward.linkchart.dto.StockDTO;
 import com.fourward.linkchart.service.IChartService;
 import lombok.extern.slf4j.Slf4j;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -48,9 +50,9 @@ public class ChartController {
             log.info("코드 가져오기 실패. 유효하지 않은 이름.");
             msg = "데이터 입력 실패";
         }
-        log.info("변환된 종목 코드 : "+pDTO.getCode());
+        log.info("변환된 종목 코드 : " + pDTO.getCode());
 
-        if (pDTO.getCode()==null) {
+        if (pDTO.getCode() == null) {
             msg = "이름 잘못 입력";
             log.info("유효하지 않은 이름");
         } else {
@@ -73,9 +75,8 @@ public class ChartController {
                     msg = "데이터 입력 건너뜀";
                     log.info(msg);
                 }
-            }
-            else{
-                log.info("기존 데이터 없음. 입력 시작 날짜 : "+pDTO.getStart_date());
+            } else {
+                log.info("기존 데이터 없음. 입력 시작 날짜 : " + pDTO.getStart_date());
                 chartService.insertStockData(pDTO);
             }
         }
@@ -93,20 +94,19 @@ public class ChartController {
         return "chart/viewStockChart";
     }
 
-    // 종목명 입력시 db에서 가져온후 차트그리기
     @GetMapping(value = "/chart/getStockData")
-    public String getStockData(HttpServletRequest request, ModelMap model) throws Exception {
+    @ResponseBody
+    public List<StockDTO> getStockData(HttpServletRequest request) throws Exception {
         log.info(this.getClass().getName() + ".getStockData start");
 
         StockDTO pDTO = new StockDTO();
-        pDTO.setName(request.getParameter("name"));
+        pDTO.setName(request.getParameter("stockName"));
+        log.info("requested stockName : " + pDTO.getName());
 
-        List<StockDTO> rList = chartService.getStockData(pDTO);
-
-        model.addAttribute("rList", rList);
+        List<StockDTO> pList = chartService.getStockData(pDTO);
 
         log.info(this.getClass().getName() + ".getStockData end");
 
-        return "/chart/viewStockChart";
+        return pList;
     }
 }
