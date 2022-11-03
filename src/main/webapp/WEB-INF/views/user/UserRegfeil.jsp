@@ -10,11 +10,6 @@
 
     if (pDTO == null) {
         pDTO = new UserInfoDTO();
-
-    }else {
-        (pDTO == ){
-
-        }
     }
 
 %>
@@ -22,12 +17,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>회원가입을 축하드립니다.</title>
+    <title>회원가입을 실패하였습니다.</title>
     <script type="text/javascript">
         alert("<%=msg%>");
     </script>
 </head>
 <body>
-<%=CmmUtil.nvl(pDTO.getUser_name()) %>님의 회원가입을 축하드립니다.
+<%=CmmUtil.nvl(pDTO.getUser_name()) %>님 회원가입에 실패하였습니다.
 </body>
 </html>

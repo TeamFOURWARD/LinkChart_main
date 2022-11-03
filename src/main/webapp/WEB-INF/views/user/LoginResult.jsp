@@ -24,6 +24,7 @@
 <head>
     <meta charset="UTF-8">
     <title><%=msg%></title>
+
 </head>
 <body>
 <%=msg %>

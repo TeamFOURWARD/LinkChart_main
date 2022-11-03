@@ -11,6 +11,8 @@ import com.fourward.linkchart.util.EncryptUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
@@ -31,6 +33,8 @@ public class UserInfoService implements IUserInfoService {
 
     @Override
     public int insertUserInfo(UserInfoDTO pDTO) throws Exception {
+
+
 
         // 회원가입 성공 : 1, 아이디 중복으로인한 가입 취소 : 2, 기타 에러 발생 : 0
         int res = 0;
@@ -167,6 +171,9 @@ public class UserInfoService implements IUserInfoService {
          * #######################################################
          */
 
+
         return res;
+
+
     }
 }
