@@ -1,4 +1,4 @@
-function getNewsData(date, keyword) {
+function getNewsData(keyword, date) {
     console.log('getNewsData_keyword : ' + keyword);
     console.log('getNewsData_date : ' + date);//yyyyMMdd
 
@@ -145,5 +145,5 @@ function getNews_manual() {
     const date = $("#putDate").val();
     const keyword = $("#putKeyword").val();
 
-    return getNewsData(date,keyword);
+    return getNewsData(date, keyword);
 }
