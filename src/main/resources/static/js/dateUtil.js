@@ -15,5 +15,5 @@ function stringToDate(s) {
     const m = s.substring(4, 6);
     const d = s.substring(6);
 
-    return new Date(y, m, d);
+    return new Date(y, m-1, d);
 }
