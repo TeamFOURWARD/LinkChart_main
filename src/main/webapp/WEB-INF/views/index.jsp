@@ -328,14 +328,17 @@
                     <div class="chart_news_cp">
                         <div id="chart_div"><%-- ajax 적용 차트--%></div>
                         <div class="chart_search_wrap">
+                            <label for="startDate_req">시작날짜 :
+                                <input type="text" id="startDate_req" size="14" placeholder="기본값 : 2년전"/>
+                            </label>
+                            <label for="endDate_req">종료날짜 :
+                                <input type="text" id="endDate_req" size="14" placeholder="기본값 : 오늘"/>
+                            </label>
                             <label for="stockName"
                             >종목명 :
                                 <input type="text" id="stockName"/>
                             </label>
                             <button onclick="getStockData();">전송</button>
-                            <a href="/chart/searchStockData" target="_blank"
-                            >데이터 가져오기</a
-                            >
                         </div>
                     </div>
                     <div class="chart_news_np">

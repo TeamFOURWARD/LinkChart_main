@@ -2,39 +2,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fourward.linkchart.persistence.mapper.IChartMapper">
     <insert id="insertStockData" parameterType="StockDTO">
-        insert into STOCK_DATA
+        INSERT INTO STOCK_DATA
         (CODE, PRICE_DATE, PRICE_OPEN, PRICE_HIGH, PRICE_LOW, PRICE_CLOSE, PRICE_VOLUME)
-        select #{code},
-               #{date},
-               #{open},
-               #{high},
-               #{low},
-               #{close},
-               #{volume}
-        from dual
-        where not exists(
-                select 1
-                from stock_data
-                where code = #{code}
-                  and price_date = #{date}
-            )
-
+        VALUES (#{code},
+                #{date},
+                #{open},
+                #{high},
+                #{low},
+                #{close},
+                #{volume})
     </insert>
 
     <select id="getStockData" resultType="StockDTO">
-        select price_date as "date",
-               price_low  as low,
-               price_open as open,
-               price_close as close,
-               price_high as high
---                price_volume as volume
-        from stock_data
-        where code = (select c.code from stock_code c where c.name = #{name})
-        order by price_date asc
+        SELECT price_date AS "date",
+               price_low  AS low,
+               price_open AS open,
+               price_close AS close,
+               price_high AS high
+             --price_volume as volume
+        FROM stock_data
+        WHERE code = #{code}
+          AND price_date BETWEEN #{startDate_req}
+          AND #{endDate_req}
+        ORDER BY price_date ASC
     </select>
 
     <select id="getStockCodeByName" resultType="StockDTO">
-        --코드와 입력된 처음 날짜를 가져옴
+        SELECT code
+        FROM stock_code
+        WHERE name = #{name}
+    </select>
+
+    <select id="getStockData_dateStart" resultType="StockDTO">
+        SELECT MIN(PRICE_DATE) AS startDate_exist
+        FROM STOCK_DATA
+        WHERE CODE = #{code}
+    </select>
+
+    <select id="getStockData_dateEnd" resultType="StockDTO">
+        SELECT MAX(PRICE_DATE) AS endDate_exist
+        FROM STOCK_DATA
+        WHERE CODE = #{code}
+    </select>
+    <!--<insert id="insertStockData" parameterType="StockDTO">
+            insert into STOCK_DATA
+            (CODE, PRICE_DATE, PRICE_OPEN, PRICE_HIGH, PRICE_LOW, PRICE_CLOSE, PRICE_VOLUME)
+            select #{code},
+                   #{date},
+                   #{open},
+                   #{high},
+                   #{low},
+                   #{close},
+                   #{volume}
+            from dual
+            where not exists(
+                    select 1
+                    from stock_data
+                    where code = #{code}
+                      and price_date = #{date}
+                )
+        </insert>-->
+    <!--
+    <select id="getStockData_DateRange" resultType="StockDTO">
+        코드와 입력된 처음 날짜를 가져옴
         select sd.code as code, min(sd.price_date) as end_date
         from stock_data sd
         where sd.code =
@@ -45,7 +75,7 @@
 
         union all
 
-        --이름이 틀렸을때 코드값 널 리턴
+        이름이 틀렸을때 코드값 널 리턴
         select NULL as code, NULL as end_date
         from dual
         where not exists(
@@ -56,7 +86,7 @@
 
         union all
 
-        --이름은 맞지만 입력된 데이터가 없음. 코드 리턴 , 날짜는 널로 리턴
+        이름은 맞지만 입력된 데이터가 없음. 코드 리턴 , 날짜는 널로 리턴
         select code as code, NULL as end_date
         from (select code from STOCK_CODE where name = #{name})
         where not exists(
@@ -69,4 +99,5 @@
                 group by sd.code
             )
     </select>
+    -->
 </mapper>

@@ -13,4 +13,8 @@ public interface IChartMapper {
     int insertStockData(StockDTO pDTO) throws Exception;
 
     StockDTO getStockCodeByName(StockDTO pDTO) throws Exception;
+
+    StockDTO getStockData_dateStart(StockDTO pDTO) throws Exception;
+
+    StockDTO getStockData_dateEnd(StockDTO pDTO) throws Exception;
 }
