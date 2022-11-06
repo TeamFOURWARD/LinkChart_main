@@ -2,10 +2,10 @@ package com.fourward.linkchart.controller;
 
 import com.fourward.linkchart.dto.NewsDTO;
 import com.fourward.linkchart.service.INewsService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,17 +15,12 @@ import java.util.*;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(value = "news")
 public class NewsController {
-
     private final INewsService newsService;
 
-    public NewsController(INewsService newsService) {
-        this.newsService = newsService;
-    }
-
     @GetMapping(value = "/getNewsData")
-    @ResponseBody
     public List<Map<String, Object>> getNewsContents(HttpServletRequest request) {
         log.info(this.getClass().getName() + ".getNewsData Start");
 
