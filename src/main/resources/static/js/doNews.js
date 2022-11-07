@@ -145,5 +145,5 @@ function getNews_manual() {
     const date = $("#putDate").val();
     const keyword = $("#putKeyword").val();
 
-    return getNewsData(date, keyword);
+    return getNewsData(keyword, date);
 }
