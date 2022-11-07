@@ -435,6 +435,15 @@ body{
     color: #6E6E6D;
 }
 
+.card_content_wrap>button{
+    display: block;
+    width: 100%!important;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 .card_content{
     position: relative;
     padding: 5px;
