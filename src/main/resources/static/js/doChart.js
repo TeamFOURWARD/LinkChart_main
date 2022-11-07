@@ -18,7 +18,7 @@ function getStockData(arg) {
             startDate_req: startDate_req,
             endDate_req: endDate_req
         },
-        type: 'GET',
+        type: 'POST',
         dataType: 'json',
         async: false,
         success: function (data) {

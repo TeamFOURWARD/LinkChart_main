@@ -4,7 +4,7 @@ import com.fourward.linkchart.dto.StockDTO;
 import com.fourward.linkchart.service.IChartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class ChartController {
     private final IChartService chartService;
 
-    @GetMapping(value = "/getStockData")
+    @PostMapping(value = "/getStockData")
     public List<StockDTO> getStockData(HttpServletRequest request) {
         log.info(this.getClass().getName() + ".getStockData start");
 
