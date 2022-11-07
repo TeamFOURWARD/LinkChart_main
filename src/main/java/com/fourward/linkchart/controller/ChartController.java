@@ -1,112 +1,70 @@
 package com.fourward.linkchart.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fourward.linkchart.dto.StockDTO;
 import com.fourward.linkchart.service.IChartService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
-@Controller
 @Slf4j
+@RestController
+@RequestMapping(value = "/chart")
+@RequiredArgsConstructor
 public class ChartController {
-
     private final IChartService chartService;
 
-    @Autowired
-    public ChartController(IChartService chartService) {
-        this.chartService = chartService;
-    }
-
-    @GetMapping(value = "/chart/searchStockData")
-    public String searchStockName() throws Exception {
-
-        return "/chart/searchStockData";
-    }
-
-    /**
-     * @param request 종목명, 시작날짜
-     */
-    @GetMapping(value = "/chart/insertStockData")
-    public String insertStockData(HttpServletRequest request, ModelMap model) throws Exception {
-        log.info(this.getClass().getName() + ".insertStockData start");
-
-        String msg = "데이터 입력 완료";
-
-        StockDTO pDTO = new StockDTO();
-
-        // name 을 code 로 변환
-        String name = request.getParameter("name");
-        pDTO.setName(name);
-        try {
-            pDTO.setCode((chartService.getStockCodeByName(pDTO)).getCode());
-        } catch (NullPointerException e) {
-            log.info("코드 가져오기 실패. 유효하지 않은 이름.");
-            msg = "데이터 입력 실패";
-        }
-        log.info("변환된 종목 코드 : " + pDTO.getCode());
-
-        if (pDTO.getCode() == null) {
-            msg = "이름 잘못 입력";
-            log.info("유효하지 않은 이름");
-        } else {
-            // 데이터 중복 입력 방지 위해 데이터 존재여부 검사
-            pDTO.setEnd_date((chartService.getStockCodeByName(pDTO)).getEnd_date());//데이터 db insert 시 마지막날짜(=입력된 db의 시작날짜)
-
-            String start_date = request.getParameter("start_date");
-            pDTO.setStart_date(start_date);
-
-            log.info("requested name : " + pDTO.getName());
-            log.info("requested start_date : " + pDTO.getStart_date());
-            log.info("selected code : " + pDTO.getCode());
-            log.info("처리된 end_date : " + pDTO.getEnd_date());
-
-            if (pDTO.getEnd_date() != null) {
-                log.info("기존 데이터 존재. db 입력된 처음 날짜 : " + pDTO.getEnd_date());
-                if (Integer.parseInt(pDTO.getStart_date()) < Integer.parseInt(pDTO.getEnd_date())) {
-                    chartService.insertStockData(pDTO);
-                } else {
-                    msg = "데이터 입력 건너뜀";
-                    log.info(msg);
-                }
-            } else {
-                log.info("기존 데이터 없음. 입력 시작 날짜 : " + pDTO.getStart_date());
-                chartService.insertStockData(pDTO);
-            }
-        }
-
-        log.info(this.getClass().getName() + ".insertStockData end");
-
-        model.addAttribute("msg", msg);
-
-        return "returnMsg";
-    }
-
-    @GetMapping(value = "/chart/viewStockChart")
-    public String viewStockChart() {
-
-        return "chart/viewStockChart";
-    }
-
-    @GetMapping(value = "/chart/getStockData")
-    @ResponseBody
-    public List<StockDTO> getStockData(HttpServletRequest request) throws Exception {
+    @GetMapping(value = "/getStockData")
+    public List<StockDTO> getStockData(HttpServletRequest request) {
         log.info(this.getClass().getName() + ".getStockData start");
 
         StockDTO pDTO = new StockDTO();
+
+        // 종목명 & 검색 날짜벙위 입력. 날짜 Null 일때 기본값 = {시작날짜 : 오늘-2년, 종료날짜 : 오늘}
         pDTO.setName(request.getParameter("stockName"));
+        pDTO.setStartDate_req(request.getParameter("startDate_req"));
+        pDTO.setEndDate_req(request.getParameter("endDate_req"));
         log.info("requested stockName : " + pDTO.getName());
+        log.info("requested startDate : " + pDTO.getStartDate_req());
+        log.info("requested endDate : " + pDTO.getEndDate_req());
 
-        List<StockDTO> pList = chartService.getStockData(pDTO);
+        List<StockDTO> rList = new ArrayList<>();
+        try {
+            // name 을 code 로 변환.
+            pDTO.setCode((chartService.getStockCodeByName(pDTO)).getCode());
 
+            // 입력된 데이터 날짜 범위 가져오기. 없으면 Null 값에 대한 예외처리.
+            StockDTO dateRange = chartService.getStockData_dateRange(pDTO);
+            try {
+                pDTO.setStartDate_exist(dateRange.getStartDate_exist());
+                pDTO.setEndDate_exist(dateRange.getEndDate_exist());
+            } catch (NullPointerException ignored) {
+            }
+            /*
+            추출한 코드로 데이터 크롤링 후 db 입력
+            이후 db에서 데이터 가져옴
+            */
+            // 데이터 크롤링후 삽입. 중복 입력 방지 위한 기존 데이터 존재여부 검사.
+            log.info(this.getClass().getName() + ".insertStockData start");
+
+            StockDTO rDTO = chartService.insertStockData(pDTO);
+            pDTO.setStartDate_req(rDTO.getStartDate_req());
+            pDTO.setEndDate_req(rDTO.getEndDate_req());
+
+            log.info(this.getClass().getName() + ".insertStockData end");
+
+            // 데이터 가져오기.
+            rList = chartService.getStockData(pDTO);
+        } catch (Exception e) {
+            log.warn(this.getClass().getName() + "getStockData failed");
+        }
         log.info(this.getClass().getName() + ".getStockData end");
 
-        return pList;
+        return rList;
     }
 }

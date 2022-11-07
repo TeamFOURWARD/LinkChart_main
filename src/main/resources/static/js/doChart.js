@@ -1,15 +1,23 @@
 function getStockData(arg) {
     let stockName;
+    const startDate_req = $("#startDate_req").val();
+    const endDate_req = $("#endDate_req").val();
     if (arg == null) {
         stockName = $("#stockName").val();
     } else {
         stockName = arg;
     }
     console.log('keyword : ' + stockName);
+    console.log('start_date_req: ' + startDate_req);
+    console.log('end_date_req: ' + endDate_req);
 
     $.ajax({
         url: "/chart/getStockData",
-        data: {stockName: stockName},
+        data: {
+            stockName: stockName,
+            startDate_req: startDate_req,
+            endDate_req: endDate_req
+        },
         type: 'GET',
         dataType: 'json',
         async: false,
@@ -56,7 +64,7 @@ function loadChart(data, name) {
         google.visualization.events.addListener(chart, 'select', selectHandler);
 
         const options = {
-            title: '종목명 : ' + keyword,
+            title: '종목명  :  ' + keyword, 'height': 700, 'backgroundColor': '#FCF6F5',
             bar: {groupWidth: '100%'}, // Remove space between bars.
             candlestick: {
                 fallingColor: {strokeWidth: 0, fill: '#005cff'},
@@ -77,6 +85,6 @@ function loadChart(data, name) {
         //alert('selected date : ' + date + '\nselected stockName : ' + keyword);
         console.log('selected date : ' + date + '\nselected stockName : ' + keyword);
 
-        return getNewsData(date, keyword);
+        return getNewsData(keyword, date);
     }
 }
