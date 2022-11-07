@@ -20,7 +20,7 @@ public class NewsController {
 
     @GetMapping(value = "/getNewsData")
     public List<Map<String, Object>> getNewsContents(HttpServletRequest request) {
-        log.info(this.getClass().getName() + ".getNewsData Start");
+        log.info(this.getClass().getName() + ".getNewsData start");
 
         final String keyword = request.getParameter("keyword");
         final String end_date = request.getParameter("date");
@@ -30,9 +30,16 @@ public class NewsController {
         NewsDTO pDTO = new NewsDTO();
         pDTO.setName(keyword);
         pDTO.setEnd_date(end_date);
-        List<Map<String, Object>> rNewsList = newsService.getNewsContents(pDTO);
 
-        log.info(this.getClass().getName() + ".getNewsData End");
+        List<Map<String, Object>> rNewsList = new ArrayList<>();
+        try {
+            rNewsList = newsService.getNewsContents(pDTO);
+        } catch (NullPointerException e) {
+            log.info(this.getClass().getName() + ".getNewsData failed");
+        } finally {
+            log.info(this.getClass().getName() + ".getNewsData end");
+
+        }
 
         return rNewsList;
     }

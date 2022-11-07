@@ -2,6 +2,8 @@ package com.fourward.linkchart.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -21,5 +23,12 @@ public class DateUtil {
         Date format2 = new SimpleDateFormat("yyyyMMdd").parse(date2);
 
         return format1.getTime() - format2.getTime();
+    }
+
+    public static String getNowDate() {
+        LocalDate now = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+
+        return now.format(formatter);
     }
 }

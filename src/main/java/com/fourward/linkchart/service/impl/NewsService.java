@@ -22,14 +22,36 @@ import static java.util.Calendar.DATE;
 @Service("NewsService")
 public class NewsService implements INewsService {
     @Override
-    public List<Map<String, Object>> getNewsContents(NewsDTO rDTO) {
-        log.info(this.getClass().getName() + ".getNewsContents Start");
+    public List<Map<String, Object>> getNewsContents(NewsDTO rDTO) throws NullPointerException {
+        log.info(this.getClass().getName() + ".getNewsContents start");
 
         List<Map<String, Object>> newsGroup_list = new ArrayList<>();
         try {
-            final String end_date = rDTO.getEnd_date();
-            final String start_date = DateUtil.date(end_date, DATE, -5);
+            // 날짜 null 일때 기본값 오늘, 키워드 널 이면 예외 발생.
+            String ifNull_end_date = rDTO.getEnd_date();
+            try {
+                if (Objects.equals(ifNull_end_date, "")) {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                ifNull_end_date = DateUtil.getNowDate();
+            } finally {
+                log.info("검색 요청 날짜 : " + ifNull_end_date);
+            }
+            try {
+                if (Objects.equals(rDTO.getName(), "")) {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                log.warn("뉴스 키워드 에러");
+                throw new NullPointerException();
+            } finally {
+                log.info("검색 요청 키워드 : " + rDTO.getName());
+            }
+
             final String keyword = rDTO.getName();
+            final String end_date = ifNull_end_date;
+            final String start_date = DateUtil.date(end_date, DATE, -5);
             final String connUrl = "https://search.naver.com/search.naver?where=news&query=" + keyword + "&pd=3&ds=" + start_date + "&de=" + end_date;
             final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36";
 
@@ -102,14 +124,17 @@ public class NewsService implements INewsService {
             }
             log.info("수집된 기사 개수 : " + i);
             log.info("수집된 연관 기사 개수 : " + j);
-        } catch (IOException | NullPointerException e) {
+        } catch (IOException |
+                 NullPointerException e) {
             log.warn("뉴스 가져오기 실패.");
             log.info(this.getClass().getName() + ".getNewsContents failed");
-        } catch (ParseException e) {
+        } catch (
+                ParseException e) {
             log.warn("날짜 변환 실패.");
             log.info(this.getClass().getName() + ".getNewsContents failed");
+        } finally {
+            log.info(this.getClass().getName() + ".getNewsContents end");
         }
-        log.info(this.getClass().getName() + ".getNewsContents End");
 
         return newsGroup_list;
     }
