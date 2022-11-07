@@ -316,10 +316,10 @@
             <div class="section_01_content_wrap">
                 <div class="linksection">
                     <div>
-                        <label for="putKeyword">뉴스 검색 키워드 : </label
+                        <label for="putDate">뉴스 검색 날짜 : </label
+                        ><input type="text" size="8" id="putDate"placeholder="yyyyMMdd 기본값:오늘"/>
+                        <label for="putKeyword">키워드 : </label
                         ><input type="text" size="10" id="putKeyword"/>
-                        <label for="putDate">날짜 : </label
-                        ><input type="text" size="8" id="putDate"/>
                         <button type="submit" onclick="getNews_manual()">전송</button>
                     </div>
                 </div>
