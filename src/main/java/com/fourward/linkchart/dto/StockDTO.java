@@ -16,6 +16,9 @@ public class StockDTO {
     private String low;
     private String close;
     private String volume;
-    private String start_date;
-    private String end_date;
+
+    private String startDate_exist;
+    private String endDate_exist;
+    private String startDate_req;
+    private String endDate_req;
 }
