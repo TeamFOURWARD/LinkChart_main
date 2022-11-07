@@ -270,8 +270,10 @@
                 </div>
                 <div class="col-md-7 card_wrap" id="card_wrap">
                     <div class="row">
+
                         <div class="card_content_wrap">
                             <div class="card_content">
+                                <a href="#" onclick="toggleClass2()"></a>
                                 <h2>01</h2>
                                 <h3>LOGIN</h3>
                                 <p>
@@ -279,9 +281,10 @@
                                 </p>
                             </div>
                         </div>
+
                         <div class="card_content_wrap">
-                            <button onclick="document.getElementById('popup2').style.display='block'" style="width:auto;">Sign Up</button>
                             <div class="card_content">
+                                <a href="#" onclick="toggleClass3()"></a>
                                 <h2>02</h2>
                                 <h3>SIGN UP</h3>
                                 <p>
@@ -289,6 +292,7 @@
                                 </p>
                             </div>
                         </div>
+
                         <div class="card_content_wrap">
                             <div class="card_content">
                                 <h2>03</h2>
@@ -307,14 +311,12 @@
             </p>
     
         </div>
-    </div>
-    <div id="popup1">
 
-        <div class="container_wrap section_chart">
-            <div class="container">
-                <div class="section_01_content_wrap">
-                    <div class="linksection">
-                        <div>
+        <div id="popup1">
+            <div class="container_wrap section_chart">
+                <div class="container">
+                    <div class="section_01_content_wrap">
+                        <div class="linksection">
                             <div>
                                 <label for="putDate">뉴스 검색 날짜 : </label
                                 ><input type="text" size="8" id="putDate"placeholder="yyyyMMdd 기본값:오늘"/>
@@ -323,97 +325,129 @@
                                 <button type="submit" onclick="getNews_manual()">전송</button>
                             </div>
                         </div>
-                    </div>
 
-                <div class="chart_news_wrap">
-                    <div class="chart_news_cp">
-                        <div id="chart_div"><%-- ajax 적용 차트--%></div>
-                        <div class="chart_search_wrap">
-                            <label for="startDate_req">시작날짜 :
-                                <input type="text" id="startDate_req" size="14" placeholder="기본값 : 2년전"/>
-                            </label>
-                            <label for="endDate_req">종료날짜 :
-                                <input type="text" id="endDate_req" size="14" placeholder="기본값 : 오늘"/>
-                            </label>
-                            <label for="stockName"
-                            >종목명 :
-                                <input type="text" id="stockName"/>
-                            </label>
-                            <button onclick="getStockData();">전송</button>
+                        <div class="chart_news_wrap">
+                            <div class="chart_news_cp">
+                                <div id="chart_div"><%-- ajax 적용 차트--%></div>
+                                <div class="chart_search_wrap">
+                                    <label for="startDate_req">시작날짜 :
+                                        <input type="text" id="startDate_req" size="14" placeholder="기본값 : 2년전"/>
+                                    </label>
+                                    <label for="endDate_req">종료날짜 :
+                                        <input type="text" id="endDate_req" size="14" placeholder="기본값 : 오늘"/>
+                                    </label>
+                                    <label for="stockName"
+                                    >종목명 :
+                                        <input type="text" id="stockName"/>
+                                    </label>
+                                    <button onclick="getStockData();">전송</button>
+                                </div>
+                            </div>
+                            <div class="chart_news_np">
+                                <div id="newsMain"><%-- ajax 적용 뉴스--%></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="chart_news_np">
-                        <div id="newsMain"><%-- ajax 적용 뉴스--%></div>
+
+                        <a href="#" onclick="toggleClass()" class="popupClose">
+                            <i class="fa-solid fa-xmark"></i>
+                        </a>
+
                     </div>
                 </div>
-
-                <a href="#" onclick="toggleClass()" class="popupClose">
-                    <i class="fa-solid fa-xmark"></i>
-                </a>
             </div>
         </div>
-    </div>
 
-    <div id="popup2" class="modal">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <form class="modal-content" action="/action_page.php">
-            <div class="container">
-                <h1>Sign Up</h1>
-                <p>Please fill in this form to create an account.</p>
-                <hr>
-                <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" id="email" required>
+        <div id="popup2">
 
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+            <div class="container_wrap section_chart">
+                <div class="container">
+                    <div class="section_02_content_wrap">
+                        <form class="modal-content animate" action="/action_page.php" method="post">
 
-                <label for="psw-repeat"><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+                            <div class="container">
+                                <label for="uname"><b>Username</b></label>
+                                <input type="text" placeholder="Enter Username" name="uname" required>
 
-                <label>
-                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-                </label>
+                                <label for="psw"><b>Password</b></label>
+                                <input type="password" placeholder="Enter Password" name="psw" required>
 
-                <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+                                <button type="submit">Login</button>
+                                <label>
+                                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                                </label>
+                            </div>
 
-                <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button type="submit" class="signupbtn">Sign Up</button>
+                            <div class="container" style="background-color:#f1f1f1">
+                                <button type="reset" class="resetbtn">cancel</button>
+                                <span class="psw">Forgot <a href="#">password?</a></span>
+                            </div>
+                        </form>
+
+                        <a href="#" onclick="toggleClass2()" class="popupClose">
+                            <i class="fa-solid fa-xmark"></i>
+                        </a>
+
+                    </div>
                 </div>
             </div>
-        </form>
-    </div>
-    <div id="popup2" class="modal">
-        <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-        <form class="modal-content" action="/action_page.php">
-            <div class="container">
-                <h1>Sign Up</h1>
-                <p>Please fill in this form to create an account.</p>
-                <hr>
-                <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" id="email" required>
 
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+        </div>
 
-                <label for="psw-repeat"><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+        <div id="popup3">
 
-                <label>
-                    <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-                </label>
+            <div class="container_wrap section_chart">
+                <div class="container">
+                    <div class="section_03_content_wrap">
+                        <form class="modal-content" action="/action_page.php">
+                            <div class="container">
 
-                <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+                                <label for="userId"><b>Name</b></label>
+                                <input type="text" placeholder="Enter ID" name="userId" id="userId" required>
 
-                <div class="clearfix">
-                    <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                    <button type="submit" class="signupbtn">Sign Up</button>
+                                <label for="userName"><b>Name</b></label>
+                                <input type="text" placeholder="Enter Name" name="userName" id="userName" required>
+
+                                <label for="email"><b>Email</b></label>
+                                <input type="text" placeholder="Enter Email" name="email" id="email" required>
+
+                                <label for="psw"><b>Password</b></label>
+                                <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+
+                                <label for="psw-repeat"><b>Repeat Password</b></label>
+                                <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+
+                                <label for="addr"><b>Address</b></label>
+                                <input type="text" placeholder="Enter Address" name="addr" id="addr" required>
+
+                                <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+
+                                <div class="clearfix">
+                                    <button type="reset" class="resetbtn">cancel</button>
+                                    <button type="submit" class="signupbtn">Sign Up</button>
+                                </div>
+
+                            </div>
+                        </form>
+
+                        <div id="message">
+                            <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
+                            <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
+                            <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
+                            <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
+                        </div>
+
+                        <a href="#" onclick="toggleClass3()" class="popupClose">
+                            <i class="fa-solid fa-xmark"></i>
+                        </a>
+
+                    </div>
                 </div>
             </div>
-        </form>
+
+        </div>
+
     </div>
 
-</div>
 
 <script>
     VanillaTilt.init(document.querySelectorAll(".intro_content"), {
@@ -464,6 +498,24 @@
         lcnav.classList.toggle("toggleActive");
     }
 
+    function toggleClass2() {
+        var cardWrap = document.getElementById("bpw");
+        cardWrap.classList.toggle("toggleActive");
+        var popup2 = document.getElementById("popup2");
+        popup2.classList.toggle("toggleActive");
+        var lcnav = document.getElementById("lc_nav_wrap");
+        lcnav.classList.toggle("toggleActive");
+    }
+
+    function toggleClass3() {
+        var cardWrap = document.getElementById("bpw");
+        cardWrap.classList.toggle("toggleActive");
+        var popup3 = document.getElementById("popup3");
+        popup3.classList.toggle("toggleActive");
+        var lcnav = document.getElementById("lc_nav_wrap");
+        lcnav.classList.toggle("toggleActive");
+    }
+
     const navlist = document.querySelectorAll(".lcn_list");
 
     function activeLink() {
@@ -474,9 +526,73 @@
             $(".lcn_list").classList.remove("active");
             $(".lcn_list:nth-child(2)").classList.add("active");
         }
+
+        if ($("#popup2").hasClass("toggleActive2")) {
+            $(".lcn_list").classList.remove("active");
+            $(".lcn_list:nth-child(4)").classList.add("active");
+        }
     }
 
     navlist.forEach((item) => item.addEventListener("click", activeLink));
+
+    //password script
+    var myInput = document.getElementById("psw");
+    var letter = document.getElementById("letter");
+    var capital = document.getElementById("capital");
+    var number = document.getElementById("number");
+    var length = document.getElementById("length");
+
+    // When the user clicks on the password field, show the message box
+    myInput.onfocus = function() {
+        document.getElementById("message").style.display = "block";
+    }
+
+    // When the user clicks outside of the password field, hide the message box
+    myInput.onblur = function() {
+        document.getElementById("message").style.display = "none";
+    }
+
+    // When the user starts to type something inside the password field
+    myInput.onkeyup = function() {
+        // Validate lowercase letters
+        var lowerCaseLetters = /[a-z]/g;
+        if(myInput.value.match(lowerCaseLetters)) {
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+        } else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+        }
+
+        // Validate capital letters
+        var upperCaseLetters = /[A-Z]/g;
+        if(myInput.value.match(upperCaseLetters)) {
+            capital.classList.remove("invalid");
+            capital.classList.add("valid");
+        } else {
+            capital.classList.remove("valid");
+            capital.classList.add("invalid");
+        }
+
+        // Validate numbers
+        var numbers = /[0-9]/g;
+        if(myInput.value.match(numbers)) {
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+        } else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+        }
+
+        // Validate length
+        if(myInput.value.length >= 8) {
+            length.classList.remove("invalid");
+            length.classList.add("valid");
+        } else {
+            length.classList.remove("valid");
+            length.classList.add("invalid");
+        }
+    }
 </script>
 </body>
 </html>
