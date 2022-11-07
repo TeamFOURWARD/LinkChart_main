@@ -3,6 +3,7 @@ package com.fourward.linkchart.service.impl;
 import com.fourward.linkchart.dto.StockDTO;
 import com.fourward.linkchart.persistence.mapper.IChartMapper;
 import com.fourward.linkchart.service.IChartService;
+import com.fourward.linkchart.util.DateUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,14 +14,13 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
+import static java.util.Calendar.DATE;
+import static java.util.Calendar.YEAR;
 
 @Slf4j
 @Service("ChartService")
@@ -43,11 +43,10 @@ public class ChartService implements IChartService {
             private final String startDate;
             private final String endDate;
 
-            void get() throws Exception {
+            void get() {
                 log.info(this.getClass().getName() + ".insertData start");
                 final String USER_AGENT = "Mozila/5.0";
-                final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code
-                        + "&requestType=1&startTime=" + startDate + "&endTime=" + endDate + "&timeframe=day";
+                final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code + "&requestType=1&startTime=" + startDate + "&endTime=" + endDate + "&timeframe=day";
 
                 log.info("code : " + code);
                 log.info("start_date : " + startDate);
@@ -108,38 +107,6 @@ public class ChartService implements IChartService {
                 log.info(this.getClass().getName() + ".insertData end");
             }
         }
-        @RequiredArgsConstructor
-        class DateCompare {
-            private final String date1;
-            private final String date2;
-
-            long get() throws ParseException {
-                Date format1 = new SimpleDateFormat("yyyyMMdd").parse(date1);
-                Date format2 = new SimpleDateFormat("yyyyMMdd").parse(date2);
-
-                return format1.getTime() - format2.getTime();
-            }
-        }
-        @RequiredArgsConstructor
-        class CalDate {
-            private final String date;
-            private final int k;
-
-            String get() {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                Calendar c1 = Calendar.getInstance();
-                try {
-                    Date date1 = sdf.parse(date);
-                    c1.setTime(date1);
-                    c1.add(Calendar.DATE, k);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                return sdf.format(c1.getTime());
-            }
-        }
-
         //메인 로직
         log.info(this.getClass().getName() + ".insertStockData start");
 
@@ -152,17 +119,7 @@ public class ChartService implements IChartService {
             ifNull_end_req = now.format(formatter);
         }
         if (Objects.equals(ifNull_start_req, "")) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-            Calendar c = Calendar.getInstance();
-            try {
-                Date date = sdf.parse(ifNull_end_req);
-                c.setTime(date);
-                c.add(Calendar.YEAR, -2);// 요청된 검색날짜 시작일이 없을시 2년 전으로.
-            } catch (ParseException e) {
-                e.printStackTrace();
-                throw new Exception();
-            }
-            ifNull_start_req = sdf.format(c.getTime());
+            ifNull_start_req = DateUtil.date(ifNull_end_req, YEAR, -2);
         }
 
         final String code = rDTO.getCode();
@@ -191,11 +148,11 @@ public class ChartService implements IChartService {
         if (start_exist == null) {
             new CrawlingStockData(code, start_req, end_req).get();
         } else {
-            if (new DateCompare(start_exist, start_req).get() > 0) {
-                new CrawlingStockData(code, start_req, new CalDate(start_exist, -1).get()).get();
+            if (DateUtil.compare(start_exist, start_req) > 0) {
+                new CrawlingStockData(code, start_req, DateUtil.date(start_exist, DATE, -1)).get();
             }
-            if (new DateCompare(end_req, start_exist).get() > 0) {
-                new CrawlingStockData(code, new CalDate(end_exist, +1).get(), end_req).get();
+            if (DateUtil.compare(end_req, start_exist) > 0) {
+                new CrawlingStockData(code, DateUtil.date(end_exist, DATE, +1), end_req).get();
             }
         }
         rDTO.setStartDate_req(start_req);

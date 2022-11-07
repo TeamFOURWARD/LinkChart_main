@@ -3,6 +3,7 @@ package com.fourward.linkchart.service.impl;
 import com.fourward.linkchart.dto.NewsDTO;
 import com.fourward.linkchart.dto.NewsRelatedDTO;
 import com.fourward.linkchart.service.INewsService;
+import com.fourward.linkchart.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -12,47 +13,26 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.util.*;
 
+import static java.util.Calendar.DATE;
 
 @Slf4j
 @Service("NewsService")
 public class NewsService implements INewsService {
-    public String doNaverNewsContents(String url) throws Exception {
-
-        log.info(getClass().getName() + "newscollect Start");
-
-        Document doc = null;
-
-        doc = Jsoup.connect(url).get();
-
-        Elements newsContent = doc.select("div._article_body_contents");
-
-        String res = newsContent.text();
-
-        log.info(res);
-
-        doc = null;
-
-        return res;
-    }
-
     @Override
     public List<Map<String, Object>> getNewsContents(NewsDTO rDTO) {
         log.info(this.getClass().getName() + ".getNewsContents Start");
 
         List<Map<String, Object>> newsGroup_list = new ArrayList<>();
-
-        final String keyword = rDTO.getName();
-        final String start_date = rDTO.getStart_date();
-        final String end_date = rDTO.getEnd_date();
-        final String connUrl = "https://search.naver.com/search.naver?where=news&query=" + keyword + "&pd=3&ds=" + start_date + "&de=" + end_date;
-        final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36";
-
         try {
+            final String end_date = rDTO.getEnd_date();
+            final String start_date = DateUtil.date(end_date, DATE, -5);
+            final String keyword = rDTO.getName();
+            final String connUrl = "https://search.naver.com/search.naver?where=news&query=" + keyword + "&pd=3&ds=" + start_date + "&de=" + end_date;
+            final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36";
+
             int i = 1, j = 1;//수집된 기사 개수
             Connection conn = Jsoup.connect(connUrl).header("Content-Type", "application/json;charset=UTF-8").userAgent(USER_AGENT).method(Connection.Method.GET).ignoreContentType(true);
 
@@ -124,6 +104,10 @@ public class NewsService implements INewsService {
             log.info("수집된 연관 기사 개수 : " + j);
         } catch (IOException | NullPointerException e) {
             log.warn("뉴스 가져오기 실패.");
+            log.info(this.getClass().getName() + ".getNewsContents failed");
+        } catch (ParseException e) {
+            log.warn("날짜 변환 실패.");
+            log.info(this.getClass().getName() + ".getNewsContents failed");
         }
         log.info(this.getClass().getName() + ".getNewsContents End");
 

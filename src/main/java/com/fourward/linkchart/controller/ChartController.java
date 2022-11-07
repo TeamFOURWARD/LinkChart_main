@@ -5,6 +5,7 @@ import com.fourward.linkchart.service.IChartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +14,12 @@ import java.util.List;
 
 @Slf4j
 @RestController
+@RequestMapping(value = "/chart")
 @RequiredArgsConstructor
 public class ChartController {
     private final IChartService chartService;
 
-    @GetMapping(value = "/chart/getStockData")
+    @GetMapping(value = "/getStockData")
     public List<StockDTO> getStockData(HttpServletRequest request) {
         log.info(this.getClass().getName() + ".getStockData start");
 
@@ -56,7 +58,7 @@ public class ChartController {
 
             log.info(this.getClass().getName() + ".insertStockData end");
 
-            // 데이터 가져오기 부분.
+            // 데이터 가져오기.
             rList = chartService.getStockData(pDTO);
         } catch (Exception e) {
             log.warn(this.getClass().getName() + "getStockData failed");

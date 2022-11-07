@@ -9,14 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "news")
+@RequestMapping(value = "/news")
 public class NewsController {
     private final INewsService newsService;
 
@@ -29,26 +27,13 @@ public class NewsController {
         log.info("requested keyword : " + keyword);
         log.info("requested date : " + end_date);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        Calendar c1 = Calendar.getInstance();
-        try {
-            Date date1 = sdf.parse(end_date);
-            c1.setTime(date1);
-            c1.add(Calendar.DATE, -5);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        final String start_date = sdf.format(c1.getTime());
-
         NewsDTO pDTO = new NewsDTO();
         pDTO.setName(keyword);
-        pDTO.setStart_date(start_date);
         pDTO.setEnd_date(end_date);
-
-        List<Map<String, Object>> newsGroup_list = newsService.getNewsContents(pDTO);
+        List<Map<String, Object>> rNewsList = newsService.getNewsContents(pDTO);
 
         log.info(this.getClass().getName() + ".getNewsData End");
 
-        return newsGroup_list;
+        return rNewsList;
     }
 }
