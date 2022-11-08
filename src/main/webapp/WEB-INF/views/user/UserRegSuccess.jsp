@@ -1,33 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.fourward.linkchart.util.CmmUtil" %>
-<%@ page import="com.fourward.linkchart.dto.UserInfoDTO" %>
-<%
-    //Controller로부터 전달받은 데이터
-    String msg = CmmUtil.nvl((String) request.getAttribute("msg"));
-
-    //Controller로부터 전달받은 웹(회원정보 입력화면)으로부터 입력받은 데이터(회원아이디, 이름, 이메일, 주소 등)
-    UserInfoDTO pDTO = (UserInfoDTO) request.getAttribute("pDTO");
-
-    if (pDTO == null) {
-        pDTO = new UserInfoDTO();
-
-    }else {
-        (pDTO == ){
-
-        }
-    }
-
-%>
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>회원가입을 축하드립니다.</title>
-    <script type="text/javascript">
-        alert("<%=msg%>");
-    </script>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>회원가입</title>
+    <script type="text/javascript" src="/js/redirect.js"></script>
 </head>
 <body>
-<%=CmmUtil.nvl(pDTO.getUser_name()) %>님의 회원가입을 축하드립니다.
+<button type="button" onclick="redirect()">되돌아가기</button>
 </body>
 </html>

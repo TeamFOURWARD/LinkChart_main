@@ -4,7 +4,7 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
     <!--로그 파일 저장장소-->
-    <property name="log_dir" value="/data/log/mySpringPRJ/LinkChart"/>
+    <property name="log_dir" value="/Users/sh-kang/data/log/mySpringPRJ/LinkChart"/>
 
 
     <!--파일에 로그를 남깁니다.-->
