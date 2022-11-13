@@ -9,10 +9,10 @@ public class UserInfoDTO {
 
     private String user_id;
     private String user_name;
-    private String password;
-    private String email;
-    private String addr;
+    private String user_password;
+    private String user_email;
+    private String user_addr;
     private String reg_dt;
 
-    private String isExists;
+    private String isExist;
 }

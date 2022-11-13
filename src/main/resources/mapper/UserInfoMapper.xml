@@ -10,26 +10,26 @@
          ADDR,
          REG_DATE)
         VALUES (#{user_id},
-                #{email},
+                #{user_email},
                 #{user_name},
-                #{password},
-                #{addr},
+                #{user_password},
+                #{user_addr},
                 SYSDATE)
     </insert>
-    <select id="getUserIdExists" parameterType="UserInfoDTO" resultType="UserInfoDTO">
-        SELECT 1 as isExists
+    <select id="getUserIdExist" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+        SELECT COUNT(ID) as isExist
         FROM USER_INFO
         WHERE ID = #{user_id}
     </select>
-    <select id="getUserEmailExists" parameterType="UserInfoDTO" resultType="UserInfoDTO">
-        SELECT 1 as isExists
+    <select id="getUserEmailExist" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+        SELECT COUNT(EMAIL) as isExist
         FROM USER_INFO
-        WHERE EMAIL = #{email}
+        WHERE EMAIL = #{user_email}
     </select>
-    <select id="getUserLoginCheck" parameterType="UserInfoDto" resultType="UserInfoDto">
-        select 1 as isExists
+    <select id="getUserLoginCheck" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+        select COUNT(*) as isExist
         from user_info
         where ID = #{user_id}
-          and password = #{password}
+          and password = #{user_password}
     </select>
 </mapper>

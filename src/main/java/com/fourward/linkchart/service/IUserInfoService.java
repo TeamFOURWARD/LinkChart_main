@@ -3,8 +3,14 @@ package com.fourward.linkchart.service;
 import com.fourward.linkchart.dto.UserInfoDTO;
 
 public interface IUserInfoService {
-    int insertUserInfo(UserInfoDTO pDTO) throws Exception;
-    int getUserLoginCheck(UserInfoDTO pDTO) throws Exception;
+    void insertUserInfo(UserInfoDTO pDTO) throws Exception;
+
+    void getUserLoginCheck(UserInfoDTO pDTO) throws Exception;
+
+    UserInfoDTO checkUserIdExist(UserInfoDTO pDTO) throws Exception;
+
+    UserInfoDTO checkUserEmailExist(UserInfoDTO pDTO) throws Exception;
+
 
     /*
     이메일 중복 확인
