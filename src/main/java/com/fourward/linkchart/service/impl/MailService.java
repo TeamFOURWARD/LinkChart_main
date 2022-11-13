@@ -14,15 +14,11 @@ import java.util.Properties;
 @Slf4j
 @Service("MailService")
 public class MailService implements IMailService {
-
-    final String host = "smtp.naver.com"; // 네이버에서 제공하는 SMTP서버
-    final String user = "ywss123@naver.com"; // 본인 네이버 아이디
-    final String password = "q01085407679"; // 본인 네이버 아이디
-
+    final String host = "smtp.naver.com";
+    final String user = "";
+    final String password = "";
     @Override
     public int doSendMail(MailDTO pDTO) {
-
-        // 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
         log.info(this.getClass().getName() + ".doSendMail start!");
 
         // 메일 발송 성공여부(발송성공 : 1 / 발송실패 : 0)
@@ -60,18 +56,16 @@ public class MailService implements IMailService {
 
             // 메일발송
             Transport.send(message);
-
         } catch (MessagingException e) { //메일 전송 관련 에러 다 잡기
             res = 0; // 메일 발송이 실패해기 때문에 0으로 변경
             log.info("[ERROR] " + this.getClass().getName() + ".doSendMail : " + e);
-
         } catch (Exception e) {//모든 에러 다 잡기
             res = 0; // 메일 발송이 실패해기 때문에 0으로 변경
             log.info("[ERROR] " + this.getClass().getName() + ".doSendMail : " + e);
         }
 
-        // 로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
         log.info(this.getClass().getName() + ".doSendMail end!");
+
         return res;
     }
 }
