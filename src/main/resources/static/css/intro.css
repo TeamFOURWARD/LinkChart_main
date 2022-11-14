@@ -6,10 +6,9 @@ font-family: 'Roboto', sans-serif;
 */
 
 body{
+    background: #343148;
     overflow: hidden;
 }
-
-/**/
 
 .lc_nav_wrap{
     position: absolute;
@@ -125,12 +124,6 @@ body{
 }
 
 /**/
-
-/**/
-
-body{
-    background: #343148;
-}
 
 .wave{
     position: absolute;

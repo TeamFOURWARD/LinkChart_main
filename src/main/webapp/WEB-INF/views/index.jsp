@@ -11,36 +11,25 @@
     <link rel="stylesheet" href="/css/reset.css"/>
     <link rel="stylesheet" href="/css/all.min.css"/>
     <!-- Latest compiled and minified CSS -->
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-    />
-    <!-- jQuery library -->
-    <%--
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
-    --%>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script
-            type="text/javascript"
-            src="https://www.gstatic.com/charts/loader.js"
-    ></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="js/vanilla-tilt.js"></script>
     <link rel="stylesheet" href="/css/intro.css"/>
     <link rel="stylesheet" href="/css/popup1.css"/>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Handlee&family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Roboto:wght@300;400;700&display=swap");
+        .newsMain_div {
+            border: solid #50586c;
+        }
     </style>
     <title>LINK CHART</title>
-    <script
-            src="https://www.gstatic.com/charts/loader.js"
-            type="text/javascript"
-    ></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script src="/js/doChart.js" type="text/javascript">
         // getChartData
         // loadChart
@@ -53,10 +42,6 @@
         // date formatter
     </script>
 
-    <%--
-    <script src="js/index.js" type="text/javascript"></script>
-    --%>
-
     <script type="text/javascript">
         // 초기 로딩시 보여줄 데이터
         $(document).ready(function () {
@@ -64,12 +49,6 @@
             getNewsData("증시", dateToString(new Date()));
         });
     </script>
-
-    <style>
-        .newsMain_div {
-            border: solid #50586c;
-        }
-    </style>
 </head>
 
 <body>
@@ -262,7 +241,6 @@
         <div class="wave wave4"></div>
     
         <div class="container section_01" id="bpw">
-    
             <div class="row">
                 <div class="col-md-5 intro_content">
                     <ul id="bpwrap"></ul>
@@ -270,7 +248,6 @@
                 </div>
                 <div class="col-md-7 card_wrap" id="card_wrap">
                     <div class="row">
-
                         <div class="card_content_wrap">
                             <div class="card_content">
                                 <a href="#" onclick="toggleClass2()"></a>
@@ -281,7 +258,6 @@
                                 </p>
                             </div>
                         </div>
-
                         <div class="card_content_wrap">
                             <div class="card_content">
                                 <a href="#" onclick="toggleClass3()"></a>
@@ -292,7 +268,6 @@
                                 </p>
                             </div>
                         </div>
-
                         <div class="card_content_wrap">
                             <div class="card_content">
                                 <h2>03</h2>
@@ -305,11 +280,9 @@
                     </div>
                 </div>
             </div>
-    
             <p class="copyrightText">
                 Copyright &copy; 2022 FOURWARD All Right Reserved.
             </p>
-    
         </div>
 
         <div id="popup1">
@@ -325,7 +298,6 @@
                                 <button type="submit" onclick="getNews_manual()">전송</button>
                             </div>
                         </div>
-
                         <div class="chart_news_wrap">
                             <div class="chart_news_cp">
                                 <div id="chart_div"><%-- ajax 적용 차트--%></div>
@@ -347,23 +319,19 @@
                                 <div id="newsMain"><%-- ajax 적용 뉴스--%></div>
                             </div>
                         </div>
-
                         <a href="#" onclick="toggleClass()" class="popupClose">
                             <i class="fa-solid fa-xmark"></i>
                         </a>
-
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="popup2">
-
             <div class="container_wrap section_chart">
                 <div class="container">
                     <div class="section_02_content_wrap">
                         <form class="modal-content animate" action="/action_page.php" method="post">
-
                             <div class="container">
                                 <label for="uname"><b>Username</b></label>
                                 <input type="text" placeholder="Enter Username" name="uname" required>
@@ -382,19 +350,15 @@
                                 <span class="psw">Forgot <a href="#">password?</a></span>
                             </div>
                         </form>
-
                         <a href="#" onclick="toggleClass2()" class="popupClose">
                             <i class="fa-solid fa-xmark"></i>
                         </a>
-
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div id="popup3">
-
             <div class="container_wrap section_chart">
                 <div class="container">
                     <div class="section_03_content_wrap">
@@ -425,27 +389,21 @@
                                     <button type="reset" class="resetbtn">cancel</button>
                                     <button type="submit" class="signupbtn">Sign Up</button>
                                 </div>
-
                             </div>
                         </form>
-
                         <div id="message">
                             <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
                             <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
                             <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
                             <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
                         </div>
-
                         <a href="#" onclick="toggleClass3()" class="popupClose">
                             <i class="fa-solid fa-xmark"></i>
                         </a>
-
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 
 
