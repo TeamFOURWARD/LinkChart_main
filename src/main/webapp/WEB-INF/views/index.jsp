@@ -1,10 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-    final String SS_USER_ID = (String) session.getAttribute("SS_USER_ID");
-    final String SS_USER_ROLE = (String) session.getAttribute("SS_USER_ROLE");
-
-
-%>
+<script type="text/javascript">
+    const SS_USER_ID = "<%=session.getAttribute("SS_USER_ID")%>";
+    const SS_USER_ROLE = "<%=session.getAttribute("SS_USER_ROLE")%>"
+</script>
+<script type="text/javascript">
+    if (SS_USER_ID !== "") {
+        alert('로그인한 사용자 : ' + SS_USER_ID + '\n' + '권한 : ' + SS_USER_ROLE);
+    }
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>

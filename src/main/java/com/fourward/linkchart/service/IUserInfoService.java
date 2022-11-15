@@ -5,7 +5,7 @@ import com.fourward.linkchart.dto.UserInfoDTO;
 public interface IUserInfoService {
     void insertUserInfo(UserInfoDTO pDTO) throws Exception;
 
-    void getUserLoginCheck(UserInfoDTO pDTO) throws Exception;
+    UserInfoDTO getUserLoginCheck(UserInfoDTO pDTO) throws Exception;
 
     UserInfoDTO checkUserIdExist(UserInfoDTO pDTO) throws Exception;
 

@@ -8,7 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>회원가입 완료</title>
     <script type="text/javascript">
-        //setTimeout(() => location.href = "/", 8000);
+        setTimeout(() => location.href = "/", 3000);
+
         function redirect() {
             location.href = '/'
         }
@@ -17,7 +18,7 @@
 <body>
 <div style="text-align: center;">
     <div>
-        <h2>회원가입을 축하합니다.</h2>
+        <h2>${user_id} 님 회원가입을 축하합니다.</h2>
         <br/>
         <p>잠시후 홈페이지로 돌아갑니다.</p>
         <br/>
