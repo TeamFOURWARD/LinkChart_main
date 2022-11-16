@@ -57,7 +57,7 @@ public class UserInfoController {
 
         log.info(this.getClass().getName() + ".doSignUp end");
 
-        return "redirect:/user/userRegSuccess";
+        return "redirect:/";
     }
 
     //로그인 전송
@@ -71,23 +71,23 @@ public class UserInfoController {
         UserInfoDTO pDTO = new UserInfoDTO();
         pDTO.setUser_id(user_id);
         pDTO.setUser_password(EncryptUtil.encHashSHA256(user_password));
-        log.info("requested user_id : " + pDTO.getUser_id());
+        log.info("requested user_id : " + user_id);
 
         if (Objects.equals(userInfoService.getUserLoginCheck(pDTO).getIsExist(), "0")) {
-            log.warn(this.getClass().getName() + " | login rejected. invalid id or password.");
+            log.info(this.getClass().getName() + " | login rejected. invalid id or password.");
             log.info(this.getClass().getName() + ".login end");
             redirectAttributes.addFlashAttribute("error_type", "로그인 실패");
 
-            return "redirect:/user/userErrPage";
+            return "redirect:/";
         }
-        session.setAttribute("SS_USER_ID", pDTO.getUser_id());
-        session.setAttribute("SS_USER_ROLE", "USER");
+        session.setAttribute("SS_USER_ID", user_id);
+        session.setMaxInactiveInterval(60 * 60);// 60분
 
         log.info(this.getClass().getName() + " | login success.");
-        log.info(this.getClass().getName() + " | user : " + pDTO.getUser_id());
+        log.info(this.getClass().getName() + " | user : " + user_id);
         log.info(this.getClass().getName() + ".login end");
 
-        return "redirect:/";
+        return "redirect:/view";
     }
 
     //아이디 이메일 중복검사 요청
@@ -112,12 +112,24 @@ public class UserInfoController {
         return pDTO;
     }
 
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+
+        return "redirect:/";
+    }
+
+    @Deprecated
     @GetMapping(value = "/userErrPage")
     public String userErrPage() {
 
         return "/user/userErrPage";
     }
 
+    @Deprecated
     @GetMapping(value = "/userRegSuccess")
     public String userRegSuccess() {
 

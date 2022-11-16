@@ -23,7 +23,7 @@ function loadNews(data) {
     table.appendChild(tbody);
 
     data.forEach(newsGroup_list => {
-            console.log('newsGroup_list.news : ' + JSON.stringify(newsGroup_list.news));
+            console.log('newsGroup_list._news : ' + JSON.stringify(newsGroup_list.news));
             console.log('newsGroup_list.newsGroup_related_list' + JSON.stringify(newsGroup_list.newsGroup_related_list));
             let tr = document.createElement('tr');
             tbody.appendChild(tr);
