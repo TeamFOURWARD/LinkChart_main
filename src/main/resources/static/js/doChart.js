@@ -18,11 +18,16 @@ function getStockData(arg) {
             startDate_req: startDate_req,
             endDate_req: endDate_req
         },
-        type: 'GET',
+        type: 'POST',
         dataType: 'json',
         async: false,
         success: function (data) {
+            if (data.length === 0) {
+                alert("종목 가져오기 실패");
+                return;
+            }
             console.log('getStockData_row[0] : ' + data[0].date.toString() + ' ' + parseInt(data[0].open));
+
             return loadChart(data, stockName);
         }
     });

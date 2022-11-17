@@ -1,31 +1,32 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%--로그인 한 사용자에게 보여지는 페이지--%>
+<script type="text/javascript">
+    const SS_USER_ID = "<%=session.getAttribute("SS_USER_ID")%>";
+</script>
+<script type="text/javascript">
+    if (SS_USER_ID !== "") {
+        alert('로그인한 사용자 : ' + SS_USER_ID);
+    }
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
     <meta charset="UTF-8"/>
-    <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <link rel="stylesheet" href="/css/reset.css"/>
     <link rel="stylesheet" href="/css/all.min.css"/>
     <!-- Latest compiled and minified CSS -->
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/intro.css"/>
     <link rel="stylesheet" href="/css/popup1.css"/>
-    <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script
-            type="text/javascript"
-            src="https://www.gstatic.com/charts/loader.js"
-    ></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="js/vanilla-tilt.js"></script>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Handlee&family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Roboto:wght@300;400;700&display=swap");
@@ -35,7 +36,7 @@
         // getChartData
         // loadChart
     </script>
-    <script src="js/doNews.js" type="text/javascript">
+    <script src="/js/doNews.js" type="text/javascript">
         // getNewsData
         // loadNews
         // getNews_click
@@ -91,13 +92,34 @@
             <li class="lcn_list" id="lcnav03">
                 <a href="#">
                     <span class="lcn_icon">
-                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <i class="fa-solid fa-heart"></i>
                     </span>
                     <span class="lcn_text">
-                        LOGIN
+                        LOGOUT
                     </span>
                 </a>
             </li>
+            <li class="lcn_list" id="lcnav04">
+                <a href="#">
+                    <span class="lcn_icon">
+                        <i class="fa-solid fa-heart"></i>
+                    </span>
+                    <span class="lcn_text">
+                        PROFILE
+                    </span>
+                </a>
+            </li>
+            <li class="lcn_list" id="lcnav05">
+                <a href="#">
+                    <span class="lcn_icon">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </span>
+                    <span class="lcn_text">
+                        History
+                    </span>
+                </a>
+            </li>
+            <%--
             <li class="lcn_list" id="lcnav04">
                 <a href="#">
                     <span class="lcn_icon">
@@ -105,16 +127,6 @@
                     </span>
                     <span class="lcn_text">
                         SIGN UP
-                    </span>
-                </a>
-            </li>
-            <%--<li class="lcn_list" id="lcnav05">
-                <a href="#">
-                    <span class="lcn_icon">
-                        <i class="fa-solid fa-heart"></i>
-                    </span>
-                    <span class="lcn_text">
-                        PROFILE
                     </span>
                 </a>
             </li>--%>
@@ -257,16 +269,23 @@
         <div class="row">
             <div class="col-md-5 intro_content">
                 <ul id="bpwrap"></ul>
-                <a href="#" onclick="toggleClass()"></a>
+                <a href="#" onclick="toggleClass1()"></a>
             </div>
             <div class="col-md-7 card_wrap" id="card_wrap">
                 <div class="row">
 
+                    <%--로그아웃 스크립트--%>
+                    <script type="text/javascript">
+                        function logout() {
+                            document.getElementById("user_logout").submit();
+                        }
+                    </script>
                     <div class="card_content_wrap">
                         <div class="card_content">
-                            <a href="#" onclick="toggleClass2()"></a>
+                            <form id="user_logout" method="post" action="/user/logout"></form>
+                            <a href="#" onclick="logout()"></a>
                             <h2>01</h2>
-                            <h3>LOGIN</h3>
+                            <h3>LOGOUT</h3>
                             <p>
                                 <i class="fa-solid fa-right-to-bracket"></i>
                             </p>
@@ -275,24 +294,26 @@
 
                     <div class="card_content_wrap">
                         <div class="card_content">
-                            <a href="#" onclick="toggleClass3()"></a>
+                            <a href="#" onclick="toggleClass2()"></a>
                             <h2>02</h2>
-                            <h3>SIGN UP</h3>
+                            <h3>PROFILE</h3>
+                            <p>
+                                <i class="fa-solid fa-heart"></i>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card_content_wrap">
+                        <div class="card_content">
+                            <a href="#" onclick="toggleClass3()"></a>
+                            <h2>03</h2>
+                            <h3>History</h3>
                             <p>
                                 <i class="fa-solid fa-user"></i>
                             </p>
                         </div>
                     </div>
 
-                    <%--<div class="card_content_wrap">
-                        <div class="card_content">
-                            <h2>03</h2>
-                            <h3>PROFILE</h3>
-                            <p>
-                                <i class="fa-solid fa-heart"></i>
-                            </p>
-                        </div>
-                    </div>--%>
                 </div>
             </div>
         </div>
@@ -353,27 +374,44 @@
         <div class="container_wrap section_chart">
             <div class="container">
                 <div class="section_02_content_wrap">
-                    <form class="modal-content animate" action="/user/login" method="post">
-                        <div class="container">
-                            <label for="login_id"><b>Username</b></label>
-                            <input type="text" placeholder="Enter Username" name="user_id" id="login_id" required>
 
-                            <label for="login_psw"><b>Password</b></label>
-                            <input type="password" placeholder="Enter Password" name="user_password" id="login_psw"
-                                   required>
+                    <div class="modal-content" id="user_profile">
+                        <h4>User Profile</h4>
+                        <form id="user_updatePsw" method="post" action="/user/updatePsw">
+                            <label for="profile_user_name"><b>NAME</b></label>
+                            <input id="profile_user_name" type="text" disabled>
+                            </br>
+                            <label for="profile_user_id"><b>ID</b></label>
+                            <input id="profile_user_id" type="text" value="${SS_USER_ID}" disabled>
+                            </br>
+                            <label for="signup_psw"><b>Password</b></label>
+                            <input type="password" id="signup_psw" name="user_password"
+                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters required">
+                            </br>
+                            <label for="profile_psw-repeat"><b>Repeat Password</b></label>
+                            <input type="password" placeholder="Repeat Password" id="profile_psw-repeat" required>
+                            </br>
+                            <label for="profile_addr"><b>Address</b></label>
+                            <input type="password" placeholder="Repeat Password" id="profile_addr" required>
 
-                            <button type="submit">Login</button>
-                            <label>
-                                <input type="checkbox" checked="checked" name="remember"> Remember me
-                            </label>
+                            <div class="clearfix">
+                                <button type="reset" class="resetbtn">Reset</button>
+                                <button type="submit" class="signupbtn">Update Profile</button>
+                            </div>
+                        </form>
+                        <div id="message">
+                            <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
+                            <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
+                            <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
+                            <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
                         </div>
 
-                        <div class="container" style="background-color:#f1f1f1">
-                            <button type="reset" class="resetbtn">cancel</button>
-                            <span class="psw">Forgot <a href="#">password?</a></span>
+                        <div id="chkPsw" style="display: none">
+                            <p id="pswWrong" class="invalid" style="display: none">비밀번호가 다릅니다.</p>
+                            <p id="pswOk" class="valid" style="display: none">비밀번호가 일치합니다.</p>
                         </div>
-                    </form>
-
+                    </div>
                     <a href="#" onclick="toggleClass2()" class="popupClose">
                         <i class="fa-solid fa-xmark"></i>
                     </a>
@@ -385,68 +423,19 @@
     </div>
 
     <div id="popup3">
-
         <div class="container_wrap section_chart">
             <div class="container">
                 <div class="section_03_content_wrap">
-                    <form class="modal-content" method="post" action="/user/doSignUp" onsubmit="return validateForm()">
+                    <div class="modal-content animate">
                         <div class="container">
-                            <label for="signup_id"><b>ID</b></label>
-                            <input type="text" placeholder="Enter ID" name="user_id" id="signup_id" required>
-                            <button type="button" onclick="checkId()">아이디 중복 확인</button>
-
-                            <label for="signup_name"><b>Name</b></label>
-                            <input type="text" placeholder="Enter Name" name="user_name" id="signup_name" required>
-
-                            <label for="signup_email"><b>Email</b></label>
-                            <input type="text" placeholder="Enter Email" name="user_email" id="signup_email" required>
-                            <button type="button" onclick="checkEmail()">이메일 중복 확인</button>
-
-                            <label for="signup_psw"><b>Password</b></label>
-                            <input type="password" id="signup_psw" name="user_password"
-                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters required">
-
-                            <label for="psw-repeat"><b>Repeat Password</b></label>
-                            <input type="password" placeholder="Repeat Password" id="psw-repeat" required>
-
-                            <label for="addr"><b>Address</b></label>
-                            <input type="text" placeholder="Enter Address" name="user_addr" id="addr" required>
-
-                            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
-                                Privacy</a>.</p>
-
-                            <div class="clearfix">
-                                <button type="reset" class="resetbtn">cancel</button>
-                                <button type="submit" class="signupbtn">Sign Up</button>
-                            </div>
+                            <p>내가 본 뉴스</p>
                         </div>
-                    </form>
-
-                    <div id="message">
-                        <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
-                        <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
-                        <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
-                        <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
                     </div>
-
-                    <div id="chkPsw" style="display: none">
-                        <p id="pswWrong" class="invalid" style="display: none">비밀번호가 다릅니다.</p>
-                        <p id="pswOk" class="valid" style="display: none">비밀번호가 일치합니다.</p>
-                    </div>
-
-                    <a href="#" onclick="toggleClass3()" class="popupClose">
-                        <i class="fa-solid fa-xmark"></i>
-                    </a>
-
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>
-
 
 <script>
     VanillaTilt.init(document.querySelectorAll(".intro_content"), {
@@ -488,7 +477,7 @@
 
     setInterval("myInterval()", 1500);
 
-    function toggleClass() {
+    function toggleClass1() {
         var cardWrap = document.getElementById("bpw");
         cardWrap.classList.toggle("toggleActive");
         var popup1 = document.getElementById("popup1");
@@ -534,16 +523,5 @@
 
     navlist.forEach((item) => item.addEventListener("click", activeLink));
 </script>
-<script type="text/javascript" src="/js/user.js">
-    // 사용자 검증
-</script>
 </body>
 </html>
-<script>
-    if ("${user_id}" !== "") {
-        alert("${user_id} 님 회원가입을 축하합니다.\n로그인 해주세요.");
-    }
-    if ("${error_type}" !== "") {
-        alert("요청 오류 : ${error_type}");
-    }
-</script>
