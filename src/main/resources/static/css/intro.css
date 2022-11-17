@@ -52,11 +52,11 @@ body{
     border-bottom-left-radius: 20px;
 }
 
-.lc_nav ul li.active{
+.lc_nav ul li.toggleActive{
     background: #343148;
 }
 
-.lc_nav ul li.active a::before{
+.lc_nav ul li.toggleActive a::before{
     content: '';
     position: absolute;
     top: -30px;
@@ -67,7 +67,7 @@ body{
     box-shadow: 15px 15px 0 #343148;
 }
 
-.lc_nav ul li.active a::after{
+.lc_nav ul li.toggleActive a::after{
     content: '';
     position: absolute;
     bottom: -30px;
@@ -87,7 +87,7 @@ body{
     text-decoration: none;
 }
 
-.lc_nav ul li.active a{
+.lc_nav ul li.toggleActive a{
     color: #FCF6F5;
 }
 
@@ -363,7 +363,8 @@ body{
 .card_wrap{
     position: absolute;
     right: -10px;
-    top: 5px;
+    top: 50%;
+    transform: translateY(50%);
 }
 
 .card_wrap .row{

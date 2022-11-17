@@ -56,7 +56,7 @@
     <div class="lc_nav_wrap" id="lc_nav_wrap">
         <div class="lc_nav">
             <ul>
-                <li class="lcn_list active" id="lcnav01">
+                <li class="lcn_list" id="lcnav01">
                     <a href="#">
                     <span class="lcn_icon">
                         <i class="fa-solid fa-house"></i>
@@ -268,15 +268,6 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="card_content_wrap">
-                            <div class="card_content">
-                                <h2>03</h2>
-                                <h3>PROFILE</h3>
-                                <p>
-                                    <i class="fa-solid fa-heart"></i>
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -407,150 +398,137 @@
     </div>
 
 
-<script>
-    VanillaTilt.init(document.querySelectorAll(".intro_content"), {
-        max: 25,
-        speed: 400,
-        glare: true,
-        "max-glare": 1,
-    });
+    <script>
+        VanillaTilt.init(document.querySelectorAll(".intro_content"), {
+            max: 25,
+            speed: 400,
+            glare: true,
+            "max-glare": 1,
+        });
 
-    VanillaTilt.init(document.querySelectorAll(".card_content_wrap"), {
-        max: 25,
-        speed: 400,
-        glare: true,
-        "max-glare": 1,
-    });
+        VanillaTilt.init(document.querySelectorAll(".card_content_wrap"), {
+            max: 25,
+            speed: 400,
+            glare: true,
+            "max-glare": 1,
+        });
 
-    for (i = 1; i < 100; i++) {
-        j = 30;
-        const para1 = document.createElement("li");
-        const element = document.getElementById("bpwrap");
-        para1.setAttribute("id", "bp" + i);
-        element.appendChild(para1);
-
-        const para2 = document.createElement("div");
-        para2.setAttribute("id", "line" + i);
-        para1.appendChild(para2);
-
-        para2.setAttribute("class", "bpf");
-
-        document.getElementById("bp" + i).style.left = j * i - 40 + "px";
-    }
-
-    function myInterval() {
         for (i = 1; i < 100; i++) {
-            document.getElementById("line" + i).style.height =
-                Math.floor(Math.random() * 100) + 1 + "%";
-        }
-    }
+            j = 30;
+            const para1 = document.createElement("li");
+            const element = document.getElementById("bpwrap");
+            para1.setAttribute("id", "bp" + i);
+            element.appendChild(para1);
 
-    setInterval("myInterval()", 1500);
+            const para2 = document.createElement("div");
+            para2.setAttribute("id", "line" + i);
+            para1.appendChild(para2);
 
-    function toggleClass() {
-        var cardWrap = document.getElementById("bpw");
-        cardWrap.classList.toggle("toggleActive");
-        var popup1 = document.getElementById("popup1");
-        popup1.classList.toggle("toggleActive");
-        var lcnav = document.getElementById("lc_nav_wrap");
-        lcnav.classList.toggle("toggleActive");
-    }
+            para2.setAttribute("class", "bpf");
 
-    function toggleClass2() {
-        var cardWrap = document.getElementById("bpw");
-        cardWrap.classList.toggle("toggleActive");
-        var popup2 = document.getElementById("popup2");
-        popup2.classList.toggle("toggleActive");
-        var lcnav = document.getElementById("lc_nav_wrap");
-        lcnav.classList.toggle("toggleActive");
-    }
-
-    function toggleClass3() {
-        var cardWrap = document.getElementById("bpw");
-        cardWrap.classList.toggle("toggleActive");
-        var popup3 = document.getElementById("popup3");
-        popup3.classList.toggle("toggleActive");
-        var lcnav = document.getElementById("lc_nav_wrap");
-        lcnav.classList.toggle("toggleActive");
-    }
-
-    const navlist = document.querySelectorAll(".lcn_list");
-
-    function activeLink() {
-        navlist.forEach((item) => item.classList.remove("active"));
-        this.classList.add("active");
-
-        if ($("#popup1").hasClass("toggleActive")) {
-            $(".lcn_list").classList.remove("active");
-            $(".lcn_list:nth-child(2)").classList.add("active");
+            document.getElementById("bp" + i).style.left = j * i - 40 + "px";
         }
 
-        if ($("#popup2").hasClass("toggleActive2")) {
-            $(".lcn_list").classList.remove("active");
-            $(".lcn_list:nth-child(4)").classList.add("active");
-        }
-    }
-
-    navlist.forEach((item) => item.addEventListener("click", activeLink));
-
-    //password script
-    var myInput = document.getElementById("psw");
-    var letter = document.getElementById("letter");
-    var capital = document.getElementById("capital");
-    var number = document.getElementById("number");
-    var length = document.getElementById("length");
-
-    // When the user clicks on the password field, show the message box
-    myInput.onfocus = function() {
-        document.getElementById("message").style.display = "block";
-    }
-
-    // When the user clicks outside of the password field, hide the message box
-    myInput.onblur = function() {
-        document.getElementById("message").style.display = "none";
-    }
-
-    // When the user starts to type something inside the password field
-    myInput.onkeyup = function() {
-        // Validate lowercase letters
-        var lowerCaseLetters = /[a-z]/g;
-        if(myInput.value.match(lowerCaseLetters)) {
-            letter.classList.remove("invalid");
-            letter.classList.add("valid");
-        } else {
-            letter.classList.remove("valid");
-            letter.classList.add("invalid");
+        function myInterval() {
+            for (i = 1; i < 100; i++) {
+                document.getElementById("line" + i).style.height =
+                    Math.floor(Math.random() * 100) + 1 + "%";
+            }
         }
 
-        // Validate capital letters
-        var upperCaseLetters = /[A-Z]/g;
-        if(myInput.value.match(upperCaseLetters)) {
-            capital.classList.remove("invalid");
-            capital.classList.add("valid");
-        } else {
-            capital.classList.remove("valid");
-            capital.classList.add("invalid");
+        setInterval("myInterval()", 1500);
+
+        function toggleClass() {
+            var cardWrap = document.getElementById("bpw");
+            cardWrap.classList.toggle("toggleActive");
+            var popup1 = document.getElementById("popup1");
+            popup1.classList.toggle("toggleActive");
+            var lcnav = document.getElementById("lc_nav_wrap");
+            lcnav.classList.toggle("toggleActive");
+            var lcnavp = document.getElementById("lcnav02");
+            lcnavp.classList.toggle("toggleActive");
         }
 
-        // Validate numbers
-        var numbers = /[0-9]/g;
-        if(myInput.value.match(numbers)) {
-            number.classList.remove("invalid");
-            number.classList.add("valid");
-        } else {
-            number.classList.remove("valid");
-            number.classList.add("invalid");
+        function toggleClass2() {
+            var cardWrap = document.getElementById("bpw");
+            cardWrap.classList.toggle("toggleActive");
+            var popup2 = document.getElementById("popup2");
+            popup2.classList.toggle("toggleActive");
+            var lcnav = document.getElementById("lc_nav_wrap");
+            lcnav.classList.toggle("toggleActive");
+            var lcnavp = document.getElementById("lcnav03");
+            lcnavp.classList.toggle("toggleActive");
         }
 
-        // Validate length
-        if(myInput.value.length >= 8) {
-            length.classList.remove("invalid");
-            length.classList.add("valid");
-        } else {
-            length.classList.remove("valid");
-            length.classList.add("invalid");
+        function toggleClass3() {
+            var cardWrap = document.getElementById("bpw");
+            cardWrap.classList.toggle("toggleActive");
+            var popup3 = document.getElementById("popup3");
+            popup3.classList.toggle("toggleActive");
+            var lcnav = document.getElementById("lc_nav_wrap");
+            lcnav.classList.toggle("toggleActive");
+            var lcnavp = document.getElementById("lcnav04");
+            lcnavp.classList.toggle("toggleActive");
         }
-    }
-</script>
+
+        //password script
+        var myInput = document.getElementById("psw");
+        var letter = document.getElementById("letter");
+        var capital = document.getElementById("capital");
+        var number = document.getElementById("number");
+        var length = document.getElementById("length");
+
+        // When the user clicks on the password field, show the message box
+        myInput.onfocus = function() {
+            document.getElementById("message").style.display = "block";
+        }
+
+        // When the user clicks outside of the password field, hide the message box
+        myInput.onblur = function() {
+            document.getElementById("message").style.display = "none";
+        }
+
+        // When the user starts to type something inside the password field
+        myInput.onkeyup = function() {
+            // Validate lowercase letters
+            var lowerCaseLetters = /[a-z]/g;
+            if(myInput.value.match(lowerCaseLetters)) {
+                letter.classList.remove("invalid");
+                letter.classList.add("valid");
+            } else {
+                letter.classList.remove("valid");
+                letter.classList.add("invalid");
+            }
+
+            // Validate capital letters
+            var upperCaseLetters = /[A-Z]/g;
+            if(myInput.value.match(upperCaseLetters)) {
+                capital.classList.remove("invalid");
+                capital.classList.add("valid");
+            } else {
+                capital.classList.remove("valid");
+                capital.classList.add("invalid");
+            }
+
+            // Validate numbers
+            var numbers = /[0-9]/g;
+            if(myInput.value.match(numbers)) {
+                number.classList.remove("invalid");
+                number.classList.add("valid");
+            } else {
+                number.classList.remove("valid");
+                number.classList.add("invalid");
+            }
+
+            // Validate length
+            if(myInput.value.length >= 8) {
+                length.classList.remove("invalid");
+                length.classList.add("valid");
+            } else {
+                length.classList.remove("valid");
+                length.classList.add("invalid");
+            }
+        }
+    </script>
 </body>
 </html>
