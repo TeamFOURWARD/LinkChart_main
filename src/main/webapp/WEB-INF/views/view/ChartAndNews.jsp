@@ -1,54 +1,68 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%--로그인 한 사용자에게 보여지는 페이지--%>
+<script type="text/javascript">
+    const SS_USER_ID = "<%=session.getAttribute("SS_USER_ID")%>";
+</script>
+<script type="text/javascript">
+    if (SS_USER_ID !== "") {
+        alert('로그인한 사용자 : ' + SS_USER_ID);
+    }
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
     <meta charset="UTF-8"/>
-    <meta
-            name="viewport"
-            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <link rel="stylesheet" href="/css/reset.css"/>
     <link rel="stylesheet" href="/css/all.min.css"/>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/intro.css"/>
+    <link rel="stylesheet" href="/css/popup1.css"/>
+    <link rel="stylesheet" href="/css/chartandnews.css"/>
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="js/vanilla-tilt.js"></script>
-    <link rel="stylesheet" href="/css/intro.css"/>
-    <link rel="stylesheet" href="/css/popup1.css"/>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Handlee&family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Roboto:wght@300;400;700&display=swap");
-        .newsMain_div {
-            border: solid #50586c;
-        }
     </style>
     <title>LINK CHART</title>
-    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/doChart.js" type="text/javascript">
         // getChartData
         // loadChart
     </script>
-    <script src="js/doNews.js" type="text/javascript">
+    <script src="/js/doNews.js" type="text/javascript">
         // getNewsData
         // loadNews
+        // getNews_click
     </script>
     <script src="/js/dateUtil.js" type="text/javascript">
         // date formatter
     </script>
 
+    <%--
+    <script src="js/index.js" type="text/javascript"></script>
+    --%>
+
     <script type="text/javascript">
         // 초기 로딩시 보여줄 데이터
         $(document).ready(function () {
             getStockData("코스피");
-            getNewsData("증시", dateToString(new Date()));
+            getNewsData("증시", dateToString(new Date()), false);
         });
     </script>
+
+    <style>
+        .newsMain_div {
+            border: solid #50586c;
+        }
+    </style>
 </head>
 
 <body>
@@ -56,7 +70,7 @@
 <div class="lc_nav_wrap" id="lc_nav_wrap">
     <div class="lc_nav">
         <ul>
-            <li class="lcn_list" id="lcnav01">
+            <li class="lcn_list active" id="lcnav01">
                 <a href="#">
                     <span class="lcn_icon">
                         <i class="fa-solid fa-house"></i>
@@ -79,24 +93,14 @@
             <li class="lcn_list" id="lcnav03">
                 <a href="#">
                     <span class="lcn_icon">
-                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <i class="fa-solid fa-heart"></i>
                     </span>
                     <span class="lcn_text">
-                        LOGIN
+                        LOGOUT
                     </span>
                 </a>
             </li>
             <li class="lcn_list" id="lcnav04">
-                <a href="#">
-                    <span class="lcn_icon">
-                        <i class="fa-solid fa-user"></i>
-                    </span>
-                    <span class="lcn_text">
-                        SIGN UP
-                    </span>
-                </a>
-            </li>
-            <li class="lcn_list" id="lcnav05">
                 <a href="#">
                     <span class="lcn_icon">
                         <i class="fa-solid fa-heart"></i>
@@ -106,6 +110,27 @@
                     </span>
                 </a>
             </li>
+            <li class="lcn_list" id="lcnav05">
+                <a href="#">
+                    <span class="lcn_icon">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                    </span>
+                    <span class="lcn_text">
+                        History
+                    </span>
+                </a>
+            </li>
+            <%--
+            <li class="lcn_list" id="lcnav04">
+                <a href="#">
+                    <span class="lcn_icon">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <span class="lcn_text">
+                        SIGN UP
+                    </span>
+                </a>
+            </li>--%>
         </ul>
     </div>
 </div>
@@ -241,38 +266,50 @@
     <div class="wave wave4"></div>
 
     <div class="container section_01" id="bpw">
+
         <div class="row">
-            <div class="col-md-5 intro_content" id="chartSection">
+            <div class="col-md-5 intro_content">
                 <ul id="bpwrap"></ul>
-                <a href="#" onclick="toggleClass()"></a>
+                <a href="#" onclick="toggleClass1()"></a>
             </div>
             <div class="col-md-7 card_wrap" id="card_wrap">
                 <div class="row">
                     <div class="card_content_wrap">
                         <div class="card_content">
-                            <h2>01</h2>
-                            <h3>PROFILE</h3>
+                            <a href="#" onclick="toggleClass2()"></a>
+                            <h2>02</h2>
+                            <h3>MY PAGE</h3>
                             <p>
                                 <i class="fa-solid fa-heart"></i>
                             </p>
                         </div>
                     </div>
+                    <%--로그아웃 스크립트--%>
+                    <script type="text/javascript">
+                        function logout() {
+                            document.getElementById("user_logout").submit();
+                        }
+                    </script>
                     <div class="card_content_wrap">
                         <div class="card_content">
-                            <a href="#" onclick="toggleClass2()"></a>
-                            <h2>02</h2>
+                            <form id="user_logout" method="post" action="/user/logout"></form>
+                            <a href="#" onclick="logout()"></a>
+                            <h2>01</h2>
                             <h3>LOGOUT</h3>
                             <p>
                                 <i class="fa-solid fa-right-to-bracket"></i>
                             </p>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
+
         <p class="copyrightText">
             Copyright &copy; 2022 FOURWARD All Right Reserved.
         </p>
+
     </div>
 
     <div id="popup1">
@@ -282,12 +319,13 @@
                     <div class="linksection">
                         <div>
                             <label for="putDate">뉴스 검색 날짜 : </label
-                            ><input type="text" size="8" id="putDate"placeholder="yyyyMMdd 기본값:오늘"/>
+                            ><input type="text" size="8" id="putDate" placeholder="yyyyMMdd 기본값:오늘"/>
                             <label for="putKeyword">키워드 : </label
                             ><input type="text" size="10" id="putKeyword"/>
-                            <button type="submit" onclick="getNews_manual()">전송</button>
+                            <button type="button" onclick="getNews_click()">전송</button>
                         </div>
                     </div>
+
                     <div class="chart_news_wrap">
                         <div class="chart_news_cp">
                             <div id="chart_div"><%-- ajax 적용 차트--%></div>
@@ -309,83 +347,95 @@
                             <div id="newsMain"><%-- ajax 적용 뉴스--%></div>
                         </div>
                     </div>
+
+                    <div class="topic">
+                        토픽모델링 자리
+                    </div>
+
                     <a href="#" onclick="toggleClass()" class="popupClose">
                         <i class="fa-solid fa-xmark"></i>
                     </a>
+
                 </div>
             </div>
         </div>
     </div>
 
     <div id="popup2">
+
         <div class="container_wrap section_chart">
             <div class="container">
                 <div class="section_02_content_wrap">
-                    <form class="modal-content animate" action="/action_page.php" method="post">
-                        <div class="container">
-                            <label for="uname"><b>Username</b></label>
-                            <input type="text" placeholder="Enter Username" name="uname" required>
 
-                            <label for="psw"><b>Password</b></label>
-                            <input type="password" placeholder="Enter Password" name="psw" required>
+                    <button class="accordion">개인정보 변경</button>
+                    <div class="panel">
+                        <div class="modal-content" id="user_profile">
+                            <h4>User Profile</h4>
+                            <form id="user_updatePsw" method="post" action="/user/updatePsw">
+                                <label for="profile_user_name"><b>NAME</b></label>
+                                <input id="profile_user_name" type="text" disabled>
+                                </br>
+                                <label for="profile_user_id"><b>ID</b></label>
+                                <input id="profile_user_id" type="text" value="${SS_USER_ID}" disabled>
+                                </br>
+                                <label for="signup_psw"><b>Password</b></label>
+                                <input type="password" id="signup_psw" name="user_password"
+                                       pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                                       title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters required">
+                                </br>
+                                <label for="profile_psw-repeat"><b>Repeat Password</b></label>
+                                <input type="password" placeholder="Repeat Password" id="profile_psw-repeat" required>
+                                </br>
+                                <label for="profile_addr"><b>Address</b></label>
+                                <input type="password" placeholder="Repeat Password" id="profile_addr" required>
 
-                            <button type="submit">Login</button>
-                            <label>
-                                <input type="checkbox" checked="checked" name="remember"> Remember me
-                            </label>
+                                <div class="clearfix">
+                                    <button type="reset" class="resetbtn">Reset</button>
+                                    <button type="submit" class="signupbtn">Update Profile</button>
+                                </div>
+                            </form>
+                            <div id="message">
+                                <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
+                                <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
+                                <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
+                                <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
+                            </div>
+
+                            <div id="chkPsw" style="display: none">
+                                <p id="pswWrong" class="invalid" style="display: none">비밀번호가 다릅니다.</p>
+                                <p id="pswOk" class="valid" style="display: none">비밀번호가 일치합니다.</p>
+                            </div>
                         </div>
+                    </div>
 
-                        <div class="container" style="background-color:#f1f1f1">
-                            <button type="reset" class="resetbtn">cancel</button>
-                            <span class="psw">Forgot <a href="#">password?</a></span>
-                        </div>
-                    </form>
+                    <button class="accordion">내가 읽은 뉴스</button>
+                    <div class="panel">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
+                    <button class="accordion">리뷰</button>
+                    <div class="panel">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+
                     <a href="#" onclick="toggleClass2()" class="popupClose">
                         <i class="fa-solid fa-xmark"></i>
                     </a>
+
                 </div>
             </div>
         </div>
+
     </div>
 
-    <div id="popup3">
+    <%--<div id="popup3">
         <div class="container_wrap section_chart">
             <div class="container">
                 <div class="section_03_content_wrap">
-                    <form class="modal-content" action="/action_page.php">
+                    <div class="modal-content animate">
                         <div class="container">
-
-                            <label for="userId"><b>Name</b></label>
-                            <input type="text" placeholder="Enter ID" name="userId" id="userId" required>
-
-                            <label for="userName"><b>Name</b></label>
-                            <input type="text" placeholder="Enter Name" name="userName" id="userName" required>
-
-                            <label for="email"><b>Email</b></label>
-                            <input type="text" placeholder="Enter Email" name="email" id="email" required>
-
-                            <label for="psw"><b>Password</b></label>
-                            <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-
-                            <label for="psw-repeat"><b>Repeat Password</b></label>
-                            <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
-
-                            <label for="addr"><b>Address</b></label>
-                            <input type="text" placeholder="Enter Address" name="addr" id="addr" required>
-
-                            <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
-
-                            <div class="clearfix">
-                                <button type="reset" class="resetbtn">cancel</button>
-                                <button type="submit" class="signupbtn">Sign Up</button>
-                            </div>
+                            <p>내가 본 뉴스</p>
                         </div>
-                    </form>
-                    <div id="message">
-                        <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
-                        <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
-                        <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
-                        <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
                     </div>
                     <a href="#" onclick="toggleClass3()" class="popupClose">
                         <i class="fa-solid fa-xmark"></i>
@@ -393,9 +443,8 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
 </div>
-
 
 <script>
     VanillaTilt.init(document.querySelectorAll(".intro_content"), {
@@ -437,15 +486,13 @@
 
     setInterval("myInterval()", 1500);
 
-    function toggleClass() {
+    function toggleClass1() {
         var cardWrap = document.getElementById("bpw");
         cardWrap.classList.toggle("toggleActive");
         var popup1 = document.getElementById("popup1");
         popup1.classList.toggle("toggleActive");
         var lcnav = document.getElementById("lc_nav_wrap");
         lcnav.classList.toggle("toggleActive");
-        var lcnavp = document.getElementById("lcnav02");
-        lcnavp.classList.toggle("toggleActive");
     }
 
     function toggleClass2() {
@@ -455,8 +502,6 @@
         popup2.classList.toggle("toggleActive");
         var lcnav = document.getElementById("lc_nav_wrap");
         lcnav.classList.toggle("toggleActive");
-        var lcnavp = document.getElementById("lcnav03");
-        lcnavp.classList.toggle("toggleActive");
     }
 
     function toggleClass3() {
@@ -466,68 +511,42 @@
         popup3.classList.toggle("toggleActive");
         var lcnav = document.getElementById("lc_nav_wrap");
         lcnav.classList.toggle("toggleActive");
-        var lcnavp = document.getElementById("lcnav04");
-        lcnavp.classList.toggle("toggleActive");
     }
 
-    //password script
-    var myInput = document.getElementById("psw");
-    var letter = document.getElementById("letter");
-    var capital = document.getElementById("capital");
-    var number = document.getElementById("number");
-    var length = document.getElementById("length");
+    const navlist = document.querySelectorAll(".lcn_list");
 
-    // When the user clicks on the password field, show the message box
-    myInput.onfocus = function() {
-        document.getElementById("message").style.display = "block";
-    }
+    function activeLink() {
+        navlist.forEach((item) => item.classList.remove("active"));
+        this.classList.add("active");
 
-    // When the user clicks outside of the password field, hide the message box
-    myInput.onblur = function() {
-        document.getElementById("message").style.display = "none";
-    }
-
-    // When the user starts to type something inside the password field
-    myInput.onkeyup = function() {
-        // Validate lowercase letters
-        var lowerCaseLetters = /[a-z]/g;
-        if(myInput.value.match(lowerCaseLetters)) {
-            letter.classList.remove("invalid");
-            letter.classList.add("valid");
-        } else {
-            letter.classList.remove("valid");
-            letter.classList.add("invalid");
+        if ($("#popup1").hasClass("toggleActive")) {
+            $(".lcn_list").classList.remove("active");
+            $(".lcn_list:nth-child(2)").classList.add("active");
         }
 
-        // Validate capital letters
-        var upperCaseLetters = /[A-Z]/g;
-        if(myInput.value.match(upperCaseLetters)) {
-            capital.classList.remove("invalid");
-            capital.classList.add("valid");
-        } else {
-            capital.classList.remove("valid");
-            capital.classList.add("invalid");
-        }
-
-        // Validate numbers
-        var numbers = /[0-9]/g;
-        if(myInput.value.match(numbers)) {
-            number.classList.remove("invalid");
-            number.classList.add("valid");
-        } else {
-            number.classList.remove("valid");
-            number.classList.add("invalid");
-        }
-
-        // Validate length
-        if(myInput.value.length >= 8) {
-            length.classList.remove("invalid");
-            length.classList.add("valid");
-        } else {
-            length.classList.remove("valid");
-            length.classList.add("invalid");
+        if ($("#popup2").hasClass("toggleActive2")) {
+            $(".lcn_list").classList.remove("active");
+            $(".lcn_list:nth-child(4)").classList.add("active");
         }
     }
+
+    navlist.forEach((item) => item.addEventListener("click", activeLink));
+
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+
 </script>
 </body>
 </html>

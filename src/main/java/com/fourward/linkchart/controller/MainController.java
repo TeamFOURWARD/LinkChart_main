@@ -2,25 +2,47 @@ package com.fourward.linkchart.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @Slf4j
 public class MainController {
+    @GetMapping(value = "/")
+    public String home(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        // 기존세션이 존재하지 않음
+        if (session == null) {
 
-    @GetMapping(value = {"index", ""})
-    public String index(Model model) {
+            return "/index";
+        }
+        // 로그인한 사용자 세션 존재
+        if (session.getAttribute("SS_USER_ID") == null) {
 
-//        뷰 에 현재날짜 제공
-        LocalDate now = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        String nowDate = now.format(formatter);
-        model.addAttribute("nowDate", nowDate);
+            return "/index";
+        }
 
-        return "/index";
+        return "redirect:/view";
+    }
+
+    // 권한 있는 사용자
+    @GetMapping(value = "/view")
+    public String view(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        // 기존세션이 존재하지 않음
+        if (session == null) {
+
+            return "redirect:/";
+        }
+        // 로그인한 사용자 세션 존재
+        if (session.getAttribute("SS_USER_ID") == null) {
+
+            return "redirect:/";
+        }
+
+
+        return "/view/ChartAndNews";
     }
 }

@@ -11,7 +11,7 @@ body{
 }
 
 .lc_nav_wrap{
-    position: absolute;
+    position: fixed;
     left: 20px;
     top: 50%;
     transform: translateY(-50%);

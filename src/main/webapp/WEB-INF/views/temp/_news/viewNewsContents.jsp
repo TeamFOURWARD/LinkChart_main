@@ -58,7 +58,7 @@
                 <%
 //                        바깥 반복문. tr(기사목록) 을 반복 생성
                 for (HashMap<String,Object> newsGroup_map:newsGroup_list) {
-                    NewsDTO rNewsDTO = (NewsDTO) newsGroup_map.get("news");
+                    NewsDTO rNewsDTO = (NewsDTO) newsGroup_map.get("_news");
                 %>
 
             <tr>
