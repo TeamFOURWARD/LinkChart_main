@@ -1,5 +1,7 @@
 package com.fourward.linkchart.util;
 
+import lombok.SneakyThrows;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
@@ -21,6 +23,7 @@ public class DateUtil {
     }
 
     public static long compare(String date1, String date2) throws ParseException {
+
         Date format1 = new SimpleDateFormat("yyyyMMdd").parse(date1);
         Date format2 = new SimpleDateFormat("yyyyMMdd").parse(date2);
 

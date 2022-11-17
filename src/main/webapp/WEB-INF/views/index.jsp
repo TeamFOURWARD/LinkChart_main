@@ -17,7 +17,7 @@
     />
     <link rel="stylesheet" href="/css/intro.css"/>
     <link rel="stylesheet" href="/css/popup1.css"/>
-    <script src="/js/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <!-- Latest compiled JavaScript -->
@@ -38,6 +38,7 @@
     <script src="js/doNews.js" type="text/javascript">
         // getNewsData
         // loadNews
+        // getNews_click
     </script>
     <script src="/js/dateUtil.js" type="text/javascript">
         // date formatter
@@ -51,7 +52,7 @@
         // 초기 로딩시 보여줄 데이터
         $(document).ready(function () {
             getStockData("코스피");
-            getNewsData("증시", dateToString(new Date()));
+            getNewsData("증시", dateToString(new Date()), false);
         });
     </script>
 
@@ -312,7 +313,7 @@
                             ><input type="text" size="8" id="putDate" placeholder="yyyyMMdd 기본값:오늘"/>
                             <label for="putKeyword">키워드 : </label
                             ><input type="text" size="10" id="putKeyword"/>
-                            <button type="submit" onclick="getNews_manual()">전송</button>
+                            <button type="button" onclick="getNews_click()">전송</button>
                         </div>
                     </div>
 
