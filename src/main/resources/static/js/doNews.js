@@ -1,4 +1,15 @@
-function getNewsData(keyword, date) {
+function getNews_click() {
+    const date = $("#putDate").val();
+    const keyword = $("#putKeyword").val();
+    if (keyword === "") {
+        alert("키워드를 입력해주세요.");
+
+        return;
+    }
+    return getNewsData(keyword, date, true);
+}
+
+function getNewsData(keyword, date, condition) {
     console.log('getNewsData_keyword : ' + keyword);
     console.log('getNewsData_date : ' + date);//yyyyMMdd
 
@@ -9,13 +20,20 @@ function getNewsData(keyword, date) {
         dataType: 'json',
         async: false,
         success: function (data) {
+            console.log(data.length);
+            console.log(condition);
+            if (data.length === 0 && condition) {
+                alert("표시할 뉴스가 없습니다.");
+
+                return;
+            }
             console.log('getStockData_success_data : ' + JSON.stringify(data[0]));
             return loadNews(data);
         }
     });
 }
 
-// 데이터 구조 : List<Map<String,Object(List<NewsRelatedDTO> || NewsDTO)>>
+// 데이터 구조 : List<Map<String,Object( List<NewsRelatedDTO> or NewsDTO )>>
 function loadNews(data) {
     let table = document.createElement('table');
     let tbody = document.createElement('tbody');
@@ -141,9 +159,3 @@ function loadNews(data) {
     document.getElementById('newsMain').appendChild(table);
 }
 
-function getNews_manual() {
-    const date = $("#putDate").val();
-    const keyword = $("#putKeyword").val();
-
-    return getNewsData(keyword, date);
-}
