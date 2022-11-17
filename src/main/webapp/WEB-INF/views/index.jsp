@@ -21,6 +21,8 @@
     <script type="text/javascript" src="js/vanilla-tilt.js"></script>
     <link rel="stylesheet" href="/css/intro.css"/>
     <link rel="stylesheet" href="/css/popup1.css"/>
+    <link rel="stylesheet" href="/css/login.css"/>
+    <link rel="stylesheet" href="/css/signup.css"/>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Handlee&family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Roboto:wght@300;400;700&display=swap");
         .newsMain_div {
@@ -323,29 +325,44 @@
                 <div class="container">
                     <div class="section_02_content_wrap">
                         <form class="modal-content animate" action="/action_page.php" method="post">
-                            <div class="container">
-                                <label for="uname"><b>Username</b></label>
-                                <input type="text" placeholder="Enter Username" name="uname" required>
-
-                                <label for="psw"><b>Password</b></label>
-                                <input type="password" placeholder="Enter Password" name="psw" required>
-
-                                <button type="submit">Login</button>
-                                <label>
-                                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                                </label>
+                            <div class="inputBox">
+                                <input type="text" required>
+                                <span>
+                                    ID
+                                </span>
+                                <i></i>
+                            </div>
+                            <div class="inputBox">
+                                <input type="password" required>
+                                <span>
+                                    Password
+                                </span>
+                                <i></i>
                             </div>
 
-                            <div class="container" style="background-color:#f1f1f1">
-                                <button type="reset" class="resetbtn">cancel</button>
-                                <span class="psw">Forgot <a href="#">password?</a></span>
+                            <label>
+                                <input type="checkbox" checked="checked" name="remember"> Remember me
+                            </label>
+
+                            <div class="buttonBox">
+                                <button type="submit">
+                                    Login
+                                </button>
+                                <button type="reset" class="resetbtn">
+                                    cancel
+                                </button>
                             </div>
+
+                            <span class="psw">Forgot <a href="#">password?</a></span>
+
+                            <a href="#" onclick="toggleClass2()" class="popupClose">
+                                <i class="fa-solid fa-xmark"></i>
+                            </a>
+
                         </form>
-                        <a href="#" onclick="toggleClass2()" class="popupClose">
-                            <i class="fa-solid fa-xmark"></i>
-                        </a>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -354,33 +371,58 @@
                 <div class="container">
                     <div class="section_03_content_wrap">
                         <form class="modal-content" action="/action_page.php">
-                            <div class="container">
-
-                                <label for="userId"><b>Name</b></label>
-                                <input type="text" placeholder="Enter ID" name="userId" id="userId" required>
-
-                                <label for="userName"><b>Name</b></label>
-                                <input type="text" placeholder="Enter Name" name="userName" id="userName" required>
-
-                                <label for="email"><b>Email</b></label>
-                                <input type="text" placeholder="Enter Email" name="email" id="email" required>
-
-                                <label for="psw"><b>Password</b></label>
+                            <div class="inputBox">
+                                <input type="text" required>
+                                <span>ID</span>
+                                <i></i>
+                            </div>
+                            <div class="inputBox">
+                                <input type="text" required>
+                                <span>
+                                    Name
+                                </span>
+                                <i></i>
+                            </div>
+                            <div class="inputBox">
+                                <input type="text" required>
+                                <span>
+                                    Email
+                                </span>
+                                <i></i>
+                            </div>
+                            <div class="inputBox">
                                 <input type="password" id="psw" name="psw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-
-                                <label for="psw-repeat"><b>Repeat Password</b></label>
-                                <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
-
-                                <label for="addr"><b>Address</b></label>
-                                <input type="text" placeholder="Enter Address" name="addr" id="addr" required>
+                                <span>
+                                    Password
+                                </span>
+                                <i></i>
+                            </div>
+                            <div class="inputBox">
+                                <input type="password" required>
+                                <span>
+                                    Repeat Password
+                                </span>
+                                <i></i>
+                            </div>
+                            <div class="inputBox">
+                                <input type="text" required>
+                                <span>
+                                    Address
+                                </span>
+                                <i></i>
+                            </div>
 
                                 <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
 
-                                <div class="clearfix">
-                                    <button type="reset" class="resetbtn">cancel</button>
+                                <div class="buttonBox">
                                     <button type="submit" class="signupbtn">Sign Up</button>
+                                    <button type="reset" class="resetbtn">cancel</button>
                                 </div>
-                            </div>
+
+                            <a href="#" onclick="toggleClass3()" class="popupClose">
+                                <i class="fa-solid fa-xmark"></i>
+                            </a>
+
                         </form>
                         <div id="message">
                             <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
@@ -388,9 +430,6 @@
                             <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
                             <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
                         </div>
-                        <a href="#" onclick="toggleClass3()" class="popupClose">
-                            <i class="fa-solid fa-xmark"></i>
-                        </a>
                     </div>
                 </div>
             </div>

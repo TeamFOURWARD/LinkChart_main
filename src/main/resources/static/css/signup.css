@@ -1,0 +1,22 @@
+#popup3 .container_wrap{
+    position: relative;
+}
+
+#popup3 form{
+    width: 400px;
+    height: 506px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -200px;
+    transform: translateY(-50%);
+    background: #FCF6F5;
+    padding: 25px;
+    text-align: center;
+}
+
+#popup3 .popupClose{
+    position: absolute;
+    right: 5px;
+    top: 0;
+}
