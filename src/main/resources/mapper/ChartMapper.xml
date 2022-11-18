@@ -33,13 +33,13 @@
         WHERE name = #{name}
     </select>
 
-    <select id="getStockData_dateStart" resultType="StockDTO">
+    <select id="getStockData_dateStart" resultType="String">
         SELECT MIN(PRICE_DATE) AS startDate_exist
         FROM STOCK_DATA
         WHERE CODE = #{code}
     </select>
 
-    <select id="getStockData_dateEnd" resultType="StockDTO">
+    <select id="getStockData_dateEnd" resultType="String">
         SELECT MAX(PRICE_DATE) AS endDate_exist
         FROM STOCK_DATA
         WHERE CODE = #{code}

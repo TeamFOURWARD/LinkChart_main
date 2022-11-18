@@ -14,7 +14,7 @@ public interface IChartMapper {
 
     StockDTO getStockCodeByName(StockDTO pDTO) throws Exception;
 
-    StockDTO getStockData_dateStart(StockDTO pDTO) throws Exception;
+    String getStockData_dateStart(StockDTO pDTO);
 
-    StockDTO getStockData_dateEnd(StockDTO pDTO) throws Exception;
+    String getStockData_dateEnd(StockDTO pDTO);
 }

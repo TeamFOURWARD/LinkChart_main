@@ -178,22 +178,25 @@ public class ChartService implements IChartService {
     }
 
     @Override
-    public StockDTO getStockData_dateRange(StockDTO rDTO) throws Exception {
-        log.info(this.getClass().getName() + ".getStockDate_dateRange start");
+    public StockDTO getStockData_dateRange(StockDTO rDTO) {
+        log.info("{}.getStockDate_dateRange start", this.getClass().getName());
 
-        try {
-            rDTO.setStartDate_exist((chartMapper.getStockData_dateStart(rDTO)).getStartDate_exist());
-            log.info("startDate_exist : " + rDTO.getStartDate_exist());
-        } catch (NullPointerException e) {
-            log.info("startDate_exist : null");
+        String dateStart = chartMapper.getStockData_dateStart(rDTO);
+        String dateEnd = chartMapper.getStockData_dateEnd(rDTO);
+        if (dateStart == null) {
+            rDTO.setStartDate_exist("");
+        } else {
+            rDTO.setStartDate_exist(dateStart);
         }
-        try {
-            rDTO.setEndDate_exist((chartMapper.getStockData_dateEnd(rDTO)).getEndDate_exist());
-            log.info("endDate_exist : " + rDTO.getEndDate_exist());
-        } catch (NullPointerException e) {
-            log.info("endDate_exist : null");
+        if (dateEnd == null) {
+            rDTO.setEndDate_exist("");
+        } else {
+            rDTO.setEndDate_exist(dateEnd);
         }
-        log.info(this.getClass().getName() + ".getStockDate_dateRange end");
+        log.info("startDate_exist : {}", rDTO.getStartDate_exist());
+        log.info("endDate_exist : {}", rDTO.getEndDate_exist());
+
+        log.info("{}.getStockDate_dateRange end", this.getClass().getName());
 
         return rDTO;
     }
