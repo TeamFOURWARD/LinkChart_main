@@ -14,8 +14,6 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,7 +41,7 @@ public class ChartService implements IChartService {
             private final String startDate;
             private final String endDate;
 
-            void get() {
+            void run() {
                 log.info(this.getClass().getName() + ".insertData start");
                 final String USER_AGENT = "Mozila/5.0";
                 final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code + "&requestType=1&startTime=" + startDate + "&endTime=" + endDate + "&timeframe=day";
@@ -111,27 +109,24 @@ public class ChartService implements IChartService {
         log.info(this.getClass().getName() + ".insertStockData start");
 
         // 사용자 검색 날짜 널값 처리
-        String ifNull_start_req = rDTO.getStartDate_req();
-        String ifNull_end_req = rDTO.getEndDate_req();
-        if (Objects.equals(ifNull_end_req, "")) {
-            LocalDate now = LocalDate.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-            ifNull_end_req = now.format(formatter);
+        //String ifNull_start_req = rDTO.getStartDate_req();
+        //String ifNull_end_req = rDTO.getEndDate_req();
+        if (rDTO.getEndDate_req().equals("")) {
+            rDTO.setEndDate_req(DateUtil.getNowDate());
         }
-        if (Objects.equals(ifNull_start_req, "")) {
-            ifNull_start_req = DateUtil.date(ifNull_end_req, YEAR, -2);
+        if (rDTO.getStartDate_req().equals("")) {
+            rDTO.setStartDate_req(DateUtil.date(rDTO.getEndDate_req(), YEAR, -2));
         }
-
-        final String code = rDTO.getCode();
-        final String start_req = ifNull_start_req;
+       /* final String code = rDTO.getCode();
+        final String start_req = rDTO.getStartDate_req();
         final String start_exist = rDTO.getStartDate_exist();
-        final String end_req = ifNull_end_req;
-        final String end_exist = rDTO.getEndDate_exist();
+        final String end_req = rDTO.getEndDate_req();
+        final String end_exist = rDTO.getEndDate_exist();*/
 
-        log.info(this.getClass().getName() + "\nstartDate_req : " + start_req);
-        log.info(this.getClass().getName() + "\nendDate_req : " + end_req);
-        log.info(this.getClass().getName() + "\nstartDate_exist : " + start_exist);
-        log.info(this.getClass().getName() + "\nendDate_exist : " + end_exist);
+        log.info("startDate_req : {}", rDTO.getStartDate_req());
+        log.info("endDate_req : {}", rDTO.getEndDate_req());
+        log.info("startDate_exist : {}", rDTO.getStartDate_exist());
+        log.info("endDate_exist : {}", rDTO.getEndDate_exist());
         /*
         검색 시작일 = start_req
         검색 종료일 = end_req
@@ -145,19 +140,21 @@ public class ChartService implements IChartService {
         if (end_req)-(start_exist) > 0 :
             (end_exist+1일) ~ (end_req) 크롤링후 db 삽입 (case2)
         */
-        if (start_exist == null) {
-            new CrawlingStockData(code, start_req, end_req).get();
+        if (rDTO.getStartDate_exist().equals("")) {
+            new CrawlingStockData(rDTO.getCode(), rDTO.getStartDate_req(), rDTO.getEndDate_req()).run();
         } else {
-            if (DateUtil.compare(start_exist, start_req) > 0) {
-                new CrawlingStockData(code, start_req, DateUtil.date(start_exist, DATE, -1)).get();
+            if (DateUtil.compare(rDTO.getStartDate_exist(), rDTO.getStartDate_req()) > 0) {
+                new CrawlingStockData(rDTO.getCode(), rDTO.getStartDate_req(), DateUtil.date(rDTO.getStartDate_exist(), DATE, -1)).run();
             }
-            if (DateUtil.compare(end_req, start_exist) > 0) {
-                new CrawlingStockData(code, DateUtil.date(end_exist, DATE, +1), end_req).get();
+            if (DateUtil.compare(rDTO.getEndDate_req(), rDTO.getStartDate_exist()) > 0) {
+                new CrawlingStockData(rDTO.getCode(), DateUtil.date(rDTO.getEndDate_exist(), DATE, +1), rDTO.getEndDate_req()).run();
             }
         }
+/*
+        // 데이터 가져오기용 날짜 범위 준비
         rDTO.setStartDate_req(start_req);
         rDTO.setEndDate_req(end_req);
-
+*/
         log.info(this.getClass().getName() + ".insertStockData end");
 
         return rDTO;
