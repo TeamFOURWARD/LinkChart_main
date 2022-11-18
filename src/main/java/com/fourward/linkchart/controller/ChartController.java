@@ -21,7 +21,7 @@ public class ChartController {
 
     @PostMapping(value = "/getStockData")
     public List<StockDTO> getStockData(HttpServletRequest request) {
-        log.info(this.getClass().getName() + ".getStockData start");
+        log.info("{}.getStockData start", this.getClass().getName());
 
         StockDTO pDTO = new StockDTO();
 
@@ -29,15 +29,22 @@ public class ChartController {
         pDTO.setName(request.getParameter("stockName"));
         pDTO.setStartDate_req(request.getParameter("startDate_req"));
         pDTO.setEndDate_req(request.getParameter("endDate_req"));
-        log.info("requested stockName : " + pDTO.getName());
-        log.info("requested startDate : " + pDTO.getStartDate_req());
-        log.info("requested endDate : " + pDTO.getEndDate_req());
+        log.info("requested stockName : {}", pDTO.getName());
+        log.info("requested startDate : {}", pDTO.getStartDate_req());
+        log.info("requested endDate : {}", pDTO.getEndDate_req());
 
         List<StockDTO> rList = new ArrayList<>();
-        try {
-            // name 을 code 로 변환.
-            pDTO.setCode((chartService.getStockCodeByName(pDTO)).getCode());
+        // name 을 code 로 변환.
+        pDTO.setCode((chartService.getStockCodeByName(pDTO)));
+        log.info("requested code : {}", pDTO.getCode());
+        if (pDTO.getCode().equals("")) {
+            log.info("invalid stock name. return null.");
+            log.info(this.getClass().getName() + ".getStockData end");
 
+            return null;
+        }
+
+        try {
             // 입력된 데이터 날짜 범위 가져오기. 없으면 Null 값에 대한 예외처리.
             StockDTO dateRange = chartService.getStockData_dateRange(pDTO);
             try {
@@ -64,7 +71,7 @@ public class ChartController {
             e.printStackTrace();
             log.warn(this.getClass().getName() + "getStockData failed");
         }
-        log.info(this.getClass().getName() + ".getStockData end");
+        log.info("{}.getStockData end", this.getClass().getName());
 
         return rList;
     }

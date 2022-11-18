@@ -27,7 +27,7 @@
         ORDER BY price_date ASC
     </select>
 
-    <select id="getStockCodeByName" resultType="StockDTO">
+    <select id="getStockCodeByName" resultType="String">
         SELECT code
         FROM stock_code
         WHERE name = #{name}

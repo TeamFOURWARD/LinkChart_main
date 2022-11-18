@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.YEAR;
@@ -161,18 +160,15 @@ public class ChartService implements IChartService {
     }
 
     @Override
-    public StockDTO getStockCodeByName(StockDTO pDTO) throws Exception {
-        log.info(this.getClass().getName() + ".getStockCodeByName start");
+    public String getStockCodeByName(StockDTO pDTO) {
+        log.info("{}.getStockCodeByName start", this.getClass().getName());
 
-        StockDTO code = chartMapper.getStockCodeByName(pDTO);
-        try {
-            if (Objects.equals(code.getCode(), null)) {
-                throw new Exception();
-            }
-        } catch (Exception e) {
-            log.warn("이름 잘못 입력");
+        String code = chartMapper.getStockCodeByName(pDTO);
+        if (code == null) {
+            code = "";
         }
-        log.info(this.getClass().getName() + ".getStockCodeByName end");
+
+        log.info("{}.getStockCodeByName end", this.getClass().getName());
 
         return code;
     }

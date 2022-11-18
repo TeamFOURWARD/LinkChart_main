@@ -9,7 +9,7 @@ public interface IChartService {
 
     StockDTO insertStockData(StockDTO pDTO) throws Exception;
 
-    StockDTO getStockCodeByName(StockDTO pDTO) throws Exception;
+    String getStockCodeByName(StockDTO pDTO);
 
-    StockDTO getStockData_dateRange(StockDTO pDTO) ;
+    StockDTO getStockData_dateRange(StockDTO pDTO);
 }

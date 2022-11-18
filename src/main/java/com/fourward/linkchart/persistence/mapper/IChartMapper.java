@@ -12,7 +12,7 @@ public interface IChartMapper {
 
     int insertStockData(StockDTO pDTO) throws Exception;
 
-    StockDTO getStockCodeByName(StockDTO pDTO) throws Exception;
+    String getStockCodeByName(StockDTO pDTO);
 
     String getStockData_dateStart(StockDTO pDTO);
 
