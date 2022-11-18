@@ -44,14 +44,21 @@ public class ChartController {
             return null;
         }
 
+        // 입력된 데이터 날짜 범위 가져오기.
+        StockDTO dateRange = chartService.getStockData_dateRange(pDTO);
+        if (dateRange.getStartDate_exist().equals("")) {
+            pDTO.setStartDate_exist("");
+        } else {
+            pDTO.setStartDate_exist(dateRange.getStartDate_exist());
+        }
+        if (dateRange.getEndDate_exist().equals("")) {
+            pDTO.setEndDate_exist("");
+        } else {
+            pDTO.setEndDate_exist(dateRange.getEndDate_exist());
+        }
+        log.info("date range of stock_data that already exists : {} ~ {}", pDTO.getStartDate_exist(), pDTO.getEndDate_exist());
+
         try {
-            // 입력된 데이터 날짜 범위 가져오기. 없으면 Null 값에 대한 예외처리.
-            StockDTO dateRange = chartService.getStockData_dateRange(pDTO);
-            try {
-                pDTO.setStartDate_exist(dateRange.getStartDate_exist());
-                pDTO.setEndDate_exist(dateRange.getEndDate_exist());
-            } catch (NullPointerException ignored) {
-            }
             /*
             추출한 코드로 데이터 크롤링 후 db 입력
             이후 db에서 데이터 가져옴

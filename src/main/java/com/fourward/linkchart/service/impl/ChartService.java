@@ -189,8 +189,6 @@ public class ChartService implements IChartService {
         } else {
             rDTO.setEndDate_exist(dateEnd);
         }
-        log.info("startDate_exist : {}", rDTO.getStartDate_exist());
-        log.info("endDate_exist : {}", rDTO.getEndDate_exist());
 
         log.info("{}.getStockDate_dateRange end", this.getClass().getName());
 
