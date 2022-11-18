@@ -2,15 +2,14 @@ package com.fourward.linkchart.service;
 
 import com.fourward.linkchart.dto.StockDTO;
 
-import java.text.ParseException;
 import java.util.List;
 
 public interface IChartService {
-    List<StockDTO> getStockData(StockDTO pDTO) ;
+    List<StockDTO> getStockData(StockDTO pDTO) throws Exception;
 
-    StockDTO insertStockData(StockDTO pDTO) throws ParseException ;
+    StockDTO insertStockData(StockDTO pDTO) throws Exception;
 
-    StockDTO getStockCodeByName(StockDTO pDTO) ;
+    StockDTO getStockCodeByName(StockDTO pDTO) throws Exception;
 
-    StockDTO getStockData_dateRange(StockDTO pDTO) ;
+    StockDTO getStockData_dateRange(StockDTO pDTO) throws Exception;
 }
