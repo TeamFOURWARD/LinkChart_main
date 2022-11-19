@@ -26,7 +26,7 @@ public class ChartService implements IChartService {
     private final IChartMapper chartMapper;
 
     @Override
-    public List<StockDTO> getStockData(StockDTO rDTO) throws Exception {
+    public List<StockDTO> getStockData(StockDTO rDTO) {
 
         return chartMapper.getStockData(rDTO);
     }

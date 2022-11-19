@@ -73,11 +73,14 @@ public class ChartController {
             log.info(this.getClass().getName() + ".insertStockData end");
 
             // 데이터 가져오기.
-            rList = chartService.getStockData(pDTO);
         } catch (Exception e) {
             e.printStackTrace();
             log.warn(this.getClass().getName() + "getStockData failed");
+
+            return null;
         }
+        rList = chartService.getStockData(pDTO);
+
         log.info("{}.getStockData end", this.getClass().getName());
 
         return rList;
