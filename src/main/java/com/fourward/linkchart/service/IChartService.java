@@ -7,9 +7,11 @@ import java.util.List;
 public interface IChartService {
     List<StockDTO> getStockData(StockDTO pDTO);
 
-    StockDTO insertStockData(StockDTO pDTO) throws Exception;
+    void insertStockData(StockDTO pDTO) throws Exception;
 
     String getStockCodeByName(StockDTO pDTO);
 
     StockDTO getStockData_dateRange(StockDTO pDTO);
+
+    StockDTO setDate(StockDTO pDTO) throws Exception;
 }

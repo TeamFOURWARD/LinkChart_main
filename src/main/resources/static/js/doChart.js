@@ -22,7 +22,7 @@ function getStockData(arg) {
             return loadChart(data, stockName);
         },
         error: function () {
-            alert("종목명을 확인해 주세요.");
+            alert("잘못된 종목명 이거나 서버 오류 입니다.\n");
         }
         /*
 function (request, status, error) {
