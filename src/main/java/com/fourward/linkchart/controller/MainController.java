@@ -13,12 +13,12 @@ public class MainController {
     @GetMapping(value = "/")
     public String home(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        // 기존세션이 존재하지 않음
+        // 기존세션이 없음
         if (session == null) {
 
             return "/index";
         }
-        // 로그인한 사용자 세션 존재
+        // 로그인한 사용자 세션 없음
         if (session.getAttribute("SS_USER_ID") == null) {
 
             return "/index";
@@ -31,17 +31,16 @@ public class MainController {
     @GetMapping(value = "/view")
     public String view(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        // 기존세션이 존재하지 않음
+        // 기존세션이 없음
         if (session == null) {
 
             return "redirect:/";
         }
-        // 로그인한 사용자 세션 존재
+        // 로그인한 사용자 세션 없음
         if (session.getAttribute("SS_USER_ID") == null) {
 
             return "redirect:/";
         }
-
 
         return "/view/ChartAndNews";
     }

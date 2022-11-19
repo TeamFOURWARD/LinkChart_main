@@ -5,8 +5,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface IUserInfoMapper {
-    int insertUserInfo(UserInfoDTO pDTO) throws Exception;
-    UserInfoDTO getUserIdExist(UserInfoDTO pDTO) throws Exception;
-    UserInfoDTO getUserEmailExist(UserInfoDTO pDTO) throws Exception;
-    UserInfoDTO getUserLoginCheck(UserInfoDTO pDTO) throws Exception;
+    int insertUserInfo(UserInfoDTO pDTO);
+
+    UserInfoDTO getUserIdExist(UserInfoDTO pDTO);
+
+    UserInfoDTO getUserEmailExist(UserInfoDTO pDTO);
+
+    UserInfoDTO getUserLoginCheck(UserInfoDTO pDTO);
 }

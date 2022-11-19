@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Objects;
 
 @Slf4j
 @RequestMapping(value = "/user")
@@ -25,67 +24,58 @@ public class UserInfoController {
 
     //회원가입 정보 전송. 종료시 초기 페이지로 리디렉션.
     @PostMapping(value = "/doSignUp")
-    public String doSignUp(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
-        log.info(this.getClass().getName() + ".doSignUp start");
-
-        //비밀번호 아이디 등의 유효성 검사는 js 로 처리 되었다는 가정.
-        final String user_id = request.getParameter("user_id");
-        final String user_name = request.getParameter("user_name");
-        final String user_email = request.getParameter("user_email");
-        final String user_addr = request.getParameter("user_addr");
-        final String user_password = request.getParameter("user_password");
-
-        log.info("user_id : " + user_id);
-        log.info("email : " + user_email);
-        log.info("addr : " + user_addr);
+    public String doSignUp(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        log.info("{}.doSignUp start", this.getClass().getName());
 
         UserInfoDTO pDTO = new UserInfoDTO();
-        pDTO.setUser_id(user_id);
-        pDTO.setUser_name(user_name);
-        pDTO.setUser_password(EncryptUtil.encHashSHA256(user_password));
-        pDTO.setUser_email(EncryptUtil.encAES128CBC(user_email));
-        pDTO.setUser_addr(EncryptUtil.encAES128CBC(user_addr));
+        pDTO.setUser_id(request.getParameter("user_id"));
+        pDTO.setUser_name(request.getParameter("user_name"));
+        try {
+            pDTO.setUser_password(EncryptUtil.encHashSHA256(request.getParameter("user_password")));
+            pDTO.setUser_email(EncryptUtil.encAES128CBC(request.getParameter("user_email")));
+            pDTO.setUser_addr(EncryptUtil.encAES128CBC(request.getParameter("user_addr")));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error_type", "서버 장애 발생");
 
-        log.info(pDTO.getUser_id());
-        log.info(pDTO.getUser_name());
-        log.info(pDTO.getUser_password());
-        log.info(pDTO.getUser_email());
-        log.info(pDTO.getUser_addr());
+            return "redirect:/";
+        }
         userInfoService.insertUserInfo(pDTO);
+        log.info("signup success. user id : [{}] name : [{}]", pDTO.getUser_id(), pDTO.getUser_name());
+        redirectAttributes.addFlashAttribute("user_id", pDTO.getUser_id());
 
-        redirectAttributes.addFlashAttribute("user_id", user_id);
-
-        log.info(this.getClass().getName() + ".doSignUp end");
+        log.info("{}.doSignUp end", this.getClass().getName());
 
         return "redirect:/";
     }
 
     //로그인 전송
     @PostMapping(value = "/login")
-    public String login(HttpSession session, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
-        log.info(this.getClass().getName() + ".login start");
-
-        final String user_id = request.getParameter("user_id");
-        final String user_password = request.getParameter("user_password");
+    public String login(HttpSession session, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        log.info("{}.login start", this.getClass().getName());
 
         UserInfoDTO pDTO = new UserInfoDTO();
-        pDTO.setUser_id(user_id);
-        pDTO.setUser_password(EncryptUtil.encHashSHA256(user_password));
-        log.info("requested user_id : " + user_id);
+        pDTO.setUser_id(request.getParameter("user_id"));
+        try {
+            pDTO.setUser_password(EncryptUtil.encHashSHA256(request.getParameter("user_password")));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error_type", "서버 장애 발생");
 
-        if (Objects.equals(userInfoService.getUserLoginCheck(pDTO).getIsExist(), "0")) {
-            log.info(this.getClass().getName() + " | login rejected. invalid id or password.");
-            log.info(this.getClass().getName() + ".login end");
+            return "redirect:/";
+        }
+
+        if (userInfoService.getUserLoginCheck(pDTO).getIsExist().equals("0")) {
+            log.info("{} | login rejected. invalid id or password.", this.getClass().getName());
+            log.info("{}.login end", this.getClass().getName());
             redirectAttributes.addFlashAttribute("error_type", "로그인 실패");
 
             return "redirect:/";
         }
-        session.setAttribute("SS_USER_ID", user_id);
+        session.setAttribute("SS_USER_ID", pDTO.getUser_id());
         session.setMaxInactiveInterval(60 * 60);// 60분
 
-        log.info(this.getClass().getName() + " | login success.");
-        log.info(this.getClass().getName() + " | user : " + user_id);
-        log.info(this.getClass().getName() + ".login end");
+        log.info("{} | login success", this.getClass().getName());
+        log.info("{} | user : [{}]", this.getClass().getName(), pDTO.getUser_id());
+        log.info("{}.login end", this.getClass().getName());
 
         return "redirect:/view";
     }
@@ -93,21 +83,24 @@ public class UserInfoController {
     //아이디 이메일 중복검사 요청
     @ResponseBody
     @PostMapping(value = "/isExist")
-    public UserInfoDTO isExist(HttpServletRequest request) throws Exception {
-        log.info(this.getClass().getName() + ".isExist start");
+    public UserInfoDTO isExist(HttpServletRequest request) {
+        log.info("{}.isExist start", this.getClass().getName());
 
         UserInfoDTO pDTO = new UserInfoDTO();
-        final String type = request.getParameter("type");
-        if (Objects.equals(type, "user_id")) {
+        String type = request.getParameter("type");
+        if (type.equals("user_id")) {
             pDTO.setUser_id(request.getParameter("value"));
-            log.info("req : " + pDTO.getUser_id());
             pDTO.setIsExist(userInfoService.checkUserIdExist(pDTO).getIsExist());
-        } else if (Objects.equals(type, "user_email")) {
+            log.info("type : [{}] req : [{}]", type, pDTO.getUser_id());
+            log.info("req [{}] is exists? : [{}]", pDTO.getUser_id(), pDTO.getIsExist().equals("1") ? "yes" : "no");
+        } else if (type.equals("user_email")) {
             pDTO.setUser_email(request.getParameter("value"));
-            log.info("req : " + pDTO.getUser_email());
             pDTO.setIsExist(userInfoService.checkUserEmailExist(pDTO).getIsExist());
+            log.info("type : [{}] req : [{}]", type, pDTO.getUser_email());
+            log.info("req [{}] is exists? : [{}]", pDTO.getUser_email(), pDTO.getIsExist().equals("1") ? "yes" : "no");
         }
-        log.info(this.getClass().getName() + ".isExist end");
+
+        log.info("{}.isExist end", this.getClass().getName());
 
         return pDTO;
     }
@@ -116,6 +109,7 @@ public class UserInfoController {
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
+            log.info("{} | invalidate session. user id : [{}]", this.getClass().getName(), session.getAttribute("SS_USER_ID"));
             session.invalidate();
         }
 

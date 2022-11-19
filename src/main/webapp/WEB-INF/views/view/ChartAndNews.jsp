@@ -53,7 +53,7 @@
     <script type="text/javascript">
         // 초기 로딩시 보여줄 데이터
         $(document).ready(function () {
-            getStockData("코스피");
+            getStockData("코스피", false);
             getNewsData("증시", dateToString(new Date()), false);
         });
     </script>
@@ -340,7 +340,7 @@
                                 >종목명 :
                                     <input type="text" id="stockName"/>
                                 </label>
-                                <button onclick="getStockData();">전송</button>
+                                <button onclick="getStockData(null, true);">전송</button>
                             </div>
                         </div>
                         <div class="chart_news_np">
@@ -352,7 +352,7 @@
                         토픽모델링 자리
                     </div>
 
-                    <a href="#" onclick="toggleClass()" class="popupClose">
+                    <a href="#" onclick="toggleClass1()" class="popupClose">
                         <i class="fa-solid fa-xmark"></i>
                     </a>
 

@@ -37,7 +37,7 @@ public class NewsService implements INewsService {
         final String end_date = ifNull_end_date;
         final String start_date;
         try {
-            start_date = DateUtil.date(end_date, DATE, -5);
+            start_date = DateUtil.changeDate(end_date, DATE, -5);
         } catch (ParseException e) {
 
             return null;

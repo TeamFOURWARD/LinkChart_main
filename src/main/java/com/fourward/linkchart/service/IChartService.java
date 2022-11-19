@@ -5,11 +5,13 @@ import com.fourward.linkchart.dto.StockDTO;
 import java.util.List;
 
 public interface IChartService {
-    List<StockDTO> getStockData(StockDTO pDTO) throws Exception;
+    List<StockDTO> getStockData(StockDTO pDTO);
 
-    StockDTO insertStockData(StockDTO pDTO) throws Exception;
+    void insertStockData(StockDTO pDTO) throws Exception;
 
-    StockDTO getStockCodeByName(StockDTO pDTO) throws Exception;
+    String getStockCodeByName(StockDTO pDTO);
 
-    StockDTO getStockData_dateRange(StockDTO pDTO) throws Exception;
+    StockDTO getStockData_dateRange(StockDTO pDTO);
+
+    StockDTO setDate(StockDTO pDTO) throws Exception;
 }

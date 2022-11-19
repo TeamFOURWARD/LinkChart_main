@@ -14,32 +14,32 @@
     </insert>
 
     <select id="getStockData" resultType="StockDTO">
-        SELECT price_date AS "date",
-               price_low  AS low,
-               price_open AS open,
-               price_close AS close,
-               price_high AS high
-             --price_volume as volume
-        FROM stock_data
-        WHERE code = #{code}
-          AND price_date BETWEEN #{startDate_req}
-          AND #{endDate_req}
-        ORDER BY price_date ASC
+        SELECT PRICE_DATE  AS "date",
+               PRICE_LOW   AS low,
+               PRICE_OPEN  AS "open",
+               PRICE_CLOSE AS "close",
+               PRICE_HIGH  AS high
+               --price_volume as volume
+        FROM STOCK_DATA
+        WHERE CODE = #{code}
+          AND PRICE_DATE BETWEEN #{startDate_req}
+            AND #{endDate_req}
+        ORDER BY PRICE_DATE ASC
     </select>
 
-    <select id="getStockCodeByName" resultType="StockDTO">
-        SELECT code
-        FROM stock_code
-        WHERE name = #{name}
+    <select id="getStockCodeByName" resultType="String">
+        SELECT CODE AS code
+        FROM STOCK_CODE
+        WHERE NAME = #{name}
     </select>
 
-    <select id="getStockData_dateStart" resultType="StockDTO">
+    <select id="getStockData_dateStart" resultType="String">
         SELECT MIN(PRICE_DATE) AS startDate_exist
         FROM STOCK_DATA
         WHERE CODE = #{code}
     </select>
 
-    <select id="getStockData_dateEnd" resultType="StockDTO">
+    <select id="getStockData_dateEnd" resultType="String">
         SELECT MAX(PRICE_DATE) AS endDate_exist
         FROM STOCK_DATA
         WHERE CODE = #{code}
