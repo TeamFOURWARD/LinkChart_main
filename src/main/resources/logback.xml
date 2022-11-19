@@ -3,22 +3,18 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
-    <!--로그 파일 저장장소-->
-    <property name="log_dir" value="/data/log/mySpringPRJ/LinkChart"/>
+    <property name="log_dir" value="/data/logs/LinkChart"/>
 
-
-    <!--파일에 로그를 남깁니다.-->
     <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log_dir}/mySpringProject.log</file>
+        <file>${log_dir}/LinkChart_main.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>
                 %d{yyyy-MM-dd HH:mm:ss} [%-5level] %logger{36} - %msg%n
             </Pattern>
             <charset>UTF-8</charset>
         </encoder>
-
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log_dir}/mySpringProject.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log_dir}/LinkChart_main.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
     </appender>
@@ -27,7 +23,7 @@
         <appender-ref ref="CONSOLE"/>
     </root>
 
-    <Logger name="com.fourward" level="DEBUG" additivity="false">
+    <Logger name="com.fourward" level="INFO" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="File"/>
     </Logger>
