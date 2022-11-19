@@ -352,7 +352,7 @@
                         토픽모델링 자리
                     </div>
 
-                    <a href="#" onclick="toggleClass()" class="popupClose">
+                    <a href="#" onclick="toggleClass1()" class="popupClose">
                         <i class="fa-solid fa-xmark"></i>
                     </a>
 
