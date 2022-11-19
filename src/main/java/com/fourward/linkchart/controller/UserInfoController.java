@@ -94,20 +94,23 @@ public class UserInfoController {
     @ResponseBody
     @PostMapping(value = "/isExist")
     public UserInfoDTO isExist(HttpServletRequest request) throws Exception {
-        log.info(this.getClass().getName() + ".isExist start");
+        log.info("{}.isExist start", this.getClass().getName());
 
         UserInfoDTO pDTO = new UserInfoDTO();
-        final String type = request.getParameter("type");
-        if (Objects.equals(type, "user_id")) {
+        String type = request.getParameter("type");
+        if (type.equals("user_id")) {
             pDTO.setUser_id(request.getParameter("value"));
-            log.info("req : " + pDTO.getUser_id());
             pDTO.setIsExist(userInfoService.checkUserIdExist(pDTO).getIsExist());
-        } else if (Objects.equals(type, "user_email")) {
+            log.info("type : [{}] req : [{}]", type, pDTO.getUser_id());
+            log.info("req [{}] is exists? : [{}]", pDTO.getUser_id(), pDTO.getIsExist().equals("1") ? "yes" : "no");
+        } else if (type.equals("user_email")) {
             pDTO.setUser_email(request.getParameter("value"));
-            log.info("req : " + pDTO.getUser_email());
             pDTO.setIsExist(userInfoService.checkUserEmailExist(pDTO).getIsExist());
+            log.info("type : [{}] req : [{}]", type, pDTO.getUser_email());
+            log.info("req [{}] is exists? : [{}]", pDTO.getUser_email(), pDTO.getIsExist().equals("1") ? "yes" : "no");
         }
-        log.info(this.getClass().getName() + ".isExist end");
+
+        log.info("{}.isExist end", this.getClass().getName());
 
         return pDTO;
     }
