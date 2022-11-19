@@ -1,4 +1,9 @@
-function getStockData(arg) {
+/**
+ *
+ * @param arg String. 종목 키워드
+ * @param condition boolean. true : 뉴스를 같이 로딩함.
+ */
+function getStockData(arg, condition) {
     let stockName;
     const startDate_req = $("#startDate_req").val();
     const endDate_req = $("#endDate_req").val();
@@ -7,28 +12,31 @@ function getStockData(arg) {
     } else {
         stockName = arg;
     }
-    console.log('keyword : ' + stockName);
-    console.log('start_date_req: ' + startDate_req);
-    console.log('end_date_req: ' + endDate_req);
 
     $.ajax({
         url: "/chart/getStockData",
         data: {
-            stockName: stockName,
-            startDate_req: startDate_req,
-            endDate_req: endDate_req
+            "stockName": stockName,
+            "startDate_req": startDate_req,
+            "endDate_req": endDate_req
         },
         type: 'POST',
         dataType: 'json',
         async: false,
         success: function (data) {
-            if (data.length === 0) {
-                alert("종목 가져오기 실패");
-                return;
+            if (condition) {
+                getNewsData(stockName, null, false);
             }
-            console.log('getStockData_row[0] : ' + data[0].date.toString() + ' ' + parseInt(data[0].open));
+
             return loadChart(data, stockName);
+        },
+        error: function () {
+            alert("잘못된 종목명 이거나 서버 오류 입니다.");
         }
+        /*
+function (request, status, error) {
+alert(request.status + " " + request.responseText + " " + error);
+*/
     });
 }
 
@@ -40,8 +48,6 @@ function loadChart(data, name) {
     let dataTable;
     const keyword = name;
     const stockData = data;
-
-    console.log('loadChart_keyword : ' + keyword);
 
     function drawChart() {
         dataTable = new google.visualization.DataTable();
@@ -68,15 +74,11 @@ function loadChart(data, name) {
         google.visualization.events.addListener(chart, 'select', selectHandler);
 
         const options = {
-            title: '종목명  :  ' + keyword, 'height': 700, 'backgroundColor': '#FCF6F5',
-            bar: {groupWidth: '100%'}, // Remove space between bars.
+            title: '종목명  :  ' + keyword, 'height': 700, 'backgroundColor': '#FCF6F5', bar: {groupWidth: '100%'}, // Remove space between bars.
             candlestick: {
-                fallingColor: {strokeWidth: 0, fill: '#005cff'},
-                risingColor: {strokeWidth: 0, fill: '#ff0000'}
-            },
-            hAxis: {
-                format: 'M/d/yy',
-                gridLines: {count: 'none'}
+                fallingColor: {strokeWidth: 0, fill: '#005cff'}, risingColor: {strokeWidth: 0, fill: '#ff0000'}
+            }, hAxis: {
+                format: 'M/d/yy', gridLines: {count: 'none'}
             }
         };
         chart.draw(dataTable, options);
@@ -85,9 +87,6 @@ function loadChart(data, name) {
     function selectHandler() {
         const selectedItem = chart.getSelection()[0];
         const date = dateToString(dataTable.getValue(selectedItem.row, 0));//yyyyMMdd
-
-        //alert('selected date : ' + date + '\nselected stockName : ' + keyword);
-        console.log('selected date : ' + date + '\nselected stockName : ' + keyword);
 
         return getNewsData(keyword, date);
     }

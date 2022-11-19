@@ -14,10 +14,7 @@ import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
 
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.YEAR;
@@ -29,109 +26,69 @@ public class ChartService implements IChartService {
     private final IChartMapper chartMapper;
 
     @Override
-    public List<StockDTO> getStockData(StockDTO rDTO) throws Exception {
+    public List<StockDTO> getStockData(StockDTO rDTO) {
 
         return chartMapper.getStockData(rDTO);
     }
 
     @Transactional
     @Override
-    public StockDTO insertStockData(StockDTO rDTO) throws Exception {
+    public void insertStockData(StockDTO rDTO) throws Exception {
         @RequiredArgsConstructor
         class CrawlingStockData {
             private final String code;
             private final String startDate;
             private final String endDate;
 
-            void get() {
-                log.info(this.getClass().getName() + ".insertData start");
+            void run() throws Exception {
                 final String USER_AGENT = "Mozila/5.0";
                 final String GET_URL = "https://api.finance.naver.com/siseJson.naver?symbol=" + code + "&requestType=1&startTime=" + startDate + "&endTime=" + endDate + "&timeframe=day";
 
-                log.info("code : " + code);
-                log.info("start_date : " + startDate);
-                log.info("end_date : " + endDate);
-                log.info("GET_URL : " + GET_URL);
+                log.info("crawling date range : [{}] ~ [{}]", startDate, endDate);
+                // http client 생성
+                CloseableHttpClient httpClient = HttpClients.createDefault();
 
-                String json = "";
-                try {
-                    // http client 생성
-                    CloseableHttpClient httpClient = HttpClients.createDefault();
+                // get 메서드와 URL 설정
+                HttpGet httpGet = new HttpGet(GET_URL);
 
-                    // get 메서드와 URL 설정
-                    HttpGet httpGet = new HttpGet(GET_URL);
+                // agent 정보 설정
+                httpGet.addHeader("User-Agent", USER_AGENT);
+                httpGet.addHeader("Content-type", "application/json");
 
-                    // agent 정보 설정
-                    httpGet.addHeader("User-Agent", USER_AGENT);
-                    httpGet.addHeader("Content-type", "application/json");
+                // get 요청
+                CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+                String json = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
+                httpClient.close();
+                if (json.length() < 52) {
+                    log.info("data does not exists.");
 
-                    // get 요청
-                    CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
-
-                    json = EntityUtils.toString(httpResponse.getEntity(), "UTF-8");
-
-                    httpClient.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    log.warn("error : " + e);
+                    return;
                 }
-
                 // 파싱부분
-                try {
-                    String res = json.substring(json.indexOf("[", (json.indexOf("외국인"))), json.lastIndexOf("]"));
-                    res = res.trim().replaceAll("\\s", "").replaceAll("\"", "");
-                    res = res.substring(1, res.length() - 1);
-                    String[] resList = res.split("],\\[");
+                String res = json.substring(json.indexOf("[", (json.indexOf("외국인"))), json.lastIndexOf("]"));
+                res = res.trim().replaceAll("\\s", "").replaceAll("\"", "");
+                res = res.substring(1, res.length() - 1);
+                String[] resList = res.split("],\\[");
 
-                    int insertedCount = 0;
-
-                    StockDTO tmpDTO;
-                    for (String s : resList) {
-                        tmpDTO = new StockDTO();
-                        String[] tmpArr = s.split(",");
-
-                        log.info("추출 날짜 : " + tmpArr[0]);
-                        tmpDTO.setCode(code);
-                        tmpDTO.setDate(tmpArr[0]);
-                        tmpDTO.setOpen(tmpArr[1]);
-                        tmpDTO.setHigh(tmpArr[2]);
-                        tmpDTO.setLow(tmpArr[3]);
-                        tmpDTO.setClose(tmpArr[4]);
-                        tmpDTO.setVolume(tmpArr[5]);
-                        insertedCount += chartMapper.insertStockData(tmpDTO);
-                    }
-                    log.info("insertedCount : " + insertedCount);
-                } catch (Exception e) {
-                    log.info(this.getClass().getName() + " 추출 데이터 없음. 데이터 입력 종료.\n");
+                int insertedCount = 0;
+                StockDTO tmpDTO;
+                for (String s : resList) {
+                    tmpDTO = new StockDTO();
+                    String[] tmpArr = s.split(",");
+                    tmpDTO.setCode(code);
+                    tmpDTO.setDate(tmpArr[0]);
+                    tmpDTO.setOpen(tmpArr[1]);
+                    tmpDTO.setHigh(tmpArr[2]);
+                    tmpDTO.setLow(tmpArr[3]);
+                    tmpDTO.setClose(tmpArr[4]);
+                    tmpDTO.setVolume(tmpArr[5]);
+                    insertedCount += chartMapper.insertStockData(tmpDTO);
                 }
-                log.info(this.getClass().getName() + ".insertData end");
+                log.info("insertedCount : {}", insertedCount);
             }
         }
         //메인 로직
-        log.info(this.getClass().getName() + ".insertStockData start");
-
-        // 사용자 검색 날짜 널값 처리
-        String ifNull_start_req = rDTO.getStartDate_req();
-        String ifNull_end_req = rDTO.getEndDate_req();
-        if (Objects.equals(ifNull_end_req, "")) {
-            LocalDate now = LocalDate.now();
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-            ifNull_end_req = now.format(formatter);
-        }
-        if (Objects.equals(ifNull_start_req, "")) {
-            ifNull_start_req = DateUtil.date(ifNull_end_req, YEAR, -2);
-        }
-
-        final String code = rDTO.getCode();
-        final String start_req = ifNull_start_req;
-        final String start_exist = rDTO.getStartDate_exist();
-        final String end_req = ifNull_end_req;
-        final String end_exist = rDTO.getEndDate_exist();
-
-        log.info(this.getClass().getName() + "\nstartDate_req : " + start_req);
-        log.info(this.getClass().getName() + "\nendDate_req : " + end_req);
-        log.info(this.getClass().getName() + "\nstartDate_exist : " + start_exist);
-        log.info(this.getClass().getName() + "\nendDate_exist : " + end_exist);
+        log.info("{}.insertStockData start", this.getClass().getName());
         /*
         검색 시작일 = start_req
         검색 종료일 = end_req
@@ -145,59 +102,64 @@ public class ChartService implements IChartService {
         if (end_req)-(start_exist) > 0 :
             (end_exist+1일) ~ (end_req) 크롤링후 db 삽입 (case2)
         */
-        if (start_exist == null) {
-            new CrawlingStockData(code, start_req, end_req).get();
+        if (rDTO.getStartDate_exist().equals("")) {
+            new CrawlingStockData(rDTO.getCode(), rDTO.getStartDate_req(), rDTO.getEndDate_req()).run();
         } else {
-            if (DateUtil.compare(start_exist, start_req) > 0) {
-                new CrawlingStockData(code, start_req, DateUtil.date(start_exist, DATE, -1)).get();
+            if (DateUtil.compare(rDTO.getStartDate_exist(), rDTO.getStartDate_req()) > 0) {
+                new CrawlingStockData(rDTO.getCode(), rDTO.getStartDate_req(), DateUtil.changeDate(rDTO.getStartDate_exist(), DATE, -1)).run();
             }
-            if (DateUtil.compare(end_req, start_exist) > 0) {
-                new CrawlingStockData(code, DateUtil.date(end_exist, DATE, +1), end_req).get();
+            if (DateUtil.compare(rDTO.getEndDate_req(), rDTO.getStartDate_exist()) > 0) {
+                new CrawlingStockData(rDTO.getCode(), DateUtil.changeDate(rDTO.getEndDate_exist(), DATE, +1), rDTO.getEndDate_req()).run();
             }
         }
-        rDTO.setStartDate_req(start_req);
-        rDTO.setEndDate_req(end_req);
-
-        log.info(this.getClass().getName() + ".insertStockData end");
-
-        return rDTO;
+        log.info("{}.insertStockData end", this.getClass().getName());
     }
 
     @Override
-    public StockDTO getStockCodeByName(StockDTO pDTO) throws Exception {
-        log.info(this.getClass().getName() + ".getStockCodeByName start");
+    public String getStockCodeByName(StockDTO pDTO) {
+        log.info("{}.getStockCodeByName start", this.getClass().getName());
 
-        StockDTO code = chartMapper.getStockCodeByName(pDTO);
-        try {
-            if (Objects.equals(code.getCode(), null)) {
-                throw new Exception();
-            }
-        } catch (Exception e) {
-            log.warn("이름 잘못 입력");
+        String code = chartMapper.getStockCodeByName(pDTO);
+        if (code == null) {
+            code = "";
         }
-        log.info(this.getClass().getName() + ".getStockCodeByName end");
+
+        log.info("{}.getStockCodeByName end", this.getClass().getName());
 
         return code;
     }
 
     @Override
-    public StockDTO getStockData_dateRange(StockDTO rDTO) throws Exception {
-        log.info(this.getClass().getName() + ".getStockDate_dateRange start");
+    public StockDTO getStockData_dateRange(StockDTO rDTO) {
+        log.info("{}.getStockDate_dateRange start", this.getClass().getName());
 
-        try {
-            rDTO.setStartDate_exist((chartMapper.getStockData_dateStart(rDTO)).getStartDate_exist());
-            log.info("startDate_exist : " + rDTO.getStartDate_exist());
-        } catch (NullPointerException e) {
-            log.info("startDate_exist : null");
+        String dateStart = chartMapper.getStockData_dateStart(rDTO);
+        String dateEnd = chartMapper.getStockData_dateEnd(rDTO);
+        if (dateStart == null) {
+            rDTO.setStartDate_exist("");
+        } else {
+            rDTO.setStartDate_exist(dateStart);
         }
-        try {
-            rDTO.setEndDate_exist((chartMapper.getStockData_dateEnd(rDTO)).getEndDate_exist());
-            log.info("endDate_exist : " + rDTO.getEndDate_exist());
-        } catch (NullPointerException e) {
-            log.info("endDate_exist : null");
+        if (dateEnd == null) {
+            rDTO.setEndDate_exist("");
+        } else {
+            rDTO.setEndDate_exist(dateEnd);
         }
-        log.info(this.getClass().getName() + ".getStockDate_dateRange end");
+
+        log.info("{}.getStockDate_dateRange end", this.getClass().getName());
 
         return rDTO;
+    }
+
+    @Override
+    public StockDTO setDate(StockDTO pDTO) throws Exception {
+        // 사용자 검색 날짜
+        if (pDTO.getEndDate_req().equals("")) {
+            pDTO.setEndDate_req(DateUtil.getNowDate());
+        }
+        if (pDTO.getStartDate_req().equals("")) {
+            pDTO.setStartDate_req(DateUtil.changeDate(pDTO.getEndDate_req(), YEAR, -2));
+        }
+        return pDTO;
     }
 }
