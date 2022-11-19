@@ -24,37 +24,26 @@ public class UserInfoController {
 
     //회원가입 정보 전송. 종료시 초기 페이지로 리디렉션.
     @PostMapping(value = "/doSignUp")
-    public String doSignUp(HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
-        log.info(this.getClass().getName() + ".doSignUp start");
-
-        //비밀번호 아이디 등의 유효성 검사는 js 로 처리 되었다는 가정.
-        final String user_id = request.getParameter("user_id");
-        final String user_name = request.getParameter("user_name");
-        final String user_email = request.getParameter("user_email");
-        final String user_addr = request.getParameter("user_addr");
-        final String user_password = request.getParameter("user_password");
-
-        log.info("user_id : " + user_id);
-        log.info("email : " + user_email);
-        log.info("addr : " + user_addr);
+    public String doSignUp(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        log.info("{}.doSignUp start", this.getClass().getName());
 
         UserInfoDTO pDTO = new UserInfoDTO();
-        pDTO.setUser_id(user_id);
-        pDTO.setUser_name(user_name);
-        pDTO.setUser_password(EncryptUtil.encHashSHA256(user_password));
-        pDTO.setUser_email(EncryptUtil.encAES128CBC(user_email));
-        pDTO.setUser_addr(EncryptUtil.encAES128CBC(user_addr));
+        pDTO.setUser_id(request.getParameter("user_id"));
+        pDTO.setUser_name(request.getParameter("user_name"));
+        try {
+            pDTO.setUser_password(EncryptUtil.encHashSHA256(request.getParameter("user_password")));
+            pDTO.setUser_email(EncryptUtil.encAES128CBC(request.getParameter("user_email")));
+            pDTO.setUser_addr(EncryptUtil.encAES128CBC(request.getParameter("user_addr")));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error_type", "서버 장애 발생");
 
-        log.info(pDTO.getUser_id());
-        log.info(pDTO.getUser_name());
-        log.info(pDTO.getUser_password());
-        log.info(pDTO.getUser_email());
-        log.info(pDTO.getUser_addr());
+            return "redirect:/";
+        }
         userInfoService.insertUserInfo(pDTO);
+        log.info("signup success. user id : [{}] name : [{}]", pDTO.getUser_id(), pDTO.getUser_name());
+        redirectAttributes.addFlashAttribute("user_id", pDTO.getUser_id());
 
-        redirectAttributes.addFlashAttribute("user_id", user_id);
-
-        log.info(this.getClass().getName() + ".doSignUp end");
+        log.info("{}.doSignUp end", this.getClass().getName());
 
         return "redirect:/";
     }

@@ -16,16 +16,14 @@ public class UserInfoService implements IUserInfoService {
 
     @Transactional
     @Override
-    public void insertUserInfo(UserInfoDTO rDTO) {
-        log.info(this.getClass().getName() + ".insertUserInfo start");
-        userInfoMapper.insertUserInfo(rDTO);
-        log.info(this.getClass().getName() + ".insertUserInfo end");
+    public void insertUserInfo(UserInfoDTO pDTO) {
+        userInfoMapper.insertUserInfo(pDTO);
     }
 
     @Override
-    public UserInfoDTO getUserLoginCheck(UserInfoDTO rDTO) {
+    public UserInfoDTO getUserLoginCheck(UserInfoDTO pDTO) {
 
-        return userInfoMapper.getUserLoginCheck(rDTO);
+        return userInfoMapper.getUserLoginCheck(pDTO);
     }
 
     @Override
