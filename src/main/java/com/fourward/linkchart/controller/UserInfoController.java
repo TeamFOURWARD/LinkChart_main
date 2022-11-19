@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Objects;
 
 @Slf4j
 @RequestMapping(value = "/user")
@@ -62,30 +61,32 @@ public class UserInfoController {
 
     //로그인 전송
     @PostMapping(value = "/login")
-    public String login(HttpSession session, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
-        log.info(this.getClass().getName() + ".login start");
-
-        final String user_id = request.getParameter("user_id");
-        final String user_password = request.getParameter("user_password");
+    public String login(HttpSession session, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        log.info("{}.login start", this.getClass().getName());
 
         UserInfoDTO pDTO = new UserInfoDTO();
-        pDTO.setUser_id(user_id);
-        pDTO.setUser_password(EncryptUtil.encHashSHA256(user_password));
-        log.info("requested user_id : " + user_id);
+        pDTO.setUser_id(request.getParameter("user_id"));
+        try {
+            pDTO.setUser_password(EncryptUtil.encHashSHA256(request.getParameter("user_password")));
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error_type", "서버 장애 발생");
 
-        if (Objects.equals(userInfoService.getUserLoginCheck(pDTO).getIsExist(), "0")) {
-            log.info(this.getClass().getName() + " | login rejected. invalid id or password.");
-            log.info(this.getClass().getName() + ".login end");
+            return "redirect:/";
+        }
+
+        if (userInfoService.getUserLoginCheck(pDTO).getIsExist().equals("0")) {
+            log.info("{} | login rejected. invalid id or password.", this.getClass().getName());
+            log.info("{}.login end", this.getClass().getName());
             redirectAttributes.addFlashAttribute("error_type", "로그인 실패");
 
             return "redirect:/";
         }
-        session.setAttribute("SS_USER_ID", user_id);
+        session.setAttribute("SS_USER_ID", pDTO.getUser_id());
         session.setMaxInactiveInterval(60 * 60);// 60분
 
-        log.info(this.getClass().getName() + " | login success.");
-        log.info(this.getClass().getName() + " | user : " + user_id);
-        log.info(this.getClass().getName() + ".login end");
+        log.info("{} | login success", this.getClass().getName());
+        log.info("{} | user : [{}]", this.getClass().getName(), pDTO.getUser_id());
+        log.info("{}.login end", this.getClass().getName());
 
         return "redirect:/view";
     }
@@ -93,7 +94,7 @@ public class UserInfoController {
     //아이디 이메일 중복검사 요청
     @ResponseBody
     @PostMapping(value = "/isExist")
-    public UserInfoDTO isExist(HttpServletRequest request) throws Exception {
+    public UserInfoDTO isExist(HttpServletRequest request) {
         log.info("{}.isExist start", this.getClass().getName());
 
         UserInfoDTO pDTO = new UserInfoDTO();

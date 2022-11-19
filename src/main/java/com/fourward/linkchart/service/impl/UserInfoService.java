@@ -16,26 +16,26 @@ public class UserInfoService implements IUserInfoService {
 
     @Transactional
     @Override
-    public void insertUserInfo(UserInfoDTO rDTO) throws Exception {
+    public void insertUserInfo(UserInfoDTO rDTO) {
         log.info(this.getClass().getName() + ".insertUserInfo start");
         userInfoMapper.insertUserInfo(rDTO);
         log.info(this.getClass().getName() + ".insertUserInfo end");
     }
 
     @Override
-    public UserInfoDTO getUserLoginCheck(UserInfoDTO rDTO) throws Exception {
+    public UserInfoDTO getUserLoginCheck(UserInfoDTO rDTO) {
 
         return userInfoMapper.getUserLoginCheck(rDTO);
     }
 
     @Override
-    public UserInfoDTO checkUserIdExist(UserInfoDTO pDTO) throws Exception {
+    public UserInfoDTO checkUserIdExist(UserInfoDTO pDTO) {
 
         return userInfoMapper.getUserIdExist(pDTO);
     }
 
     @Override
-    public UserInfoDTO checkUserEmailExist(UserInfoDTO pDTO) throws Exception {
+    public UserInfoDTO checkUserEmailExist(UserInfoDTO pDTO) {
 
         return userInfoMapper.getUserEmailExist(pDTO);
     }
