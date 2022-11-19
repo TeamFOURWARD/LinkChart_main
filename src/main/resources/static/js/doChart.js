@@ -1,4 +1,9 @@
-function getStockData(arg) {
+/**
+ *
+ * @param arg String. 종목 키워드
+ * @param condition boolean. true : 뉴스를 같이 로딩함.
+ */
+function getStockData(arg, condition) {
     let stockName;
     const startDate_req = $("#startDate_req").val();
     const endDate_req = $("#endDate_req").val();
@@ -19,10 +24,14 @@ function getStockData(arg) {
         dataType: 'json',
         async: false,
         success: function (data) {
+            if (condition) {
+                getNewsData(stockName, null, false);
+            }
+
             return loadChart(data, stockName);
         },
         error: function () {
-            alert("잘못된 종목명 이거나 서버 오류 입니다.\n");
+            alert("잘못된 종목명 이거나 서버 오류 입니다.");
         }
         /*
 function (request, status, error) {

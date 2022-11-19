@@ -9,10 +9,12 @@ function getNews_click() {
     return getNewsData(keyword, date, true);
 }
 
+/**
+ * @param keyword String. 검색할 뉴스 이름.
+ * @param date String. 검색할 날짜. null 일시 서버에서 현재 날짜로 처리.
+ * @param condition boolean. alert 표시 여부. 페이지 로딩시 처리되는 함수만 false.
+ */
 function getNewsData(keyword, date, condition) {
-    console.log('getNewsData_keyword : ' + keyword);
-    console.log('getNewsData_date : ' + date);//yyyyMMdd
-
     $.ajax({
         url: "/news/getNewsData",
         data: {keyword: keyword, date: date},
@@ -20,14 +22,16 @@ function getNewsData(keyword, date, condition) {
         dataType: 'json',
         async: false,
         success: function (data) {
-            console.log(data.length);
-            console.log(condition);
-            if (data.length === 0 && condition) {
+            if (data.length === 0) {
+                if (condition) {
+
+                    return;
+                }
                 alert("표시할 뉴스가 없습니다.");
 
                 return;
             }
-            console.log('getStockData_success_data : ' + JSON.stringify(data[0]));
+
             return loadNews(data);
         }
     });
