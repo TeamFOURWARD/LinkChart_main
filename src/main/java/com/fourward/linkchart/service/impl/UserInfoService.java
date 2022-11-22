@@ -37,4 +37,9 @@ public class UserInfoService implements IUserInfoService {
 
         return userInfoMapper.getUserEmailExist(pDTO);
     }
+
+    @Override
+    public void updateUserPsw(UserInfoDTO pDTO) {
+        userInfoMapper.updateUserPsw(pDTO);
+    }
 }

@@ -45,6 +45,9 @@
     <script src="/js/dateUtil.js" type="text/javascript">
         // date formatter
     </script>
+    <script src="/js/user_view.js" type="text/javascript">
+        // updateUserPsw
+    </script>
 
     <%--
     <script src="js/index.js" type="text/javascript"></script>
@@ -372,26 +375,37 @@
                         <div class="modal-content" id="user_profile">
                             <h4>User Profile</h4>
                             <form id="user_updatePsw" method="post" action="/user/updatePsw">
+                                <label for="profile_user_id_1"><b>ID</b></label>
+                                <input id="profile_user_id_1" name="user_id" type="text" value="${SS_USER_ID}" readonly>
+                                </br>
                                 <label for="profile_user_name"><b>NAME</b></label>
-                                <input id="profile_user_name" type="text" disabled>
+                                <input id="profile_user_name" name="user_name" type="text" value="foobar" readonly>
+<%--                                이름은 자동으로 가져와졌다가 창 나가면 지워진다 TODO--%>
                                 </br>
-                                <label for="profile_user_id"><b>ID</b></label>
-                                <input id="profile_user_id" type="text" value="${SS_USER_ID}" disabled>
-                                </br>
-                                <label for="signup_psw"><b>Password</b></label>
-                                <input type="password" id="signup_psw" name="user_password"
+                                <label for="profile_user_psw"><b>Password</b></label>
+                                <input type="password" id="profile_user_psw" name="user_password"
                                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                                        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters required">
                                 </br>
-                                <label for="profile_psw-repeat"><b>Repeat Password</b></label>
-                                <input type="password" placeholder="Repeat Password" id="profile_psw-repeat" required>
+                                <label for="profile_user_psw-repeat"><b>Repeat Password</b></label>
+                                <input type="password" placeholder="Repeat Password" id="profile_user_psw-repeat">
+                                </br>
+                                <div class="clearfix">
+                                    <button type="submit" class="signupbtn" onclick="return updateUserPsw()">Update Password</button>
+                                    <button type="reset" class="resetbtn">Reset</button>
+                                </div>
+                                </br>
+                            </form>
+                            <form id="user_updateAddr" method="post" action="/user/updateAddr">
+                                <label for="profile_user_id_2"><b>ID</b></label>
+                                <input id="profile_user_id_2" name="user_id" type="text" value="${SS_USER_ID}" hidden readonly>
                                 </br>
                                 <label for="profile_addr"><b>Address</b></label>
-                                <input type="password" placeholder="Repeat Password" id="profile_addr" required>
-
+                                <input type="text" value="" id="profile_addr" size="20">
+<%--                                주소가져오기 버튼 TODO--%>
                                 <div class="clearfix">
+                                    <button type="submit" class="signupbtn">Update Address</button>
                                     <button type="reset" class="resetbtn">Reset</button>
-                                    <button type="submit" class="signupbtn">Update Profile</button>
                                 </div>
                             </form>
                             <div id="message">

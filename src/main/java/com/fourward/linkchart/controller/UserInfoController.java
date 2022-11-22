@@ -5,11 +5,9 @@ import com.fourward.linkchart.service.IUserInfoService;
 import com.fourward.linkchart.util.EncryptUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -105,7 +103,7 @@ public class UserInfoController {
         return pDTO;
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         if (session != null) {
@@ -114,6 +112,25 @@ public class UserInfoController {
         }
 
         return "redirect:/";
+    }
+
+    @PostMapping("/updatePsw")
+    public String updatePsw(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        log.info("{}.updatePsw start", this.getClass().getName());
+        UserInfoDTO pDTO = new UserInfoDTO();
+        pDTO.setUser_id(request.getParameter("user_id"));
+        try {
+            pDTO.setUser_password(EncryptUtil.encHashSHA256(request.getParameter("user_password")));
+        } catch (Exception ignored) {
+            redirectAttributes.addFlashAttribute("error_type", "시스템에 장에가 발생 하였습니다. 비밀번호 변경을 실패하였습니다.");
+
+            return "redirect:/view";
+        }
+        userInfoService.updateUserPsw(pDTO);
+
+        log.info("{}.updatePsw end", this.getClass().getName());
+
+        return "redirect:/user/logout";
     }
 
     @Deprecated

@@ -17,19 +17,24 @@
                 TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI:SS'))
     </insert>
     <select id="getUserIdExist" parameterType="UserInfoDTO" resultType="UserInfoDTO">
-        SELECT COUNT(ID) as isExist
+        SELECT COUNT(ID) AS isExist
         FROM USER_INFO
         WHERE ID = #{user_id}
     </select>
     <select id="getUserEmailExist" parameterType="UserInfoDTO" resultType="UserInfoDTO">
-        SELECT COUNT(EMAIL) as isExist
+        SELECT COUNT(EMAIL) AS isExist
         FROM USER_INFO
         WHERE EMAIL = #{user_email}
     </select>
     <select id="getUserLoginCheck" parameterType="UserInfoDTO" resultType="UserInfoDTO">
-        select COUNT(*) as isExist
-        from user_info
-        where ID = #{user_id}
-          and password = #{user_password}
+        SELECT COUNT(*) AS isExist
+        FROM USER_INFO
+        WHERE ID = #{user_id}
+          AND PASSWORD = #{user_password}
     </select>
+    <update id="updateUserPsw" parameterType="UserInfoDTO">
+        UPDATE USER_INFO
+        SET PASSWORD = #{user_password}
+        WHERE ID = #{user_id}
+    </update>
 </mapper>
