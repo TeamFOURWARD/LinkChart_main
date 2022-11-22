@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface INewsService {
-    List<Map<String, Object>> getNewsContents(NewsDTO rDTO);
+    List<Map<String, Object>> getNewsContents(NewsDTO rDTO) throws Exception;
 }

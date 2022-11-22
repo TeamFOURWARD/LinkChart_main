@@ -21,20 +21,22 @@ public class NewsController {
 
     @GetMapping(value = "/getNewsData")
     public List<Map<String, Object>> getNewsContents(HttpServletRequest request) {
-        log.info(this.getClass().getName() + ".getNewsData start");
-
-        final String keyword = request.getParameter("keyword");
-        final String end_date = request.getParameter("date");
-        log.info("requested keyword : {}", keyword);
-        log.info("requested date : {}", end_date);
+        log.info("{}.getNewsData start", this.getClass().getName());
 
         NewsDTO pDTO = new NewsDTO();
-        pDTO.setName(keyword);
-        pDTO.setEnd_date(end_date);
+        pDTO.setName(request.getParameter("keyword"));
+        pDTO.setEnd_date(request.getParameter("date"));
+        log.info("requested keyword : [{}]", pDTO.getName());
+        log.info("requested date : [{}]", pDTO.getDate());
 
-        List<Map<String, Object>> rNewsList = newsService.getNewsContents(pDTO);
+        List<Map<String, Object>> rNewsList;
+        try {
+            rNewsList = newsService.getNewsContents(pDTO);
+        } catch (Exception ignored) {
 
-        log.info(this.getClass().getName() + ".getNewsData end");
+            return null;
+        }
+        log.info("{}.getNewsData end", this.getClass().getName());
 
         return rNewsList;
     }
