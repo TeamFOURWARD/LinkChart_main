@@ -20,3 +20,17 @@
     right: 5px;
     top: 0;
 }
+
+#popup3 .signupcheck{
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    outline: none;
+    margin: 1%;
+    background: transparent;
+}
+
+#popup3 .signupcheck:hover{
+    background: #00203F;
+    color: #FCF6F5;
+}

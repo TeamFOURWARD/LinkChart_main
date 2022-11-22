@@ -62,12 +62,12 @@
             <ul>
                 <li class="lcn_list" id="lcnav01">
                     <a href="#">
-                    <span class="lcn_icon">
-                        <i class="fa-solid fa-house"></i>
-                    </span>
-                    <span class="lcn_text">
-                        HOME
-                    </span>
+                        <span class="lcn_icon">
+                            <i class="fa-solid fa-house"></i>
+                        </span>
+                        <span class="lcn_text">
+                            HOME
+                        </span>
                     </a>
                 </li>
                 <li class="lcn_list" id="lcnav02">
@@ -265,11 +265,12 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <p class="copyrightText">
-            Copyright &copy; 2022 FOURWARD All Right Reserved.
-        </p>
+            <p class="copyrightText">
+                Copyright &copy; 2022 FOURWARD All Right Reserved.
+            </p>
+
+        </div>
 
     </div>
 
@@ -379,7 +380,7 @@
                             <span>ID</span>
                             <i></i>
                         </div>
-                        <button type="button" onclick="checkId()">아이디 중복 확인</button>
+                        <button type="button" onclick="checkId()" class="signupcheck">아이디 중복 확인</button>
                         <div class="inputBox">
                             <input type="text" name="user_name" id="signup_name" required>
                             <span>
@@ -394,7 +395,7 @@
                             </span>
                             <i></i>
                         </div>
-                        <button type="button" onclick="checkEmail()">이메일 중복 확인</button>
+                        <button type="button" onclick="checkEmail()" class="signupcheck">이메일 중복 확인</button>
                         <div class="inputBox">
                             <input type="password" id="signup_psw" name="user_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                             <span>
@@ -417,7 +418,7 @@
                             <i></i>
                         </div>
 
-                        <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
+                        <p>By creating an account you agree to our <a href="#" style="color:dodgerblue"><br>Terms &
                             Privacy</a>.</p>
 
                             <div class="buttonBox">

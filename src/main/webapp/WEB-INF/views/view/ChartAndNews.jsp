@@ -60,83 +60,66 @@
             getNewsData("증시", dateToString(new Date()), false);
         });
     </script>
-
-    <style>
-        .newsMain_div {
-            border: solid #50586c;
-        }
-    </style>
 </head>
 
 <body>
 
-<div class="lc_nav_wrap" id="lc_nav_wrap">
-    <div class="lc_nav">
-        <ul>
-            <li class="lcn_list active" id="lcnav01">
-                <a href="#">
-                    <span class="lcn_icon">
-                        <i class="fa-solid fa-house"></i>
-                    </span>
-                    <span class="lcn_text">
-                        HOME
-                    </span>
-                </a>
-            </li>
-            <li class="lcn_list" id="lcnav02">
-                <a href="#">
-                    <span class="lcn_icon">
-                        <i class="fa-solid fa-chart-simple"></i>
-                    </span>
-                    <span class="lcn_text">
-                        Link Chart
-                    </span>
-                </a>
-            </li>
-            <li class="lcn_list" id="lcnav03">
-                <a href="#">
-                    <span class="lcn_icon">
-                        <i class="fa-solid fa-heart"></i>
-                    </span>
-                    <span class="lcn_text">
-                        LOGOUT
-                    </span>
-                </a>
-            </li>
-            <li class="lcn_list" id="lcnav04">
-                <a href="#">
-                    <span class="lcn_icon">
-                        <i class="fa-solid fa-heart"></i>
-                    </span>
-                    <span class="lcn_text">
-                        PROFILE
-                    </span>
-                </a>
-            </li>
-            <li class="lcn_list" id="lcnav05">
-                <a href="#">
-                    <span class="lcn_icon">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                    </span>
-                    <span class="lcn_text">
-                        History
-                    </span>
-                </a>
-            </li>
-            <%--
-            <li class="lcn_list" id="lcnav04">
-                <a href="#">
-                    <span class="lcn_icon">
-                        <i class="fa-solid fa-user"></i>
-                    </span>
-                    <span class="lcn_text">
-                        SIGN UP
-                    </span>
-                </a>
-            </li>--%>
-        </ul>
+    <div class="lc_nav_wrap" id="lc_nav_wrap">
+        <div class="lc_nav">
+            <ul>
+                <li class="lcn_list" id="lcnav01">
+                    <a href="#">
+                        <span class="lcn_icon">
+                            <i class="fa-solid fa-house"></i>
+                        </span>
+                        <span class="lcn_text">
+                            HOME
+                        </span>
+                    </a>
+                </li>
+                <li class="lcn_list" id="lcnav02">
+                    <a href="#">
+                        <span class="lcn_icon">
+                            <i class="fa-solid fa-chart-simple"></i>
+                        </span>
+                        <span class="lcn_text">
+                            Link Chart
+                        </span>
+                    </a>
+                </li>
+                <li class="lcn_list" id="lcnav03">
+                    <a href="#">
+                        <span class="lcn_icon">
+                            <i class="fa-solid fa-heart"></i>
+                        </span>
+                        <span class="lcn_text">
+                            LOGOUT
+                        </span>
+                    </a>
+                </li>
+                <li class="lcn_list" id="lcnav04">
+                    <a href="#">
+                        <span class="lcn_icon">
+                            <i class="fa-solid fa-heart"></i>
+                        </span>
+                        <span class="lcn_text">
+                            PROFILE
+                        </span>
+                    </a>
+                </li>
+                <li class="lcn_list" id="lcnav05">
+                    <a href="#">
+                        <span class="lcn_icon">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                        </span>
+                        <span class="lcn_text">
+                            History
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
 
 <div class="section_01_wrap">
 
@@ -273,7 +256,7 @@
         <div class="row">
             <div class="col-md-5 intro_content">
                 <ul id="bpwrap"></ul>
-                <a href="#" onclick="toggleClass1()"></a>
+                <a href="#" onclick="toggleClass()"></a>
             </div>
             <div class="col-md-7 card_wrap" id="card_wrap">
                 <div class="row">
@@ -314,6 +297,8 @@
         </p>
 
     </div>
+
+</div>
 
     <div id="popup1">
         <div class="container_wrap section_chart">
@@ -458,7 +443,6 @@
             </div>
         </div>
     </div>--%>
-</div>
 
 <script>
     VanillaTilt.init(document.querySelectorAll(".intro_content"), {
@@ -500,13 +484,15 @@
 
     setInterval("myInterval()", 1500);
 
-    function toggleClass1() {
+    function toggleClass() {
         var cardWrap = document.getElementById("bpw");
         cardWrap.classList.toggle("toggleActive");
         var popup1 = document.getElementById("popup1");
         popup1.classList.toggle("toggleActive");
         var lcnav = document.getElementById("lc_nav_wrap");
         lcnav.classList.toggle("toggleActive");
+        var lcnavp = document.getElementById("lcnav02");
+        lcnavp.classList.toggle("toggleActive");
     }
 
     function toggleClass2() {
@@ -516,6 +502,8 @@
         popup2.classList.toggle("toggleActive");
         var lcnav = document.getElementById("lc_nav_wrap");
         lcnav.classList.toggle("toggleActive");
+        var lcnavp = document.getElementById("lcnav03");
+        lcnavp.classList.toggle("toggleActive");
     }
 
     function toggleClass3() {
@@ -525,6 +513,8 @@
         popup3.classList.toggle("toggleActive");
         var lcnav = document.getElementById("lc_nav_wrap");
         lcnav.classList.toggle("toggleActive");
+        var lcnavp = document.getElementById("lcnav04");
+        lcnavp.classList.toggle("toggleActive");
     }
 
     const navlist = document.querySelectorAll(".lcn_list");
