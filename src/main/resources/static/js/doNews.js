@@ -1,12 +1,11 @@
 function getNews_click() {
     const date = $("#putDate").val();
     const keyword = $("#putKeyword").val();
-    if (keyword === "") {
-        alert("키워드를 입력해주세요.");
+    if (keyword !== "") {
 
-        return;
+        return getNewsData(keyword, date, true);
     }
-    return getNewsData(keyword, date, true);
+    alert("키워드를 입력해주세요.");
 }
 
 /**
@@ -22,17 +21,11 @@ function getNewsData(keyword, date, condition) {
         dataType: 'json',
         async: false,
         success: function (data) {
-            if (data.length === 0) {
-                if (condition) {
-
-                    return;
-                }
+            if (data.length !== 0) {
+                return loadNews(data);
+            } else if (condition) {
                 alert("표시할 뉴스가 없습니다.");
-
-                return;
             }
-
-            return loadNews(data);
         }
     });
 }
@@ -121,14 +114,14 @@ function loadNews(data) {
 
                             }
                         }
-                        if(newsGroup_list.newsGroup_related_list.length!==0){
+                        if (newsGroup_list.newsGroup_related_list.length !== 0) {
                             const accordion_list_btn = document.createElement('button');
-                            accordion_list_btn.setAttribute("class","accordion");
-                            accordion_list_btn.innerText="연관기사";
+                            accordion_list_btn.setAttribute("class", "accordion");
+                            accordion_list_btn.innerText = "연관기사";
                             divList.appendChild(accordion_list_btn);
 
                             const accordion_list = document.createElement('div');
-                            accordion_list.setAttribute("class","panel");
+                            accordion_list.setAttribute("class", "panel");
                             divList.appendChild(accordion_list);
                             {
                                 // 연관기사 리스트
@@ -168,7 +161,6 @@ function loadNews(data) {
             }
         }
     );
-
     document.getElementById('newsMain').appendChild(table);
 }
 
