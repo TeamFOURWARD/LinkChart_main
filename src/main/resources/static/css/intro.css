@@ -23,7 +23,7 @@ body{
 
 .lc_nav{
     position: relative;
-    height: 420px;
+    height: 300px;
     width: 80px;
     background: #FCF6F5;
     overflow: hidden;
@@ -105,6 +105,7 @@ body{
     position: relative;
     font-size: 1.5em;
     z-index: 1;
+    line-height: 60px;
 }
 
 .lc_nav ul li a .lcn_text{

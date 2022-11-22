@@ -1,4 +1,4 @@
-.accordion {
+#popup2 .accordion {
     background-color: #eee;
     color: #444;
     cursor: pointer;
@@ -11,7 +11,7 @@
     transition: 0.4s;
 }
 
-.active, .accordion:hover {
+#popup2 .active, .accordion:hover {
     background-color: #ccc;
 }
 
@@ -27,6 +27,16 @@
     width: 58%;
 }
 
-.card_content_wrap:nth-child(2){
+.card_content_wrap:nth-child(3){
     width: 40%;
+}
+
+.lc_nav{
+    position: relative;
+    height: 360px;
+    width: 80px;
+    background: #FCF6F5;
+    overflow: hidden;
+    transition: width 0.5s;
+    border-radius: 20px;
 }
