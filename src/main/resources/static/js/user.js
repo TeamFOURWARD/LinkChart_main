@@ -109,9 +109,15 @@ function checkEmail() {
 
 function isExist(val, type) {
     $.ajax({
-        url: '/user/isExist', data: {
-            value: val, type: type
-        }, type: 'POST', dataType: 'json', async: false, success: function (data) {
+        url: '/user/isExist',
+        data: {
+            value: val,
+            type: type
+        },
+        type: 'POST',
+        dataType: 'json',
+        async: false,
+        success: function (data) {
             if (data.isExist === '1') {
                 if (type === 'user_id') {
                     alert('중복된 아이디 입니다.')
@@ -148,4 +154,3 @@ function validateForm() {
         return false;
     }
 }
-
