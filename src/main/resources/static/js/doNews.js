@@ -121,37 +121,48 @@ function loadNews(data) {
 
                             }
                         }
+                        if(newsGroup_list.newsGroup_related_list.length!==0){
+                            const accordion_list_btn = document.createElement('button');
+                            accordion_list_btn.setAttribute("class","accordion");
+                            accordion_list_btn.innerText="연관기사";
+                            divList.appendChild(accordion_list_btn);
 
-                        // 연관기사 리스트
-                        /*const tdRelated_list = document.createElement('td');
-                        divList.appendChild(tdRelated_list);
-                        {
-                            const olRelated_list = document.createElement('ol');
-                            tdRelated_list.appendChild(olRelated_list);
+                            const accordion_list = document.createElement('div');
+                            accordion_list.setAttribute("class","panel");
+                            divList.appendChild(accordion_list);
                             {
-                                newsGroup_list.newsGroup_related_list.forEach(newsRelated_list => {
-                                    const liRelatedBody = document.createElement('li');
-                                    olRelated_list.appendChild(liRelatedBody);
+                                // 연관기사 리스트
+                                const tdRelated_list = document.createElement('td');
+                                accordion_list.appendChild(tdRelated_list);
+                                {
+                                    const olRelated_list = document.createElement('ol');
+                                    tdRelated_list.appendChild(olRelated_list);
                                     {
-                                        // 연관기사 본문 & 링크 & 언론사명 & 날짜
-                                        const divRelatedBody = document.createElement('div');
-                                        liRelatedBody.appendChild(divRelatedBody);
-                                        {
-                                            divRelatedBody.innerHTML = (
-                                                '<a href=' + newsRelated_list.link_related + '>' +
-                                                newsRelated_list.head_related +
-                                                '</a>' +
-                                                '<br/><hr/>' +
-                                                newsRelated_list.publisher_related +
-                                                '<br/><hr/>' +
-                                                newsRelated_list.date_related +
-                                                '<br/><hr/>'
-                                            );
-                                        }
+                                        newsGroup_list.newsGroup_related_list.forEach(newsRelated_list => {
+                                            const liRelatedBody = document.createElement('li');
+                                            olRelated_list.appendChild(liRelatedBody);
+                                            {
+                                                // 연관기사 본문 & 링크 & 언론사명 & 날짜
+                                                const divRelatedBody = document.createElement('div');
+                                                liRelatedBody.appendChild(divRelatedBody);
+                                                {
+                                                    divRelatedBody.innerHTML = (
+                                                        '<a href=' + newsRelated_list.link_related + '>' +
+                                                        newsRelated_list.head_related +
+                                                        '</a>' +
+                                                        '<br/><hr/>' +
+                                                        newsRelated_list.publisher_related +
+                                                        '<br/><hr/>' +
+                                                        newsRelated_list.date_related +
+                                                        '<br/><hr/>'
+                                                    );
+                                                }
+                                            }
+                                        });
                                     }
-                                });
+                                }
                             }
-                        }*/
+                        }
                     }
                 }
             }
