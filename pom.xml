@@ -11,6 +11,7 @@
     <groupId>com.fourward</groupId>
     <artifactId>LinkChart</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
     <name>LinkChart</name>
     <description>LinkChart</description>
     <properties>
@@ -43,7 +44,11 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
