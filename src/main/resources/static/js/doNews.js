@@ -121,7 +121,7 @@ function loadNews(data) {
 
                             }
                         }
-                        if(newsGroup_list.newsGroup_related_list.length!==0){
+                        /*if(newsGroup_list.newsGroup_related_list.length!==0){
                             const accordion_list_btn = document.createElement('button');
                             accordion_list_btn.setAttribute("class","accordion");
                             accordion_list_btn.innerText="연관기사";
@@ -162,7 +162,7 @@ function loadNews(data) {
                                     }
                                 }
                             }
-                        }
+                        }*/
                     }
                 }
             }

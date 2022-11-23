@@ -78,7 +78,7 @@
                     </a>
                 </li>
                 <li class="lcn_list" id="lcnav02">
-                    <a href="#">
+                    <a href="#" onclick="toggleClass()">
                         <span class="lcn_icon">
                             <i class="fa-solid fa-chart-simple"></i>
                         </span>
@@ -88,32 +88,29 @@
                     </a>
                 </li>
                 <li class="lcn_list" id="lcnav03">
-                    <a href="#">
+                    <a href="#" onclick="toggleClass2()">
+                        <span class="lcn_icon">
+                            <i class="fa-solid fa-heart"></i>
+                        </span>
+                        <span class="lcn_text">
+                            MYPAGE
+                        </span>
+                    </a>
+                </li>
+                <%--로그아웃 스크립트--%>
+                <script type="text/javascript">
+                    function logout1() {
+                        document.getElementById("user_logout1").submit();
+                    }
+                </script>
+                <li class="lcn_list" id="lcnav04">
+                    <form id="user_logout1" method="post" action="/user/logout"></form>
+                    <a href="#" onclick="logout1()">
                         <span class="lcn_icon">
                             <i class="fa-solid fa-heart"></i>
                         </span>
                         <span class="lcn_text">
                             LOGOUT
-                        </span>
-                    </a>
-                </li>
-                <li class="lcn_list" id="lcnav04">
-                    <a href="#">
-                        <span class="lcn_icon">
-                            <i class="fa-solid fa-heart"></i>
-                        </span>
-                        <span class="lcn_text">
-                            PROFILE
-                        </span>
-                    </a>
-                </li>
-                <li class="lcn_list" id="lcnav05">
-                    <a href="#">
-                        <span class="lcn_icon">
-                            <i class="fa-solid fa-right-to-bracket"></i>
-                        </span>
-                        <span class="lcn_text">
-                            History
                         </span>
                     </a>
                 </li>
@@ -272,14 +269,14 @@
                     </div>
                     <%--로그아웃 스크립트--%>
                     <script type="text/javascript">
-                        function logout() {
-                            document.getElementById("user_logout").submit();
+                        function logout2() {
+                            document.getElementById("user_logout2").submit();
                         }
                     </script>
                     <div class="card_content_wrap">
                         <div class="card_content">
-                            <form id="user_logout" method="post" action="/user/logout"></form>
-                            <a href="#" onclick="logout()"></a>
+                            <form id="user_logout2" method="post" action="/user/logout"></form>
+                            <a href="#" onclick="logout2()"></a>
                             <h2>01</h2>
                             <h3>LOGOUT</h3>
                             <p>

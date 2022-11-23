@@ -30,13 +30,3 @@
 .card_content_wrap:nth-child(3){
     width: 40%;
 }
-
-.lc_nav{
-    position: relative;
-    height: 360px;
-    width: 80px;
-    background: #FCF6F5;
-    overflow: hidden;
-    transition: width 0.5s;
-    border-radius: 20px;
-}

@@ -8,6 +8,7 @@ font-family: 'Roboto', sans-serif;
 body{
     background: #343148;
     overflow: hidden;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
 .lc_nav_wrap{
@@ -16,8 +17,6 @@ body{
     top: 50%;
     transform: translateY(-50%);
     z-index: 9999;
-    visibility: hidden;
-    opacity: 0;
     transition: 0.5s;
 }
 
