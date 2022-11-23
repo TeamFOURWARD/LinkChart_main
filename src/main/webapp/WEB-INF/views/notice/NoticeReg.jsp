@@ -1,33 +1,10 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="com.fourward.linkchart.util.CmmUtil" %>
-<%@ page import="com.fourward.linkchart.dto.NoticeDTO" %>
-<%
-    NoticeDTO rDTO = (NoticeDTO)request.getAttribute("rDTO");
-//공지글 정보를 못불러왔다면, 객체 생성
-    if (rDTO==null){
-        rDTO = new NoticeDTO();
-    }
-    int access = 1; //(작성자 : 2 / 다른 사용자: 1)
-    if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_ID")).equals(
-            CmmUtil.nvl(rDTO.getUser_id()))){
-        access = 2;
-    }
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
     <title>게시판 글쓰기</title>
     <script type="text/javascript">
-        //작성자 여부체크
-        function doOnload(){
-
-            if ("<%=access%>"=="1"){
-                alert("작성자만 수정할 수 있습니다.");
-                location.href="/notice/NoticeList";
-
-            }
-        }
         //전송시 유효성 체크
         function doSubmit(f){
             if(f.title.value == ""){
@@ -91,42 +68,34 @@
     </script>
 </head>
 <body onload="doOnload();">
-<h2>글 수정!</h2>
-<form name="f" method="post" action="/notice/NoticeUpdate" onsubmit="return doSubmit(this);">
-    <input type="hidden" name="nSeq" value="<%=CmmUtil.nvl(request.getParameter("nSeq")) %>" />
+<form name="f" method="post" action="/notice/NoticeInsert" target= "ifrPrc" onsubmit="return doSubmit(this);">
     <table border="1">
         <col width="100px" />
         <col width="500px" />
         <tr>
             <td align="center">제목</td>
-            <td>
-                <input type="text" name="title" maxlength="100"
-                       value="<%=CmmUtil.nvl(rDTO.getTitle()) %>" style="width: 450px"/>
-            </td>
+            <td><input type="text" name="title" maxlength="100" style="width: 450px" /></td>
         </tr>
         <tr>
             <td align="center">공지글 여부</td>
-            <td>
-                예<input type="radio" name="noticeYn" value="1"
-                    <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getNotice_yn()), "1") %>	/>
-                아니오<input type="radio" name="noticeYn" value="2"
-                    <%=CmmUtil.checked(CmmUtil.nvl(rDTO.getNotice_yn()), "2") %>	/>
+            <td>예<input type="radio" name="noticeYn" value="Y" />
+                아니오<input type="radio" name="noticeYn" value="N" />
             </td>
         </tr>
         <tr>
             <td colspan="2">
-				<textarea
-                        name="contents" style="width: 550px; height: 400px"
-                ><%=CmmUtil.nvl(rDTO.getContents()) %></textarea>
+                <textarea name="contents" style="width: 550px; height: 400px"></textarea>
             </td>
         </tr>
         <tr>
             <td align="center" colspan="2">
-                <input type="submit" value="수정" />
+                <input type="submit" value="등록" />
                 <input type="reset" value="다시 작성" />
             </td>
         </tr>
     </table>
 </form>
+<!-- 프로세스 처리용 iframe / form 태그에서 target을 iframe으로 한다. -->
+<iframe name="ifrPrc" style="display:none"></iframe>
 </body>
 </html>

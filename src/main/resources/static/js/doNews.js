@@ -106,15 +106,14 @@ function loadNews(data) {
                                     liBody.appendChild(divBody);
                                     {
                                         divBody.innerHTML = (
-                                            newsGroup_list.news.summary + '<br/><hr/>' +
-                                            newsGroup_list.news.date + '<br/><hr/>' +
+                                            newsGroup_list.news.summary + '<br>' + newsGroup_list.news.date + '<br>' +
                                             newsGroup_list.news.publisher);
                                     }
                                 }
 
                             }
                         }
-                        if (newsGroup_list.newsGroup_related_list.length !== 0) {
+                        /*if(newsGroup_list.newsGroup_related_list.length!==0){
                             const accordion_list_btn = document.createElement('button');
                             accordion_list_btn.setAttribute("class", "accordion");
                             accordion_list_btn.innerText = "연관기사";
@@ -155,7 +154,7 @@ function loadNews(data) {
                                     }
                                 }
                             }
-                        }
+                        }*/
                     }
                 }
             }
