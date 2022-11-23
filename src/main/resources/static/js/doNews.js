@@ -106,8 +106,7 @@ function loadNews(data) {
                                     liBody.appendChild(divBody);
                                     {
                                         divBody.innerHTML = (
-                                            newsGroup_list.news.summary + '<br/><hr/>' +
-                                            newsGroup_list.news.date + '<br/><hr/>' +
+                                            newsGroup_list.news.summary + '<br>' + newsGroup_list.news.date + '<br>' +
                                             newsGroup_list.news.publisher);
                                     }
                                 }

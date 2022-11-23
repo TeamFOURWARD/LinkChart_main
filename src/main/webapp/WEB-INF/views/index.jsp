@@ -96,136 +96,136 @@
             </ul>
         </div>
     </div>
+
+    <div class="bubbles">
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+        <span style="--i:11"></span>
+        <span style="--i:12"></span>
+        <span style="--i:24"></span>
+        <span style="--i:10"></span>
+        <span style="--i:14"></span>
+        <span style="--i:23"></span>
+        <span style="--i:18"></span>
+        <span style="--i:16"></span>
+        <span style="--i:19"></span>
+        <span style="--i:20"></span>
+        <span style="--i:22"></span>
+        <span style="--i:25"></span>
+        <span style="--i:18"></span>
+        <span style="--i:21"></span>
+        <span style="--i:15"></span>
+        <span style="--i:13"></span>
+        <span style="--i:26"></span>
+        <span style="--i:17"></span>
+        <span style="--i:13"></span>
+        <span style="--i:28"></span>
+    </div>
+
+    <div class="wave wave1"></div>
+    <div class="wave wave2"></div>
+    <div class="wave wave3"></div>
+    <div class="wave wave4"></div>
     
     <div class="section_01_wrap">
-    
-        <div class="bubbles">
-            <span style="--i:11"></span>
-            <span style="--i:12"></span>
-            <span style="--i:24"></span>
-            <span style="--i:10"></span>
-            <span style="--i:14"></span>
-            <span style="--i:23"></span>
-            <span style="--i:18"></span>
-            <span style="--i:16"></span>
-            <span style="--i:19"></span>
-            <span style="--i:20"></span>
-            <span style="--i:22"></span>
-            <span style="--i:25"></span>
-            <span style="--i:18"></span>
-            <span style="--i:21"></span>
-            <span style="--i:15"></span>
-            <span style="--i:13"></span>
-            <span style="--i:26"></span>
-            <span style="--i:17"></span>
-            <span style="--i:13"></span>
-            <span style="--i:28"></span>
-            <span style="--i:11"></span>
-            <span style="--i:12"></span>
-            <span style="--i:24"></span>
-            <span style="--i:10"></span>
-            <span style="--i:14"></span>
-            <span style="--i:23"></span>
-            <span style="--i:18"></span>
-            <span style="--i:16"></span>
-            <span style="--i:19"></span>
-            <span style="--i:20"></span>
-            <span style="--i:22"></span>
-            <span style="--i:25"></span>
-            <span style="--i:18"></span>
-            <span style="--i:21"></span>
-            <span style="--i:15"></span>
-            <span style="--i:13"></span>
-            <span style="--i:26"></span>
-            <span style="--i:17"></span>
-            <span style="--i:13"></span>
-            <span style="--i:28"></span>
-            <span style="--i:11"></span>
-            <span style="--i:12"></span>
-            <span style="--i:24"></span>
-            <span style="--i:10"></span>
-            <span style="--i:14"></span>
-            <span style="--i:23"></span>
-            <span style="--i:18"></span>
-            <span style="--i:16"></span>
-            <span style="--i:19"></span>
-            <span style="--i:20"></span>
-            <span style="--i:22"></span>
-            <span style="--i:25"></span>
-            <span style="--i:18"></span>
-            <span style="--i:21"></span>
-            <span style="--i:15"></span>
-            <span style="--i:13"></span>
-            <span style="--i:26"></span>
-            <span style="--i:17"></span>
-            <span style="--i:13"></span>
-            <span style="--i:28"></span>
-            <span style="--i:11"></span>
-            <span style="--i:12"></span>
-            <span style="--i:24"></span>
-            <span style="--i:10"></span>
-            <span style="--i:14"></span>
-            <span style="--i:23"></span>
-            <span style="--i:18"></span>
-            <span style="--i:16"></span>
-            <span style="--i:19"></span>
-            <span style="--i:20"></span>
-            <span style="--i:22"></span>
-            <span style="--i:25"></span>
-            <span style="--i:18"></span>
-            <span style="--i:21"></span>
-            <span style="--i:15"></span>
-            <span style="--i:13"></span>
-            <span style="--i:26"></span>
-            <span style="--i:17"></span>
-            <span style="--i:13"></span>
-            <span style="--i:28"></span>
-            <span style="--i:11"></span>
-            <span style="--i:12"></span>
-            <span style="--i:24"></span>
-            <span style="--i:10"></span>
-            <span style="--i:14"></span>
-            <span style="--i:23"></span>
-            <span style="--i:18"></span>
-            <span style="--i:16"></span>
-            <span style="--i:19"></span>
-            <span style="--i:20"></span>
-            <span style="--i:22"></span>
-            <span style="--i:25"></span>
-            <span style="--i:18"></span>
-            <span style="--i:21"></span>
-            <span style="--i:15"></span>
-            <span style="--i:13"></span>
-            <span style="--i:26"></span>
-            <span style="--i:17"></span>
-            <span style="--i:13"></span>
-            <span style="--i:28"></span>
-            <span style="--i:11"></span>
-            <span style="--i:12"></span>
-            <span style="--i:24"></span>
-            <span style="--i:10"></span>
-            <span style="--i:14"></span>
-            <span style="--i:23"></span>
-            <span style="--i:18"></span>
-            <span style="--i:16"></span>
-            <span style="--i:19"></span>
-            <span style="--i:20"></span>
-            <span style="--i:22"></span>
-            <span style="--i:25"></span>
-            <span style="--i:18"></span>
-            <span style="--i:21"></span>
-            <span style="--i:15"></span>
-            <span style="--i:13"></span>
-            <span style="--i:26"></span>
-            <span style="--i:17"></span>
-            <span style="--i:13"></span>
-            <span style="--i:28"></span>
-        </div>
-    
-        <div class="wave wave1"></div>
-        <div class="wave wave2"></div>
-        <div class="wave wave3"></div>
-        <div class="wave wave4"></div>
     
         <div class="container section_01" id="bpw">
             <div class="row">
@@ -300,10 +300,6 @@
 
                     </div>
 
-                    <div class="topic">
-                        토픽모델링 자리
-                    </div>
-
                     <a href="#" class="popupClose">
                         <i class="fa-solid fa-xmark"></i>
                     </a>
@@ -314,6 +310,7 @@
     </div>
 
     <div id="popup2">
+
         <div class="container_wrap section_chart">
             <div class="container">
                 <div class="section_02_content_wrap">
@@ -479,7 +476,7 @@
         $(document).ready(function(){
 
             $("#lcnav01").click(function(){
-                $("#bpw").removeClass("toggleActive");
+                $("#bpw").show();
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -491,7 +488,7 @@
             });
 
             $("#lcnav02").click(function(){
-                $("#bpw").removeClass("toggleActive");
+                $("#bpw").hide();
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -504,7 +501,7 @@
             });
 
             $("#lcnav03").click(function(){
-                $("#bpw").removeClass("toggleActive");
+                $("#bpw").hide();
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -517,7 +514,7 @@
             });
 
             $("#lcnav04").click(function(){
-                $("#bpw").removeClass("toggleActive");
+                $("#bpw").hide();
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -543,7 +540,7 @@
             });
 
             $(".loginPart").click(function(){
-                $("#bpw").removeClass("toggleActive");
+                $("#bpw").hide();
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -556,7 +553,7 @@
             });
 
             $(".signupPart").click(function(){
-                $("#bpw").removeClass("toggleActive");
+                $("#bpw").hide();
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -569,7 +566,7 @@
             });
 
             $(".popupClose").click(function(){
-                $("#bpw").removeClass("toggleActive");
+                $("#bpw").show();
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
