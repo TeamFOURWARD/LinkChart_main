@@ -37,4 +37,21 @@
         SET PASSWORD = #{user_password}
         WHERE ID = #{user_id}
     </update>
+    <update id="updateUserEmail" parameterType="UserInfoDTO">
+        UPDATE USER_INFO
+        SET EMAIL = #{user_email}
+        WHERE ID = #{user_id}
+    </update>
+    <update id="updateUserAddr" parameterType="UserInfoDTO">
+        UPDATE USER_INFO
+        SET ADDR = #{user_addr}
+        WHERE ID = #{user_id}
+    </update>
+    <select id="getUserInfo" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+        SELECT NAME  AS user_name,
+               EMAIL AS user_email,
+               ADDR  AS user_addr
+        FROM USER_INFO
+        WHERE ID = #{user_id}
+    </select>
 </mapper>

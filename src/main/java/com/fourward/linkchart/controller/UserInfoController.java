@@ -1,12 +1,18 @@
 package com.fourward.linkchart.controller;
 
 import com.fourward.linkchart.dto.UserInfoDTO;
+import com.fourward.linkchart.service.IMailService;
 import com.fourward.linkchart.service.IUserInfoService;
 import com.fourward.linkchart.util.EncryptUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +24,7 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 public class UserInfoController {
     private final IUserInfoService userInfoService;
+    private final IMailService mailService;
 
     //회원가입 정보 전송. 종료시 초기 페이지로 리디렉션.
     @PostMapping(value = "/doSignUp")
@@ -114,22 +121,76 @@ public class UserInfoController {
     }
 
     @PostMapping("/updatePsw")
-    public String updatePsw(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public ResponseEntity<Void> updatePsw(HttpServletRequest request) {
         log.info("{}.updatePsw start", this.getClass().getName());
         UserInfoDTO pDTO = new UserInfoDTO();
         pDTO.setUser_id(request.getParameter("user_id"));
         try {
             pDTO.setUser_password(EncryptUtil.encHashSHA256(request.getParameter("user_password")));
         } catch (Exception ignored) {
-            redirectAttributes.addFlashAttribute("error_type", "시스템에 장에가 발생 하였습니다. 비밀번호 변경을 실패하였습니다.");
-
-            return "redirect:/view";
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        if (userInfoService.getUserLoginCheck(pDTO).getIsExist().equals("1")) {
+
+            return new ResponseEntity<>(HttpStatus.valueOf(409));
+        }
+        log.info("{}.updatePsw | id : [{}]", this.getClass().getName(), pDTO.getUser_id());
         userInfoService.updateUserPsw(pDTO);
 
         log.info("{}.updatePsw end", this.getClass().getName());
 
-        return "redirect:/user/logout";
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/updateEmail")
+    public ResponseEntity<Void> updateEmail(HttpServletRequest request) {
+        log.info("{}.updateEmail start", this.getClass().getName());
+        UserInfoDTO pDTO = new UserInfoDTO();
+        pDTO.setUser_id(request.getParameter("user_id"));
+        try {
+            pDTO.setUser_email(EncryptUtil.encAES128CBC(request.getParameter("user_email")));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        if ((userInfoService.checkUserEmailExist(pDTO).getIsExist()).equals("1")) {
+            return new ResponseEntity<>(HttpStatus.valueOf(409));
+        }
+        log.info("{}updateEmail | id : [{}]", this.getClass().getName(), pDTO.getUser_id());
+        userInfoService.updateUserEmail(pDTO);
+
+        log.info("{}.updateEmail end", this.getClass().getName());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/updateAddr")
+    public ResponseEntity<Void> updateAddr(HttpServletRequest request) {
+        log.info("{}.updateAddr start", this.getClass().getName());
+        UserInfoDTO pDTO = new UserInfoDTO();
+        pDTO.setUser_id(request.getParameter("user_id"));
+        try {
+            pDTO.setUser_addr(EncryptUtil.encAES128CBC(request.getParameter("user_addr")));
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        log.info("{}.updateAddr | id : [{}]", this.getClass().getName(), pDTO.getUser_id());
+        userInfoService.updateUserAddr(pDTO);
+
+        log.info("{}.updateAddr end", this.getClass().getName());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/getUserInfo")
+    @ResponseBody
+    public UserInfoDTO getUserInfo(HttpServletRequest request) {
+        log.info("{}.getUserInfo start", this.getClass().getName());
+        UserInfoDTO pDTO = new UserInfoDTO();
+        pDTO.setUser_id(request.getParameter("user_id"));
+        log.info("{}.getUserInfo | id : [{}]", this.getClass().getName(), pDTO.getUser_id());
+        log.info("{}.getUserInfo end", this.getClass().getName());
+
+        return userInfoService.getUserInfo(pDTO);
     }
 
     @Deprecated

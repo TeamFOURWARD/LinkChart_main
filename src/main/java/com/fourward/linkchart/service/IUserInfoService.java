@@ -12,4 +12,10 @@ public interface IUserInfoService {
     UserInfoDTO checkUserEmailExist(UserInfoDTO pDTO);
 
     void updateUserPsw(UserInfoDTO pDTO);
+
+    void updateUserEmail(UserInfoDTO pDTO);
+
+    void updateUserAddr(UserInfoDTO pDTO);
+
+    UserInfoDTO getUserInfo(UserInfoDTO pDTO);
 }

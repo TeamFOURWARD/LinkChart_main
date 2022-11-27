@@ -14,4 +14,10 @@ public interface IUserInfoMapper {
     UserInfoDTO getUserLoginCheck(UserInfoDTO pDTO);
 
     int updateUserPsw(UserInfoDTO pDTO);
+
+    int updateUserEmail(UserInfoDTO pDTO);
+
+    int updateUserAddr(UserInfoDTO pDTO);
+
+    UserInfoDTO getUserInfo(UserInfoDTO pDTO);
 }
