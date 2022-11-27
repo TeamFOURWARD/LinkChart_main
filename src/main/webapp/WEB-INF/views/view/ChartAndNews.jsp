@@ -45,13 +45,6 @@
     <script src="/js/dateUtil.js" type="text/javascript">
         // date formatter
     </script>
-    <script src="/js/user_view.js" type="text/javascript">
-        // updateUserPsw
-    </script>
-
-    <%--
-    <script src="js/index.js" type="text/javascript"></script>
-    --%>
 
     <script type="text/javascript">
         // 초기 로딩시 보여줄 데이터
@@ -60,373 +53,377 @@
             getNewsData("증시", dateToString(new Date()), false);
         });
     </script>
+    <%--    프로필툴팁--%>
+    <link rel="stylesheet" href="/css/user_view_tooltip.css"/>
+    <link rel="stylesheet" href="/css/user_view_profile.css"/>
 </head>
 
 <body>
 
-    <div class="lc_nav_wrap" id="lc_nav_wrap">
-        <div class="lc_nav">
-            <ul>
-                <li class="lcn_list toggleActive" id="lcnav01">
-                    <a href="#">
+<div class="lc_nav_wrap" id="lc_nav_wrap">
+    <div class="lc_nav">
+        <ul>
+            <li class="lcn_list toggleActive" id="lcnav01">
+                <a href="#">
                         <span class="lcn_icon">
                             <i class="fa-solid fa-house"></i>
                         </span>
-                        <span class="lcn_text">
+                    <span class="lcn_text">
                             HOME
                         </span>
-                    </a>
-                </li>
-                <li class="lcn_list" id="lcnav02">
-                    <a href="#" onclick="toggleClass()">
+                </a>
+            </li>
+            <li class="lcn_list" id="lcnav02">
+                <a href="#" onclick="toggleClass()">
                         <span class="lcn_icon">
                             <i class="fa-solid fa-chart-simple"></i>
                         </span>
-                        <span class="lcn_text">
+                    <span class="lcn_text">
                             Link Chart
                         </span>
-                    </a>
-                </li>
-                <li class="lcn_list" id="lcnav03">
-                    <a href="#" onclick="toggleClass2()">
+                </a>
+            </li>
+            <li class="lcn_list" id="lcnav03">
+                <a href="#" onclick="toggleClass2()">
                         <span class="lcn_icon">
                             <i class="fa-solid fa-heart"></i>
                         </span>
-                        <span class="lcn_text">
+                    <span class="lcn_text">
                             MYPAGE
                         </span>
-                    </a>
-                </li>
-                <%--로그아웃 스크립트--%>
-                <script type="text/javascript">
-                    function logout() {
-                        document.getElementById("user_logout1").submit();
-                    }
-                </script>
-                <li class="lcn_list" id="lcnav04">
-                    <form id="user_logout1" method="post" action="/user/logout"></form>
-                    <a href="#" onclick="logout()">
+                </a>
+            </li>
+            <%--로그아웃 스크립트--%>
+            <script type="text/javascript">
+                function logout() {
+                    document.getElementById("user_logout1").submit();
+                }
+            </script>
+            <li class="lcn_list" id="lcnav04">
+                <form id="user_logout1" method="post" action="/user/logout"></form>
+                <a href="#" onclick="logout()">
                         <span class="lcn_icon">
                             <i class="fa-solid fa-right-to-bracket"></i>
                         </span>
-                        <span class="lcn_text">
+                    <span class="lcn_text">
                             LOGOUT
                         </span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+                </a>
+            </li>
+        </ul>
     </div>
+</div>
 
-    <div class="bubbles">
-        <span style="--i:11"></span>
-        <span style="--i:12"></span>
-        <span style="--i:24"></span>
-        <span style="--i:10"></span>
-        <span style="--i:14"></span>
-        <span style="--i:23"></span>
-        <span style="--i:18"></span>
-        <span style="--i:16"></span>
-        <span style="--i:19"></span>
-        <span style="--i:20"></span>
-        <span style="--i:22"></span>
-        <span style="--i:25"></span>
-        <span style="--i:18"></span>
-        <span style="--i:21"></span>
-        <span style="--i:15"></span>
-        <span style="--i:13"></span>
-        <span style="--i:26"></span>
-        <span style="--i:17"></span>
-        <span style="--i:13"></span>
-        <span style="--i:28"></span>
-        <span style="--i:11"></span>
-        <span style="--i:12"></span>
-        <span style="--i:24"></span>
-        <span style="--i:10"></span>
-        <span style="--i:14"></span>
-        <span style="--i:23"></span>
-        <span style="--i:18"></span>
-        <span style="--i:16"></span>
-        <span style="--i:19"></span>
-        <span style="--i:20"></span>
-        <span style="--i:22"></span>
-        <span style="--i:25"></span>
-        <span style="--i:18"></span>
-        <span style="--i:21"></span>
-        <span style="--i:15"></span>
-        <span style="--i:13"></span>
-        <span style="--i:26"></span>
-        <span style="--i:17"></span>
-        <span style="--i:13"></span>
-        <span style="--i:28"></span>
-        <span style="--i:11"></span>
-        <span style="--i:12"></span>
-        <span style="--i:24"></span>
-        <span style="--i:10"></span>
-        <span style="--i:14"></span>
-        <span style="--i:23"></span>
-        <span style="--i:18"></span>
-        <span style="--i:16"></span>
-        <span style="--i:19"></span>
-        <span style="--i:20"></span>
-        <span style="--i:22"></span>
-        <span style="--i:25"></span>
-        <span style="--i:18"></span>
-        <span style="--i:21"></span>
-        <span style="--i:15"></span>
-        <span style="--i:13"></span>
-        <span style="--i:26"></span>
-        <span style="--i:17"></span>
-        <span style="--i:13"></span>
-        <span style="--i:28"></span>
-        <span style="--i:11"></span>
-        <span style="--i:12"></span>
-        <span style="--i:24"></span>
-        <span style="--i:10"></span>
-        <span style="--i:14"></span>
-        <span style="--i:23"></span>
-        <span style="--i:18"></span>
-        <span style="--i:16"></span>
-        <span style="--i:19"></span>
-        <span style="--i:20"></span>
-        <span style="--i:22"></span>
-        <span style="--i:25"></span>
-        <span style="--i:18"></span>
-        <span style="--i:21"></span>
-        <span style="--i:15"></span>
-        <span style="--i:13"></span>
-        <span style="--i:26"></span>
-        <span style="--i:17"></span>
-        <span style="--i:13"></span>
-        <span style="--i:28"></span>
-        <span style="--i:11"></span>
-        <span style="--i:12"></span>
-        <span style="--i:24"></span>
-        <span style="--i:10"></span>
-        <span style="--i:14"></span>
-        <span style="--i:23"></span>
-        <span style="--i:18"></span>
-        <span style="--i:16"></span>
-        <span style="--i:19"></span>
-        <span style="--i:20"></span>
-        <span style="--i:22"></span>
-        <span style="--i:25"></span>
-        <span style="--i:18"></span>
-        <span style="--i:21"></span>
-        <span style="--i:15"></span>
-        <span style="--i:13"></span>
-        <span style="--i:26"></span>
-        <span style="--i:17"></span>
-        <span style="--i:13"></span>
-        <span style="--i:28"></span>
-        <span style="--i:11"></span>
-        <span style="--i:12"></span>
-        <span style="--i:24"></span>
-        <span style="--i:10"></span>
-        <span style="--i:14"></span>
-        <span style="--i:23"></span>
-        <span style="--i:18"></span>
-        <span style="--i:16"></span>
-        <span style="--i:19"></span>
-        <span style="--i:20"></span>
-        <span style="--i:22"></span>
-        <span style="--i:25"></span>
-        <span style="--i:18"></span>
-        <span style="--i:21"></span>
-        <span style="--i:15"></span>
-        <span style="--i:13"></span>
-        <span style="--i:26"></span>
-        <span style="--i:17"></span>
-        <span style="--i:13"></span>
-        <span style="--i:28"></span>
-    </div>
+<div class="bubbles">
+    <span style="--i:11"></span>
+    <span style="--i:12"></span>
+    <span style="--i:24"></span>
+    <span style="--i:10"></span>
+    <span style="--i:14"></span>
+    <span style="--i:23"></span>
+    <span style="--i:18"></span>
+    <span style="--i:16"></span>
+    <span style="--i:19"></span>
+    <span style="--i:20"></span>
+    <span style="--i:22"></span>
+    <span style="--i:25"></span>
+    <span style="--i:18"></span>
+    <span style="--i:21"></span>
+    <span style="--i:15"></span>
+    <span style="--i:13"></span>
+    <span style="--i:26"></span>
+    <span style="--i:17"></span>
+    <span style="--i:13"></span>
+    <span style="--i:28"></span>
+    <span style="--i:11"></span>
+    <span style="--i:12"></span>
+    <span style="--i:24"></span>
+    <span style="--i:10"></span>
+    <span style="--i:14"></span>
+    <span style="--i:23"></span>
+    <span style="--i:18"></span>
+    <span style="--i:16"></span>
+    <span style="--i:19"></span>
+    <span style="--i:20"></span>
+    <span style="--i:22"></span>
+    <span style="--i:25"></span>
+    <span style="--i:18"></span>
+    <span style="--i:21"></span>
+    <span style="--i:15"></span>
+    <span style="--i:13"></span>
+    <span style="--i:26"></span>
+    <span style="--i:17"></span>
+    <span style="--i:13"></span>
+    <span style="--i:28"></span>
+    <span style="--i:11"></span>
+    <span style="--i:12"></span>
+    <span style="--i:24"></span>
+    <span style="--i:10"></span>
+    <span style="--i:14"></span>
+    <span style="--i:23"></span>
+    <span style="--i:18"></span>
+    <span style="--i:16"></span>
+    <span style="--i:19"></span>
+    <span style="--i:20"></span>
+    <span style="--i:22"></span>
+    <span style="--i:25"></span>
+    <span style="--i:18"></span>
+    <span style="--i:21"></span>
+    <span style="--i:15"></span>
+    <span style="--i:13"></span>
+    <span style="--i:26"></span>
+    <span style="--i:17"></span>
+    <span style="--i:13"></span>
+    <span style="--i:28"></span>
+    <span style="--i:11"></span>
+    <span style="--i:12"></span>
+    <span style="--i:24"></span>
+    <span style="--i:10"></span>
+    <span style="--i:14"></span>
+    <span style="--i:23"></span>
+    <span style="--i:18"></span>
+    <span style="--i:16"></span>
+    <span style="--i:19"></span>
+    <span style="--i:20"></span>
+    <span style="--i:22"></span>
+    <span style="--i:25"></span>
+    <span style="--i:18"></span>
+    <span style="--i:21"></span>
+    <span style="--i:15"></span>
+    <span style="--i:13"></span>
+    <span style="--i:26"></span>
+    <span style="--i:17"></span>
+    <span style="--i:13"></span>
+    <span style="--i:28"></span>
+    <span style="--i:11"></span>
+    <span style="--i:12"></span>
+    <span style="--i:24"></span>
+    <span style="--i:10"></span>
+    <span style="--i:14"></span>
+    <span style="--i:23"></span>
+    <span style="--i:18"></span>
+    <span style="--i:16"></span>
+    <span style="--i:19"></span>
+    <span style="--i:20"></span>
+    <span style="--i:22"></span>
+    <span style="--i:25"></span>
+    <span style="--i:18"></span>
+    <span style="--i:21"></span>
+    <span style="--i:15"></span>
+    <span style="--i:13"></span>
+    <span style="--i:26"></span>
+    <span style="--i:17"></span>
+    <span style="--i:13"></span>
+    <span style="--i:28"></span>
+    <span style="--i:11"></span>
+    <span style="--i:12"></span>
+    <span style="--i:24"></span>
+    <span style="--i:10"></span>
+    <span style="--i:14"></span>
+    <span style="--i:23"></span>
+    <span style="--i:18"></span>
+    <span style="--i:16"></span>
+    <span style="--i:19"></span>
+    <span style="--i:20"></span>
+    <span style="--i:22"></span>
+    <span style="--i:25"></span>
+    <span style="--i:18"></span>
+    <span style="--i:21"></span>
+    <span style="--i:15"></span>
+    <span style="--i:13"></span>
+    <span style="--i:26"></span>
+    <span style="--i:17"></span>
+    <span style="--i:13"></span>
+    <span style="--i:28"></span>
+</div>
 
-    <div class="wave wave1"></div>
-    <div class="wave wave2"></div>
-    <div class="wave wave3"></div>
-    <div class="wave wave4"></div>
+<div class="wave wave1"></div>
+<div class="wave wave2"></div>
+<div class="wave wave3"></div>
+<div class="wave wave4"></div>
 
-    <div class="section_01_wrap">
+<div class="section_01_wrap">
 
-        <div class="container section_01" id="bpw">
-            <div class="row">
-                <div class="col-md-5 intro_content">
-                    <ul id="bpwrap"></ul>
-                    <a href="#" onclick="toggleClass()"></a>
-                </div>
-                <div class="col-md-7 card_wrap" id="card_wrap">
-                    <div class="row">
-                        <div class="card_content_wrap">
-                            <div class="card_content">
-                                <a href="#" class="myPage"></a>
-                                <h2>02</h2>
-                                <h3>MY PAGE</h3>
-                                <p>
-                                    <i class="fa-solid fa-heart"></i>
-                                </p>
-                            </div>
-                        </div>
-                        <%--로그아웃 스크립트--%>
-                        <script type="text/javascript">
-                            function logout() {
-                                document.getElementById("user_logout2").submit();
-                            }
-                        </script>
-                        <div class="card_content_wrap">
-                            <div class="card_content">
-                                <form id="user_logout2" method="post" action="/user/logout"></form>
-                                <a href="#" onclick="logout()"></a>
-                                <h2>01</h2>
-                                <h3>LOGOUT</h3>
-                                <p>
-                                    <i class="fa-solid fa-right-to-bracket"></i>
-                                </p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+    <div class="container section_01" id="bpw">
+        <div class="row">
+            <div class="col-md-5 intro_content">
+                <ul id="bpwrap"></ul>
+                <a href="#" onclick="toggleClass()"></a>
             </div>
-
-            <p class="copyrightText">
-                Copyright &copy; 2022 FOURWARD All Right Reserved.
-            </p>
-
-        </div>
-
-    </div>
-
-    <div id="popup1">
-        <div class="container_wrap section_chart">
-            <div class="container">
-                <div class="section_01_content_wrap">
-                    <div class="linksection">
-                        <div>
-                            <label for="putDate">뉴스 검색 날짜 : </label
-                            ><input type="text" size="8" id="putDate" placeholder="yyyyMMdd 기본값:오늘"/>
-                            <label for="putKeyword">키워드 : </label
-                            ><input type="text" size="10" id="putKeyword"/>
-                            <button type="button" onclick="getNews_click()">전송</button>
+            <div class="col-md-7 card_wrap" id="card_wrap">
+                <div class="row">
+                    <div class="card_content_wrap">
+                        <div class="card_content">
+                            <a href="#" class="myPage"></a>
+                            <h2>02</h2>
+                            <h3>MY PAGE</h3>
+                            <p>
+                                <i class="fa-solid fa-heart"></i>
+                            </p>
                         </div>
                     </div>
 
-                    <div class="chart_news_wrap">
-                        <div class="chart_news_cp">
-                            <div id="chart_div"><%-- ajax 적용 차트--%></div>
-                            <div class="chart_search_wrap">
-                                <label for="startDate_req">시작날짜 : </label>
-                                <input type="text" id="startDate_req" size="14" placeholder="기본값 : 2년전"/>
-                                <label for="endDate_req">종료날짜 : </label>
-                                <input type="text" id="endDate_req" size="14" placeholder="기본값 : 오늘"/>
-                                <label for="stockName">종목명 : </label>
-                                <input type="text" id="stockName"/>
-                                <button onclick="getStockData(null, true);">전송</button>
-                            </div>
-                        </div>
-                        <div class="chart_news_np">
-                            <div id="newsMain"><%-- ajax 적용 뉴스--%></div>
+                    <div class="card_content_wrap">
+                        <div class="card_content">
+                            <form id="user_logout2" method="post" action="/user/logout"></form>
+                            <a href="#" onclick="logout()"></a>
+                            <h2>01</h2>
+                            <h3>LOGOUT</h3>
+                            <p>
+                                <i class="fa-solid fa-right-to-bracket"></i>
+                            </p>
                         </div>
                     </div>
-
-                    <a href="#" class="popupClose">
-                        <i class="fa-solid fa-xmark"></i>
-                    </a>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="popup2">
-
-        <div class="container_wrap section_chart">
-            <div class="container">
-
-                <div class="section_02_content_wrap">
-                    <div class="accordion_wrap">
-                        <button class="accordion">개인정보 변경</button>
-                        <div class="panel">
-                            <div class="modal-content" id="user_profile">
-                                <h4>&nbsp;</h4>
-                                <form id="user_updatePsw" method="post" action="/user/updatePsw">
-                                    <label for="profile_user_id_1"><b>ID</b></label>
-                                    <input id="profile_user_id_1" name="user_id" type="text" value="${SS_USER_ID}" readonly>
-                                    </br>
-                                    <label for="profile_user_name"><b>NAME</b></label>
-                                    <input id="profile_user_name" name="user_name" type="text" value="foobar" readonly>
-                                    <%--                                이름은 자동으로 가져와졌다가 창 나가면 지워진다 TODO--%>
-                                    </br>
-                                    <label for="profile_user_psw"><b>Password</b></label>
-                                    <input type="password" id="profile_user_psw" name="user_password"
-                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                           title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters required">
-                                    </br>
-                                    <label for="profile_user_psw-repeat"><b>Repeat Password</b></label>
-                                    <input type="password" placeholder="Repeat Password" id="profile_user_psw-repeat">
-                                    </br>
-                                    <div class="clearfix">
-                                        <button type="submit" class="signupbtn" onclick="return updateUserPsw()">Update Password</button>
-                                        <button type="reset" class="resetbtn">Reset</button>
-                                    </div>
-                                </form>
-                                <form id="user_updateAddr" method="post" action="/user/updateAddr">
-                                    <label for="profile_user_id_2"></label>
-                                    <input id="profile_user_id_2" name="user_id" type="text" value="${SS_USER_ID}" hidden readonly>
-                                    </br>
-                                    <label for="profile_addr"><b>Address</b></label>
-                                    <input type="text" value="" id="profile_addr" size="20">
-                                    <%--                                주소가져오기 버튼 TODO--%>
-                                    <div class="clearfix">
-                                        <button type="submit" class="signupbtn">Update Address</button>
-                                        <button type="reset" class="resetbtn">Reset</button>
-                                    </div>
-                                </form>
-                                <h4>&nbsp;</h4>
-                                <div id="message">
-                                    <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
-                                    <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
-                                    <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
-                                    <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
-                                </div>
-
-                                <div id="chkPsw" style="display: none">
-                                    <p id="pswWrong" class="invalid" style="display: none">비밀번호가 다릅니다.</p>
-                                    <p id="pswOk" class="valid" style="display: none">비밀번호가 일치합니다.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">TopicModeling</a></button>
-
-                        <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">리뷰</a></button>
-                    </div>
-
-                    <a href="#" onclick="toggleClass2()" class="popupClose">
-                        <i class="fa-solid fa-xmark"></i>
-                    </a>
 
                 </div>
             </div>
         </div>
 
+        <p class="copyrightText">
+            Copyright &copy; 2022 FOURWARD All Right Reserved.
+        </p>
+
     </div>
 
-    <%--<div id="popup3">
-        <div class="container_wrap section_chart">
-            <div class="container">
-                <div class="section_03_content_wrap">
-                    <div class="modal-content animate">
-                        <div class="container">
-                            <p>내가 본 뉴스</p>
+</div>
+
+<div id="popup1">
+    <div class="container_wrap section_chart">
+        <div class="container">
+            <div class="section_01_content_wrap">
+                <div class="linksection">
+                    <div>
+                        <label for="putDate">뉴스 검색 날짜 : </label
+                        ><input type="text" size="8" id="putDate" placeholder="yyyyMMdd 기본값:오늘"/>
+                        <label for="putKeyword">키워드 : </label
+                        ><input type="text" size="10" id="putKeyword"/>
+                        <button type="button" onclick="getNews_click()">전송</button>
+                    </div>
+                </div>
+
+                <div class="chart_news_wrap">
+                    <div class="chart_news_cp">
+                        <div id="chart_div"><%-- ajax 적용 차트--%></div>
+                        <div class="chart_search_wrap">
+                            <label for="startDate_req">시작날짜 : </label>
+                            <input type="text" id="startDate_req" size="14" placeholder="기본값 : 2년전"/>
+                            <label for="endDate_req">종료날짜 : </label>
+                            <input type="text" id="endDate_req" size="14" placeholder="기본값 : 오늘"/>
+                            <label for="stockName">종목명 : </label>
+                            <input type="text" id="stockName"/>
+                            <button onclick="getStockData(null, true);">전송</button>
                         </div>
                     </div>
-                    <a href="#" onclick="toggleClass3()" class="popupClose">
-                        <i class="fa-solid fa-xmark"></i>
-                    </a>
+                    <div class="chart_news_np">
+                        <div id="newsMain"><%-- ajax 적용 뉴스--%></div>
+                    </div>
                 </div>
+
+                <a href="#" class="popupClose">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+
             </div>
         </div>
-    </div>--%>
+    </div>
+</div>
+
+<div id="popup2">
+
+    <div class="container_wrap section_chart">
+        <div class="container">
+
+            <div class="section_02_content_wrap">
+                <div class="accordion_wrap">
+                    <button class="accordion">개인정보 변경</button>
+                    <div class="panel">
+                        <div class="modal-content" id="user_profile">
+                            <h4>&nbsp;</h4>
+                            <b>ID</b>
+                            <span id="profile_user_id"></span>
+                            <br>
+                            <b>NAME</b>
+                            <span id="profile_user_name"></span>
+                            <br>
+                            <div class="tooltip_1">
+                                <label for="profile_update_password"><b>Password</b></label>
+                                <input class="tooltip_a" type="password" id="profile_update_password"
+                                       placeholder="Password">
+                                <span class="tooltip-text">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters required.
+                                </span>
+                                <span id="profile_tooltip_password" class="tooltip-text-up">
+                                    <span class="tooltip-none" id="msgLowerCaseLetters">Most contain at least one lowercase letter.<br></span>
+                                    <span class="tooltip-none" id="msgUpperCaseLetters">Most contain at least one uppercase letter.<br></span>
+                                    <span class="tooltip-none" id="msgNumbers">Most contain at least one number.<br></span>
+                                    <span class="tooltip-none" id="msgMatchPsw">Password can be used.</span>
+                                </span>
+                            </div>
+                            <br>
+                            <label for="profile_update_password_repeat"><b>Repeat Password</b></label>
+                            <input type="password" placeholder="Repeat Password" id="profile_update_password_repeat">
+                            <br>
+                            <div class="clearfix">
+                                <button type="button" class="signupbtn" onclick="updatePsw()">Update Password</button>
+                                <button type="button" class="resetbtn" onclick="clearPsw()">Clear</button>
+                            </div>
+                            <b>Email Before</b>
+                            <span id="profile_user_email" style="display: inline-block;"></span>
+                            <br>
+                            <label for="profile_update_email"><b>New Email</b></label>
+                            <input type="email" id="profile_update_email" size="20">
+                            <div class="clearfix">
+                                <button type="button" class="signupcheck" <%--TODO 이메일 검증 함수 버튼--%>>Validate Email
+                                </button>
+                                <button type="button" class="signupbtn" onclick="updateUserEmail()">Update Email
+                                </button>
+                                <button type="button" class="resetbtn" onclick="clearEmailVal()">Clear</button>
+                            </div>
+                            <b>Address Before</b>
+                            <span id="profile_user_addr" style="display: inline-block"></span>
+                            <br>
+                            <label for="profile_addr"><b>New Address</b></label>
+                            <input type="text" name="user_addr" id="profile_addr" size="20" required>
+                            <div class="clearfix">
+                                <button type="button" class="signupcheck" <%--TODO 주소 검증 함수 버튼--%>>Find Addr</button>
+                                <button type="button" class="signupbtn">Update Address</button>
+                                <button type="button" class="resetbtn" onclick="clearAddrVal()">Clear</button>
+                            </div>
+                            <h4>&nbsp;</h4>
+                        </div>
+                    </div>
+
+                    <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">TopicModeling</a>
+                    </button>
+
+                    <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">리뷰</a></button>
+                </div>
+
+                <a href="#" onclick="toggleClass()" class="popupClose">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<%--<div id="popup3">
+    <div class="container_wrap section_chart">
+        <div class="container">
+            <div class="section_03_content_wrap">
+                <div class="modal-content animate">
+                    <div class="container">
+                        <p>내가 본 뉴스</p>
+                    </div>
+                </div>
+                <a href="#" onclick="toggleClass3()" class="popupClose">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>--%>
 
 <script>
     VanillaTilt.init(document.querySelectorAll(".intro_content"), {
@@ -468,9 +465,9 @@
 
     setInterval("myInterval()", 1500);
 
-    $(document).ready(function(){
+    $(document).ready(function () {
 
-        $("#lcnav01").click(function(){
+        $("#lcnav01").click(function () {
             $("#bpw").show();
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
@@ -482,7 +479,7 @@
             $(this).addClass("toggleActive");
         });
 
-        $("#lcnav02").click(function(){
+        $("#lcnav02").click(function () {
             $("#bpw").hide();
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
@@ -495,7 +492,7 @@
             $("#popup1").addClass("toggleActive");
         });
 
-        $("#lcnav03").click(function(){
+        $("#lcnav03").click(function () {
             $("#bpw").hide();
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
@@ -508,7 +505,7 @@
             $("#popup2").addClass("toggleActive");
         });
 
-        $("#lcnav04").click(function(){
+        $("#lcnav04").click(function () {
             $("#bpw").hide();
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
@@ -521,7 +518,7 @@
             $("#popup3").addClass("toggleActive");
         });
 
-        $(".intro_content>a").click(function(){
+        $(".intro_content>a").click(function () {
             $("#bpw").hide();
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
@@ -534,7 +531,7 @@
             $("#popup1").addClass("toggleActive");
         });
 
-        $(".myPage").click(function(){
+        $(".myPage").click(function () {
             $("#bpw").hide();
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
@@ -547,7 +544,7 @@
             $("#popup2").addClass("toggleActive");
         });
 
-        $(".logout").click(function(){
+        $(".logout").click(function () {
             $("#bpw").hide();
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
@@ -560,7 +557,7 @@
             $("#popup3").addClass("toggleActive");
         });
 
-        $(".popupClose").click(function(){
+        $(".popupClose").click(function () {
             $("#bpw").show();
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
@@ -597,7 +594,7 @@
     var i;
 
     for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
+        acc[i].addEventListener("click", function () {
             this.classList.toggle("active");
             var panel = this.nextElementSibling;
             if (panel.style.maxHeight) {
@@ -608,6 +605,15 @@
         });
     }
 
+
+</script>
+<%--로그아웃 스크립트--%>
+<script type="text/javascript">
+    function logout() {
+        document.getElementById("user_logout2").submit();
+    }
+</script>
+<script src="/js/user_view.js" type="text/javascript">
 </script>
 </body>
 </html>
