@@ -280,10 +280,10 @@
                 <div class="section_01_content_wrap">
                     <div class="linksection">
                         <div>
-                            <label for="putDate">뉴스 검색 날짜 : </label
-                            ><input type="text" size="8" id="putDate" placeholder="yyyyMMdd 기본값:오늘"/>
-                            <label for="putKeyword">키워드 : </label
-                            ><input type="text" size="10" id="putKeyword"/>
+                            <label for="news_date">뉴스 검색 날짜 : </label
+                            ><input type="text" size="8" id="news_date" placeholder="yyyyMMdd 기본값:오늘"/>
+                            <label for="news_keyword">키워드 : </label
+                            ><input type="text" size="10" id="news_keyword"/>
                             <button type="button" onclick="getNews_click()">전송</button>
                         </div>
                     </div>

@@ -33,13 +33,8 @@ function getStockData(arg, condition) {
             if (condition) {
                 getNewsData(stockName, null, false);
             }
-
             return loadChart(data, stockName);
         }
-        /*
-function (request, status, error) {
-alert(request.status + " " + request.responseText + " " + error);
-*/
     });
 }
 
