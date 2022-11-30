@@ -55,10 +55,10 @@
 
     <script type="text/javascript">
         // 초기 로딩시 보여줄 데이터
-        $(document).ready(function () {
+        window.onload = function () {
             getStockData("코스피", false);
             getNewsData("증시", dateToString(new Date()), false);
-        });
+        }
     </script>
 </head>
 
@@ -318,15 +318,21 @@
                         <div class="chart_news_cp">
                             <div id="chart_div"><%-- ajax 적용 차트--%></div>
                             <div class="chart_search_wrap">
-                                <label for="startDate_req">시작날짜 :
-                                    <input type="text" id="startDate_req" size="14" placeholder="기본값 : 2년전"/>
+                                <label for="chart_startTime">시작날짜 :
+                                    <input type="text" id="chart_startTime" size="14" placeholder="기본값 : 2년전"/>
                                 </label>
-                                <label for="endDate_req">종료날짜 :
-                                    <input type="text" id="endDate_req" size="14" placeholder="기본값 : 오늘"/>
+                                <label for="chart_endTime">종료날짜 :
+                                    <input type="text" id="chart_endTime" size="14" placeholder="기본값 : 오늘"/>
                                 </label>
-                                <label for="stockName"
-                                >종목명 :
-                                    <input type="text" id="stockName"/>
+                                <label for="chart_timeframe">날짜단위 :
+                                    <select id="chart_timeframe" size="1">
+                                        <option value="day">일</option>
+                                        <option value="week">주</option>
+                                        <option value="month" selected>월</option>
+                                    </select>
+                                </label>
+                                <label for="chart_name">종목명 :
+                                    <input type="text" id="chart_name"/>
                                 </label>
                                 <button onclick="getStockData(null, true);">전송</button>
                             </div>
@@ -335,7 +341,6 @@
                             <div id="newsMain"><%-- ajax 적용 뉴스--%></div>
                         </div>
                     </div>
-
                     <div class="topic">
                         토픽모델링 자리
                     </div>

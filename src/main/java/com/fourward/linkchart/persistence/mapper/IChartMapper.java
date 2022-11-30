@@ -1,19 +1,20 @@
 package com.fourward.linkchart.persistence.mapper;
 
-import com.fourward.linkchart.dto.StockDTO;
+import com.fourward.linkchart.dto.StockInfoDTO;
+import com.fourward.linkchart.dto.StockReqDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface IChartMapper {
-    List<StockDTO> getStockData(StockDTO pDTO);
+    void insertStockData(StockInfoDTO pDTO);
 
-    int insertStockData(StockDTO pDTO);
+    List<StockInfoDTO> getStockData(StockReqDTO pDTO) throws Exception;
 
-    String getStockCodeByName(StockDTO pDTO);
+    String getStockCodeByName(StockReqDTO pDTO);
 
-    String getStockData_dateStart(StockDTO pDTO);
+    String getStockData_dateStart(StockReqDTO pDTO);
 
-    String getStockData_dateEnd(StockDTO pDTO);
+    String getStockData_dateEnd(StockReqDTO pDTO);
 }

@@ -5,33 +5,36 @@
  */
 function getStockData(arg, condition) {
     let stockName;
-    const startDate_req = $("#startDate_req").val();
-    const endDate_req = $("#endDate_req").val();
+    const startDate_req = document.getElementById("chart_startTime").value;
+    const endDate_req = document.getElementById("chart_endTime").value;
+    const timeframe = document.getElementById("chart_timeframe");
     if (arg == null) {
-        stockName = $("#stockName").val();
+        stockName = document.getElementById("chart_name").value;
     } else {
         stockName = arg;
     }
-
     $.ajax({
         url: "/chart/getStockData",
-        data: {
-            "stockName": stockName,
-            "startDate_req": startDate_req,
-            "endDate_req": endDate_req
-        },
+        data: JSON.stringify({
+            "name": stockName,
+            "startTime": startDate_req,
+            "endTime": endDate_req,
+            "timeframe": timeframe.options[timeframe.selectedIndex].value
+        }),
         type: 'POST',
+        contentType: "application/json; charset=UTF-8",
         dataType: 'json',
         async: false,
+        statusCode: {
+            400: () => alert("잘못된 요청 입니다. 종목명을 확인해 주세요."),
+            500: () => alert("서버에 오류가 발생 하였습니다. 잠시후 다시 시도해 주세요."),
+        },
         success: function (data) {
             if (condition) {
                 getNewsData(stockName, null, false);
             }
 
             return loadChart(data, stockName);
-        },
-        error: function () {
-            alert("잘못된 종목명 이거나 서버 오류 입니다.");
         }
         /*
 function (request, status, error) {

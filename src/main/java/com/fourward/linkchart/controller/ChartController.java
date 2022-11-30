@@ -1,14 +1,20 @@
 package com.fourward.linkchart.controller;
 
-import com.fourward.linkchart.dto.StockDTO;
+import com.fourward.linkchart.dto.StockInfoDTO;
+import com.fourward.linkchart.dto.StockReqDTO;
 import com.fourward.linkchart.service.IChartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 @Slf4j
@@ -19,57 +25,45 @@ public class ChartController {
     private final IChartService chartService;
 
     @PostMapping(value = "/getStockData")
-    public List<StockDTO> getStockData(HttpServletRequest request) {
+    public ResponseEntity<List<StockInfoDTO>> getStockData(@RequestBody StockReqDTO pDTO) {
         log.info("{}.getStockData start", this.getClass().getName());
-
-        StockDTO pDTO = new StockDTO();
-
         // 종목명 & 검색 날짜범위 입력. 날짜 Null 일때 기본값 = {시작날짜 : 오늘-2년, 종료날짜 : 오늘}
-        pDTO.setName(request.getParameter("stockName"));
-        pDTO.setStartDate_req(request.getParameter("startDate_req"));
-        pDTO.setEndDate_req(request.getParameter("endDate_req"));
-        log.info("requested stockName : [{}]", pDTO.getName());
-        log.info("requested startDate : [{}]", pDTO.getStartDate_req());
-        log.info("requested endDate : [{}]", pDTO.getEndDate_req());
-
-        // name 을 code 로 변환.
-        pDTO.setCode((chartService.getStockCodeByName(pDTO)));
-        log.info("requested code : [{}]", pDTO.getCode());
-        if (pDTO.getCode().equals("")) {
-            log.info("invalid stock name. return null.");
-            log.info(this.getClass().getName() + ".getStockData end");
-
-            return null;
-        }
-
-        // 입력된 데이터 날짜 범위 가져오기.
-        StockDTO dateRange = chartService.getStockData_dateRange(pDTO);
-        if (dateRange.getStartDate_exist().equals("")) {
-            pDTO.setStartDate_exist("");
-        } else {
-            pDTO.setStartDate_exist(dateRange.getStartDate_exist());
-        }
-        if (dateRange.getEndDate_exist().equals("")) {
-            pDTO.setEndDate_exist("");
-        } else {
-            pDTO.setEndDate_exist(dateRange.getEndDate_exist());
-        }
-        log.info("date range of stock_data that already exists : [{}] ~ [{}]", pDTO.getStartDate_exist(), pDTO.getEndDate_exist());
-
+        log.info("stockName requested : [{}]", pDTO.getName());
+        log.info("startDate requested : [{}]", pDTO.getStartTime());
+        log.info("endDate requested : [{}]", pDTO.getEndTime());
+        log.info("timeframe requested : [{}]", pDTO.getTimeframe());
+        // 종목 코드와 날짜 범위를 구함
         try {
-            // 데이터 가져오기 날짜 범위 설정
-            pDTO.setStartDate_req((chartService.setDate(pDTO)).getStartDate_req());
-            pDTO.setEndDate_req((chartService.setDate(pDTO)).getEndDate_req());
-            chartService.insertStockData(pDTO);
-        } catch (Exception ignored) {
-            // 유틸 클래스 관련 IOException, ParseException, HTTPClient 관련 예외.
-            log.info("{}.getStockData end", this.getClass().getName());
-
-            return null;
+            StockReqDTO rDTO = chartService.setCondition(pDTO);
+            pDTO.setSymbol(rDTO.getSymbol());
+            log.info("code requested : [{}]", pDTO.getSymbol());
+            if (pDTO.getSymbol().equals("")) {
+                log.info("invalid stock name. return null.");
+                log.info("{}.getStockData end", this.getClass().getName());
+                // 클라이언트 에러
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+            pDTO.setStartTime(rDTO.getStartTime());
+            pDTO.setEndTime(rDTO.getEndTime());
+        } catch (ParseException e) {
+            // 서버 에러
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
+        // 데이터 삽입, 데이터 가져오기
+        List<StockInfoDTO> rList;
+        try {
+            chartService.insertStockData(pDTO);
+            rList = chartService.getStockData(pDTO);
+        } catch (URISyntaxException | MalformedURLException | ParseException e) {
+            // 서버 에러
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        } catch (Exception e) {
+            // 서버 에러
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         log.info("{}.getStockData end", this.getClass().getName());
 
-        return chartService.getStockData(pDTO);
+        return new ResponseEntity<>(rList, HttpStatus.OK);
     }
 }
