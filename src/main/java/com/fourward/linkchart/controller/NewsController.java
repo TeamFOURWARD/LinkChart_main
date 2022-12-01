@@ -1,14 +1,16 @@
 package com.fourward.linkchart.controller;
 
-import com.fourward.linkchart.dto.NewsDTO;
+import com.fourward.linkchart.dto.NewsReqDTO;
 import com.fourward.linkchart.service.INewsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -20,22 +22,20 @@ public class NewsController {
     private final INewsService newsService;
 
     @GetMapping(value = "/getNewsData")
-    public List<Map<String, Object>> getNewsContents(HttpServletRequest request) {
-        log.info(this.getClass().getName() + ".getNewsData start");
+    public ResponseEntity<List<Map<String, Object>>> getNewsContents(@ModelAttribute NewsReqDTO pDTO) {
+        log.info("{}.getNewsData start", this.getClass().getName());
+        log.info("requested keyword : [{}]", pDTO.getKeyword());
+        log.info("requested date : [{}]", pDTO.getDate());
 
-        final String keyword = request.getParameter("keyword");
-        final String end_date = request.getParameter("date");
-        log.info("requested keyword : {}", keyword);
-        log.info("requested date : {}", end_date);
+        List<Map<String, Object>> rNewsList;
+        try {
+            rNewsList = newsService.getNewsContents(pDTO);
+        } catch (Exception ignored) {
+            // 서버 에러 (TODO 헤더 첨가)
+            return new ResponseEntity<>(null, null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        log.info("{}.getNewsData end", this.getClass().getName());
 
-        NewsDTO pDTO = new NewsDTO();
-        pDTO.setName(keyword);
-        pDTO.setEnd_date(end_date);
-
-        List<Map<String, Object>> rNewsList = newsService.getNewsContents(pDTO);
-
-        log.info(this.getClass().getName() + ".getNewsData end");
-
-        return rNewsList;
+        return new ResponseEntity<>(rNewsList, HttpStatus.OK);
     }
 }

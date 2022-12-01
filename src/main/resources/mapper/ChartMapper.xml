@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fourward.linkchart.persistence.mapper.IChartMapper">
-    <insert id="insertStockData" parameterType="StockDTO">
+    <insert id="insertStockData" parameterType="StockInfoDTO">
         INSERT INTO STOCK_DATA
-        (CODE, PRICE_DATE, PRICE_OPEN, PRICE_HIGH, PRICE_LOW, PRICE_CLOSE, PRICE_VOLUME)
+        (CODE, PRICE_TIMEFRAME, PRICE_DATE, PRICE_OPEN, PRICE_HIGH, PRICE_LOW, PRICE_CLOSE, PRICE_VOLUME)
         VALUES (#{code},
+                #{timeframe},
                 #{date},
                 #{open},
                 #{high},
@@ -13,7 +14,7 @@
                 #{volume})
     </insert>
 
-    <select id="getStockData" resultType="StockDTO">
+    <select id="getStockData" resultType="StockInfoDTO">
         SELECT PRICE_DATE  AS "date",
                PRICE_LOW   AS low,
                PRICE_OPEN  AS "open",
@@ -21,28 +22,31 @@
                PRICE_HIGH  AS high
                --price_volume as volume
         FROM STOCK_DATA
-        WHERE CODE = #{code}
-          AND PRICE_DATE BETWEEN #{startDate_req}
-            AND #{endDate_req}
+        WHERE CODE = #{symbol}
+          AND PRICE_TIMEFRAME = #{timeframe}
+          AND PRICE_DATE BETWEEN #{startTime}
+            AND #{endTime}
         ORDER BY PRICE_DATE ASC
     </select>
 
     <select id="getStockCodeByName" resultType="String">
-        SELECT CODE AS code
+        SELECT CODE AS symbol
         FROM STOCK_CODE
         WHERE NAME = #{name}
     </select>
 
     <select id="getStockData_dateStart" resultType="String">
-        SELECT MIN(PRICE_DATE) AS startDate_exist
+        SELECT MIN(PRICE_DATE) AS startTime_exist
         FROM STOCK_DATA
-        WHERE CODE = #{code}
+        WHERE CODE = #{symbol}
+          AND PRICE_TIMEFRAME = #{timeframe}
     </select>
 
     <select id="getStockData_dateEnd" resultType="String">
-        SELECT MAX(PRICE_DATE) AS endDate_exist
+        SELECT MAX(PRICE_DATE) AS endTime_exist
         FROM STOCK_DATA
-        WHERE CODE = #{code}
+        WHERE CODE = #{symbol}
+          AND PRICE_TIMEFRAME = #{timeframe}
     </select>
     <!--<insert id="insertStockData" parameterType="StockDTO">
             insert into STOCK_DATA

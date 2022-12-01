@@ -7,12 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class NewsDTO {
-    private String rank;
-    private String link;
-    private String head;
-    private String summary;
-    private String publisher;
+public class NewsReqDTO {
+    private String keyword;
     private String date;
-    private String thumb;
+    private String date_begin;
 }

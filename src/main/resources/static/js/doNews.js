@@ -1,8 +1,7 @@
 function getNews_click() {
-    const date = $("#putDate").val();
-    const keyword = $("#putKeyword").val();
+    const date = document.getElementById("news_date").value;
+    const keyword = document.getElementById("news_keyword").value
     if (keyword !== "") {
-
         return getNewsData(keyword, date, true);
     }
     alert("키워드를 입력해주세요.");
@@ -16,10 +15,17 @@ function getNews_click() {
 function getNewsData(keyword, date, condition) {
     $.ajax({
         url: "/news/getNewsData",
-        data: {keyword: keyword, date: date},
-        type: 'GET',
-        dataType: 'json',
+        data: {
+            "keyword": keyword,
+            "date": date
+        },
+        type: "GET",
+        contentType: "application/json;charset=UTF-8",
+        dataType: "json",
         async: false,
+        statusCode: {
+            500: () => alert("서버에 문제가 생겼습니다. 잠시후 다시 시도해주세요.")
+        },
         success: function (data) {
             if (data.length !== 0) {
                 return loadNews(data);
@@ -58,7 +64,6 @@ function loadNews(data) {
                                 {
                                     aThumb.setAttribute('href', newsGroup_list.news.link.toString());
                                 }
-
                                 const imgThumb = document.createElement('img');
                                 aThumb.appendChild(imgThumb);
                                 {
@@ -70,7 +75,6 @@ function loadNews(data) {
                                 }
                             }
                         }
-
                         // 메인 기사
                         const tdContents = document.createElement('td');
                         divList.appendChild(tdContents);

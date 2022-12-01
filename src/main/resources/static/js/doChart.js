@@ -5,42 +5,50 @@
  */
 function getStockData(arg, condition) {
     let stockName;
-    const startDate_req = $("#startDate_req").val();
-    const endDate_req = $("#endDate_req").val();
+    const startDate_req = document.getElementById("chart_startTime").value;
+    const endDate_req = document.getElementById("chart_endTime").value;
+    const t = document.getElementById("chart_timeframe");
+    const timeframe = t.options[t.selectedIndex].value;
     if (arg == null) {
-        stockName = $("#stockName").val();
+        stockName = document.getElementById("chart_name").value;
     } else {
         stockName = arg;
     }
-
     $.ajax({
         url: "/chart/getStockData",
-        data: {
-            "stockName": stockName,
-            "startDate_req": startDate_req,
-            "endDate_req": endDate_req
-        },
+        data: JSON.stringify({
+            "name": stockName,
+            "startTime": startDate_req,
+            "endTime": endDate_req,
+            "timeframe": timeframe
+        }),
         type: 'POST',
+        contentType: "application/json; charset=UTF-8",
         dataType: 'json',
-        async: false,
+        statusCode: {
+            400: () => alert("잘못된 요청 입니다. 종목명을 확인해 주세요."),
+            500: () => alert("서버에 오류가 발생 하였습니다. 잠시후 다시 시도해 주세요."),
+        },
         success: function (data) {
             if (condition) {
                 getNewsData(stockName, null, false);
             }
-
-            return loadChart(data, stockName);
-        },
-        error: function () {
-            alert("잘못된 종목명 이거나 서버 오류 입니다.");
+            if (timeframe === 'month') {
+                return loadChart(data, stockName, true);
+            } else {
+                return loadChart(data, stockName, false);
+            }
         }
-        /*
-function (request, status, error) {
-alert(request.status + " " + request.responseText + " " + error);
-*/
     });
 }
 
-function loadChart(data, name) {
+/**
+ *
+ * @param data 서버에서 받은 데이터
+ * @param name 종목명
+ * @param t 월별 표시시 '일' 생략
+ */
+function loadChart(data, name, t) {
     google.charts.load('current', {'packages': ['corechart'], 'language': 'ko'});
     google.charts.setOnLoadCallback(drawChart);
 
@@ -51,7 +59,6 @@ function loadChart(data, name) {
 
     function drawChart() {
         dataTable = new google.visualization.DataTable();
-
         dataTable.addColumn('date', '날짜');
         dataTable.addColumn('number', '저가');
         dataTable.addColumn('number', '시가');
@@ -60,7 +67,7 @@ function loadChart(data, name) {
 
         let list = []
         stockData.forEach(e => {
-            const date = stringToDate(e.date);
+            const date = stringToDate(e.date, t);
             const open = parseInt(e.open);
             const low = parseInt(e.low);
             const high = parseInt(e.high);
@@ -74,11 +81,26 @@ function loadChart(data, name) {
         google.visualization.events.addListener(chart, 'select', selectHandler);
 
         const options = {
-            title: '종목명  :  ' + keyword, 'height': 700, 'backgroundColor': '#FCF6F5', bar: {groupWidth: '100%'}, // Remove space between bars.
+            title: '종목명  :  ' + keyword,
+            'height': 700,
+            'backgroundColor': '#FCF6F5',
+            bar: {
+                groupWidth: '100%' // Remove space between bars.
+            },
             candlestick: {
-                fallingColor: {strokeWidth: 0, fill: '#005cff'}, risingColor: {strokeWidth: 0, fill: '#ff0000'}
+                fallingColor: {
+                    strokeWidth: 0,
+                    fill: '#005cff'
+                },
+                risingColor: {
+                    strokeWidth: 0,
+                    fill: '#ff0000'
+                }
             }, hAxis: {
-                format: 'M/d/yy', gridLines: {count: 'none'}
+                format: 'M/d/yy',
+                gridLines: {
+                    count: 'none'
+                }
             }
         };
         chart.draw(dataTable, options);
