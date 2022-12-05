@@ -27,7 +27,6 @@ function getStockData(arg, condition) {
             if (condition) {
                 getNewsData(stockName, null, false);
             }
-
             return loadChart(data, stockName);
         },
         error: function () {

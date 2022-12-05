@@ -22,7 +22,8 @@ function getNewsData(keyword, date, condition) {
         async: false,
         success: function (data) {
             if (data.length !== 0) {
-                return loadNews(data);
+                document.getElementById('imgTest').src =  data.image.img_save_path + data.image.img_save_name;
+                return loadNews(data.list);
             } else if (condition) {
                 alert("표시할 뉴스가 없습니다.");
             }

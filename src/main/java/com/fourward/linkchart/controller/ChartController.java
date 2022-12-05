@@ -1,7 +1,9 @@
 package com.fourward.linkchart.controller;
 
+import com.fourward.linkchart.dto.ImageDto;
 import com.fourward.linkchart.dto.StockDTO;
 import com.fourward.linkchart.service.IChartService;
+import com.fourward.linkchart.service.impl.ImageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
@@ -67,9 +70,9 @@ public class ChartController {
 
             return null;
         }
-
         log.info("{}.getStockData end", this.getClass().getName());
-
+        
+        HashMap<String, Object> hashMap = new HashMap<>();
         return chartService.getStockData(pDTO);
     }
 }
