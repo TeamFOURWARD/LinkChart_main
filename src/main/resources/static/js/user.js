@@ -1,5 +1,5 @@
 //password script
-var myInput = document.getElementById("signup_psw");
+var myInput = document.getElementById("user_password");
 var letter = document.getElementById("letter");
 var capital = document.getElementById("capital");
 var number = document.getElementById("number");
@@ -57,7 +57,7 @@ myInput.onkeyup = function () {
     }
 }
 // 비밀번호 일치 검사
-var repeatPsw = document.getElementById("psw-repeat");
+var repeatPsw = document.getElementById("user_password_repeat");
 var chkRepeatPsw = false;
 
 repeatPsw.onfocus = () => {
