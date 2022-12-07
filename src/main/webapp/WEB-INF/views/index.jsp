@@ -383,14 +383,14 @@
                         </div>
                         <button type="button" onclick="checkEmail()" class="signupcheck">이메일 중복 확인</button>
                         <div class="inputBox">
-                            <input type="password" id="signup_psw" name="user_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                            <input type="password" id="user_password" name="user_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                             <span>
                                 Password
                             </span>
                             <i></i>
                         </div>
                         <div class="inputBox">
-                            <input type="password" id="psw-repeat" required>
+                            <input type="password" id="user_password_repeat" required>
                             <span>
                                 Repeat Password
                             </span>
