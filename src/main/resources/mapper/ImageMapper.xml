@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fourward.linkchart.persistence.mapper.ImageMapper">
-    <select id="getImageDetail" parameterType="String" resultType="com.fourward.linkchart.dto.ImageDto">
+    <select id="getImageDetail" parameterType="String" resultType="com.fourward.linkchart.dto.ImageDTO">
         SELECT * FROM IMAGE WHERE img_save_name = #{imgSaveName}
     </select>
 </mapper>

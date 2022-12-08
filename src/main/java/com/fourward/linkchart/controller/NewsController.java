@@ -1,6 +1,6 @@
 package com.fourward.linkchart.controller;
 
-import com.fourward.linkchart.dto.ImageDto;
+import com.fourward.linkchart.dto.ImageDTO;
 import com.fourward.linkchart.dto.NewsDTO;
 import com.fourward.linkchart.service.INewsService;
 import com.fourward.linkchart.service.impl.ImageService;
@@ -40,11 +40,11 @@ public class NewsController {
 
 
         log.info(this.getClass().getName() + ".getNewsData end");
-        ImageDto imageDto = imageService.getImageByImageName(keyword);
+        ImageDTO imageDTO = imageService.getImageByImageName(keyword);
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("list", rNewsList);
-        map.put("image", imageDto);
+        map.put("image", imageDTO);
 
         return map;
     }

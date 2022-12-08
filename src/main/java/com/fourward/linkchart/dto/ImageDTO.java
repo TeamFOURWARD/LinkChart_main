@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ImageDto {
+public class ImageDTO {
 
     private Long img_key;
     private String img_org_name;

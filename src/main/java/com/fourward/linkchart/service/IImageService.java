@@ -1,7 +1,7 @@
 package com.fourward.linkchart.service;
 
-import com.fourward.linkchart.dto.ImageDto;
+import com.fourward.linkchart.dto.ImageDTO;
 
 public interface IImageService {
-    ImageDto getImageByImageName(String name);
+    ImageDTO getImageByImageName(String name);
 }
