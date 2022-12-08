@@ -8,12 +8,14 @@
          NAME,
          PASSWORD,
          ADDR,
+         MOBILE,
          REG_DATE)
         VALUES (#{user_id},
                 #{user_email},
                 #{user_name},
                 #{user_password},
                 #{user_addr},
+                #{mobile},
                 TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI:SS'))
     </insert>
     <select id="getUserIdExist" parameterType="UserInfoDTO" resultType="UserInfoDTO">

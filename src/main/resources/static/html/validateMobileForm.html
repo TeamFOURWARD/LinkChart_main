@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>전화번호 인증</title>
+</head>
+<body>
+<div>
+    전화번호 입력
+    <input id="n1" type="text"/>-<input id="n2" type="text"/>-<input id="n3" type="text"/>
+    <button type="button" onclick="f1()">전송</button>
+    <button type="button">초기화</button>
+    <br/>
+    인증번호 입력
+    <input id="pin" type="text"/>
+    <button type="button" onclick="f2()">전송</button>
+    <button style="display: none" type="button">초기화</button>
+</div>
+<div>
+    <button style="display: none;" id="returnBtn" type="button" onclick="go()">돌아가기</button>
+</div>
+<script src="/js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+    const returnBtn = document.getElementById("returnBtn");
+    const n1 = document.getElementById("n1");
+    const n2 = document.getElementById("n2");
+    const n3 = document.getElementById("n3");
+    const pin = document.getElementById("pin");
+
+    function f1() {
+        const m = n1.value.concat(n2.value, n3.value);
+        console.log(m)
+        $.ajax({
+            url: "/user/validateMobile/transmit",
+            type: "post",
+            data: JSON.stringify({
+                "mobile": m
+            }),
+            contentType: "application/json; charset=UTF-8",
+            statusCode: {},
+            success: res => {
+            }
+        })
+
+    }
+
+    function f2() {
+        $.ajax({
+            url: "/user/validateMobile/pin",
+            type: "post",
+            data: JSON.stringify({
+                "pin": pin.value
+            }),
+            contentType: "application/json; charset=UTF-8",
+            dataType: 'json',
+            statusCode: {
+                200: () => {
+                    returnBtn.style.display = "block"
+                    n1.readOnly = true
+                    n2.readOnly = true
+                    n3.readOnly = true
+                    pin.readOnly = true
+                }
+            }
+        })
+    }
+
+    // 회원가입페이지 복귀
+    function go() {
+        window.close();
+    }
+</script>
+</body>
+</html>

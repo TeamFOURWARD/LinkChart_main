@@ -14,6 +14,7 @@ public class UserInfoDTO {
     private String user_email;
     private String user_addr;
     private String reg_dt;
-
+    private String pin;
+    private String mobile;
     private String isExist;
 }
