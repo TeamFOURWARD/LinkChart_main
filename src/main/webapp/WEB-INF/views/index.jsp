@@ -303,9 +303,14 @@
                                 </label>
                                 <button onclick="getStockData(null, true);">전송</button>
                             </div>
+
                         </div>
                         <div class="chart_news_np">
-                            <div id="newsMain"><%-- ajax 적용 뉴스--%></div>
+                            <div id="newsMain" style="max-height: 16vh;">
+                                <%-- ajax 적용 뉴스--%></div>
+                            <div id="imageArea">
+                                <img id="imgTest">
+                            </div>
                         </div>
 
                     </div>

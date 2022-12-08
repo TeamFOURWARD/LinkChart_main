@@ -336,6 +336,9 @@
                         <div class="chart_news_np">
                             <div id="newsMain"><%-- ajax 적용 뉴스--%></div>
                         </div>
+                        <div id="imageArea">
+                            <img id="imgTest">
+                        </div>
                     </div>
                     <div class="topic">
                         토픽모델링 자리
