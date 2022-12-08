@@ -82,7 +82,7 @@ function loadChart(data, name, t) {
 
         const options = {
             title: '종목명  :  ' + keyword,
-            'height': 700,
+            'height': 600,
             'backgroundColor': '#FCF6F5',
             bar: {
                 groupWidth: '100%' // Remove space between bars.

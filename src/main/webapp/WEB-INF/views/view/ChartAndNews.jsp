@@ -360,7 +360,7 @@
                         <button class="accordion">개인정보 변경</button>
                         <div class="panel">
                             <div class="modal-content" id="user_profile">
-                                <h4>&nbsp;</h4>
+                                <h6>&nbsp;</h6>
                                 <form id="user_updatePsw" method="post" action="/user/updatePsw">
                                     <label for="profile_user_id_1"><b>ID</b></label>
                                     <input id="profile_user_id_1" name="user_id" type="text" value="${SS_USER_ID}" readonly>
@@ -394,7 +394,7 @@
                                         <button type="reset" class="resetbtn">Reset</button>
                                     </div>
                                 </form>
-                                <h4>&nbsp;</h4>
+                                <h6>&nbsp;</h6>
                                 <div id="message">
                                     <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
                                     <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
@@ -412,11 +412,12 @@
                         <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">TopicModeling</a></button>
 
                         <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">리뷰</a></button>
-                    </div>
 
-                    <a href="#" onclick="toggleClass2()" class="popupClose">
-                        <i class="fa-solid fa-xmark"></i>
-                    </a>
+                        <a href="#" onclick="toggleClass2()" class="popupClose">
+                            <i class="fa-solid fa-xmark"></i>
+                        </a>
+
+                    </div>
 
                 </div>
             </div>
@@ -485,6 +486,7 @@
 
         $("#lcnav01").click(function(){
             $("#bpw").show();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -497,6 +499,7 @@
 
         $("#lcnav02").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeOut(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -510,6 +513,7 @@
 
         $("#lcnav03").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -523,6 +527,7 @@
 
         $("#lcnav04").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -536,6 +541,7 @@
 
         $(".intro_content>a").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeOut(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -549,6 +555,7 @@
 
         $(".myPage").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -562,6 +569,7 @@
 
         $(".logout").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");

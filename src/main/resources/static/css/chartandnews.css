@@ -1,12 +1,16 @@
 #popup2 .section_02_content_wrap{
     width: 50%;
+    height: 100%;
     position: relative;
     margin: 0 auto;
-    margin-top: 250px;
 }
 
 .accordion_wrap{
     width: 100%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #popup2 .accordion {

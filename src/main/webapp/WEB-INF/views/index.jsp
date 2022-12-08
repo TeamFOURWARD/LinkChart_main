@@ -398,6 +398,12 @@
                                 Password
                             </span>
                             <i></i>
+                            <div id="message">
+                                <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
+                                <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
+                                <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
+                                <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
+                            </div>
                         </div>
                         <div class="inputBox">
                             <input type="password" id="psw-repeat" required>
@@ -427,12 +433,12 @@
                         </a>
 
                     </form>
-                    <div id="message">
+                    <%--<div id="message">
                         <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
                         <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
                         <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
                         <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
-                    </div>
+                    </div>--%>
                     <div id="chkPsw" style="display: none">
                         <p id="pswWrong" class="invalid" style="display: none">비밀번호가 다릅니다.</p>
                         <p id="pswOk" class="valid" style="display: none">비밀번호가 일치합니다.</p>
@@ -487,6 +493,7 @@
 
             $("#lcnav01").click(function(){
                 $("#bpw").show();
+                $(".bubbles").fadeIn(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -499,6 +506,7 @@
 
             $("#lcnav02").click(function(){
                 $("#bpw").hide();
+                $(".bubbles").fadeOut(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -512,6 +520,7 @@
 
             $("#lcnav03").click(function(){
                 $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -525,6 +534,7 @@
 
             $("#lcnav04").click(function(){
                 $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -538,6 +548,7 @@
 
             $(".intro_content>a").click(function(){
                 $("#bpw").removeClass("toggleActive");
+                $(".bubbles").fadeOut(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -551,6 +562,7 @@
 
             $(".loginPart").click(function(){
                 $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -564,6 +576,7 @@
 
             $(".signupPart").click(function(){
                 $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
