@@ -28,7 +28,10 @@ function getNewsData(keyword, date, condition) {
         },
         success: function (data) {
             if (data.length !== 0) {
-                return loadNews(data);
+                if(data.image){
+                    document.getElementById('imgTest').src = data.image.img_save_path + data.image.img_save_name;
+                }
+                return loadNews(data.newsList);
             } else if (condition) {
                 alert("표시할 뉴스가 없습니다.");
             }

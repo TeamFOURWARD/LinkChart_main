@@ -51,10 +51,10 @@
 
     <script type="text/javascript">
         // 초기 로딩시 보여줄 데이터
-        window.onload = function () {
+        window.addEventListener("load", () => {
             getStockData("코스피", false);
             getNewsData("증시", dateToString(new Date()), false);
-        }
+        })
     </script>
     <%--    프로필툴팁--%>
     <link rel="stylesheet" href="/css/user_view_tooltip.css"/>
@@ -327,6 +327,9 @@
                         </div>
                         <div class="chart_news_np">
                             <div id="newsMain"><%-- ajax 적용 뉴스--%></div>
+                        </div>
+                        <div id="imageArea">
+                            <img id="imgTest">
                         </div>
                     </div>
                     <div class="topic">

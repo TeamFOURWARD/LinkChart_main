@@ -1,5 +1,5 @@
 // 페이지 로딩후 개인정보 불러옴.
-window.onload = () => getUserInfo();
+window.addEventListener("load", () => getUserInfo());
 
 function getUserInfo() {
     $.ajax({
@@ -117,7 +117,9 @@ function updateUserEmail() {
 // 로그아웃
 
 const aLogout = document.getElementById("aLogout");
-aLogout.addEventListener("click", () => {return logout()});
+aLogout.addEventListener("click", () => {
+    return logout()
+});
 
 function logout() {
     $.ajax({
