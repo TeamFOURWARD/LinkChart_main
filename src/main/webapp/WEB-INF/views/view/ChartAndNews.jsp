@@ -45,10 +45,6 @@
     <script src="/js/dateUtil.js" type="text/javascript">
         // date formatter
     </script>
-    <script src="/js/user_view.js" type="text/javascript">
-        // updateUserPsw
-    </script>
-
     <%--
     <script src="js/index.js" type="text/javascript"></script>
     --%>
@@ -269,16 +265,9 @@
                                 </p>
                             </div>
                         </div>
-                        <%--로그아웃 스크립트--%>
-                        <script type="text/javascript">
-                            function logout() {
-                                document.getElementById("user_logout2").submit();
-                            }
-                        </script>
                         <div class="card_content_wrap">
                             <div class="card_content">
-                                <form id="user_logout2" method="post" action="/user/logout"></form>
-                                <a href="#" onclick="logout()"></a>
+                                <a href="#" id="aLogout"></a>
                                 <h2>01</h2>
                                 <h3>LOGOUT</h3>
                                 <p>
@@ -623,5 +612,7 @@
     }
 
 </script>
+<script type="text/javascript" src="/js/user_view.js"></script>
+<script type="text/javascript" src="/js/maxLengthCheck.js"></script>
 </body>
 </html>

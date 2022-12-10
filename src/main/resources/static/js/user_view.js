@@ -112,5 +112,23 @@ function updateUserEmail() {
     }
 }
 
-// TODO 이메일 유효성(이메일 존재여부)확인
 // TODO 주소 유효성 확인
+
+// 로그아웃
+
+const aLogout = document.getElementById("aLogout");
+aLogout.addEventListener("click", () => {return logout()});
+
+function logout() {
+    $.ajax({
+        url: "/user/logout",
+        type: "post",
+        contentType: "application/json; charset=UTF-8",
+        dataType: "json",
+        statusCode: {
+            200: () => {
+                window.location.reload();
+            }
+        }
+    })
+}
