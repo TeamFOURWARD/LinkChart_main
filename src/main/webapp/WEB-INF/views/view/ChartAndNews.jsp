@@ -45,10 +45,6 @@
     <script src="/js/dateUtil.js" type="text/javascript">
         // date formatter
     </script>
-    <script src="/js/user_view.js" type="text/javascript">
-        // updateUserPsw
-    </script>
-
     <%--
     <script src="js/index.js" type="text/javascript"></script>
     --%>
@@ -81,7 +77,7 @@
                     </a>
                 </li>
                 <li class="lcn_list" id="lcnav02">
-                    <a href="#" onclick="toggleClass()">
+                    <a href="#">
                         <span class="lcn_icon">
                             <i class="fa-solid fa-chart-simple"></i>
                         </span>
@@ -91,7 +87,7 @@
                     </a>
                 </li>
                 <li class="lcn_list" id="lcnav03">
-                    <a href="#" onclick="toggleClass2()">
+                    <a href="#">
                         <span class="lcn_icon">
                             <i class="fa-solid fa-heart"></i>
                         </span>
@@ -255,7 +251,7 @@
             <div class="row">
                 <div class="col-md-5 intro_content">
                     <ul id="bpwrap"></ul>
-                    <a href="#" onclick="toggleClass()"></a>
+                    <a href="#"/>
                 </div>
                 <div class="col-md-7 card_wrap" id="card_wrap">
                     <div class="row">
@@ -269,16 +265,9 @@
                                 </p>
                             </div>
                         </div>
-                        <%--로그아웃 스크립트--%>
-                        <script type="text/javascript">
-                            function logout() {
-                                document.getElementById("user_logout2").submit();
-                            }
-                        </script>
                         <div class="card_content_wrap">
                             <div class="card_content">
-                                <form id="user_logout2" method="post" action="/user/logout"></form>
-                                <a href="#" onclick="logout()"></a>
+                                <a href="#" id="aLogout"></a>
                                 <h2>01</h2>
                                 <h3>LOGOUT</h3>
                                 <p>
@@ -317,24 +306,31 @@
                         <div class="chart_news_cp">
                             <div id="chart_div"><%-- ajax 적용 차트--%></div>
                             <div class="chart_search_wrap">
-                                <label for="chart_startTime">시작날짜 : </label>
-                                <input type="text" id="chart_startTime" size="14" placeholder="기본값 : 2년전"/>
-                                <label for="chart_endTime">종료날짜 : </label>
-                                <input type="text" id="chart_endTime" size="14" placeholder="기본값 : 오늘"/>
-                                <label for="chart_timeframe">날짜단위 : </label>
-                                <select id="chart_timeframe" size="1">
-                                    <option value="day">일</option>
-                                    <option value="week">주</option>
-                                    <option value="month" selected>월</option>
-                                </select>
-                                <label for="chart_name">종목명 : </label>
-                                <input type="text" id="chart_name"/>
+                                <label for="chart_startTime">시작날짜 :
+                                    <input type="text" id="chart_startTime" size="14" placeholder="기본값 : 2년전"/>
+                                </label>
+                                <label for="chart_endTime">종료날짜 :
+                                    <input type="text" id="chart_endTime" size="14" placeholder="기본값 : 오늘"/>
+                                </label>
+                                <label for="chart_timeframe">날짜단위 :
+                                    <select id="chart_timeframe" size="1">
+                                        <option value="day">일</option>
+                                        <option value="week">주</option>
+                                        <option value="month" selected>월</option>
+                                    </select>
+                                </label>
+                                <label for="chart_name">종목명 :
+                                    <input type="text" id="chart_name"/>
+                                </label>
                                 <button onclick="getStockData(null, true);">전송</button>
                             </div>
                         </div>
                         <div class="chart_news_np">
                             <div id="newsMain"><%-- ajax 적용 뉴스--%></div>
                         </div>
+                    </div>
+                    <div class="topic">
+                        토픽모델링 자리
                     </div>
 
                     <a href="#" class="popupClose">
@@ -394,7 +390,7 @@
                                     </button>
                                     <button type="button" class="signupbtn" onclick="updateUserEmail()">Update Email
                                     </button>
-                                    <button type="button" class="resetbtn" onclick="clearEmailVal()">Clear</button>
+<%--                                    <button type="button" class="resetbtn" onclick="clearEmailVal()">Clear</button>--%>
                                 </div>
                                 <b>Address Before</b>
                                 <span id="profile_user_addr" style="display: inline-block"></span>
@@ -404,7 +400,7 @@
                                 <div class="clearfix">
                                     <button type="button" class="signupcheck" <%--TODO 주소 검증 함수 버튼--%>>Find Addr</button>
                                     <button type="button" class="signupbtn">Update Address</button>
-                                    <button type="button" class="resetbtn" onclick="clearAddrVal()">Clear</button>
+<%--                                    <button type="button" class="resetbtn" onclick="clearAddrVal()">Clear</button>--%>
                                 </div>
                                 <h4>&nbsp;</h4>
                             </div>
@@ -413,11 +409,12 @@
                         <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">TopicModeling</a></button>
 
                         <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">리뷰</a></button>
-                    </div>
 
-                    <a href="#" onclick="toggleClass()" class="popupClose">
-                        <i class="fa-solid fa-xmark"></i>
-                    </a>
+                        <a href="#" class="popupClose">
+                            <i class="fa-solid fa-xmark"></i>
+                        </a>
+
+                    </div>
 
                 </div>
             </div>
@@ -486,6 +483,7 @@
 
         $("#lcnav01").click(function(){
             $("#bpw").show();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -498,6 +496,7 @@
 
         $("#lcnav02").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeOut(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -511,6 +510,7 @@
 
         $("#lcnav03").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -524,6 +524,7 @@
 
         $("#lcnav04").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -537,6 +538,7 @@
 
         $(".intro_content>a").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeOut(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -550,6 +552,7 @@
 
         $(".myPage").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -563,6 +566,7 @@
 
         $(".logout").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -623,5 +627,7 @@
     }
 
 </script>
+<script type="text/javascript" src="/js/user_view.js"></script>
+<script type="text/javascript" src="/js/maxLengthCheck.js"></script>
 </body>
 </html>

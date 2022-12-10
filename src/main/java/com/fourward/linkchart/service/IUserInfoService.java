@@ -1,15 +1,18 @@
 package com.fourward.linkchart.service;
 
 import com.fourward.linkchart.dto.UserInfoDTO;
+import com.fourward.linkchart.dto.UserSignupDTO;
 
 public interface IUserInfoService {
-    void insertUserInfo(UserInfoDTO pDTO);
+    void insertUserInfo(UserSignupDTO pDTO);
 
     UserInfoDTO getUserLoginCheck(UserInfoDTO pDTO);
 
-    UserInfoDTO checkUserIdExist(UserInfoDTO pDTO);
+    String isIdExists(String s);
 
-    UserInfoDTO checkUserEmailExist(UserInfoDTO pDTO);
+    String isEmailExists(String s);
+
+    String isMobileExists(String s);
 
     void updateUserPsw(UserInfoDTO pDTO);
 
@@ -18,4 +21,5 @@ public interface IUserInfoService {
     void updateUserAddr(UserInfoDTO pDTO);
 
     UserInfoDTO getUserInfo(UserInfoDTO pDTO);
+
 }

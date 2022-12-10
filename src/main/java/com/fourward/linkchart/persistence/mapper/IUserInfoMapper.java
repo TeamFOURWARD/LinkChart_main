@@ -1,15 +1,18 @@
 package com.fourward.linkchart.persistence.mapper;
 
 import com.fourward.linkchart.dto.UserInfoDTO;
+import com.fourward.linkchart.dto.UserSignupDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface IUserInfoMapper {
-    int insertUserInfo(UserInfoDTO pDTO);
+    int insertUserInfo(UserSignupDTO pDTO);
 
-    UserInfoDTO getUserIdExist(UserInfoDTO pDTO);
+    String getUserIdExists(String s);
 
-    UserInfoDTO getUserEmailExist(UserInfoDTO pDTO);
+    String getUserEmailExists(String s);
+
+    String getUserMobileExists(String s);
 
     UserInfoDTO getUserLoginCheck(UserInfoDTO pDTO);
 
@@ -20,4 +23,5 @@ public interface IUserInfoMapper {
     int updateUserAddr(UserInfoDTO pDTO);
 
     UserInfoDTO getUserInfo(UserInfoDTO pDTO);
+
 }

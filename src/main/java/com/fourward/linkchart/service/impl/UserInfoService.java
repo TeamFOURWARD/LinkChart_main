@@ -1,12 +1,10 @@
 package com.fourward.linkchart.service.impl;
 
-import com.fourward.linkchart.dto.MessageDTO;
 import com.fourward.linkchart.dto.UserInfoDTO;
+import com.fourward.linkchart.dto.UserSignupDTO;
 import com.fourward.linkchart.persistence.mapper.IUserInfoMapper;
-import com.fourward.linkchart.service.IMessageService;
 import com.fourward.linkchart.service.IUserInfoService;
 import com.fourward.linkchart.util.EncryptUtil;
-import com.fourward.linkchart.util.RandomUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,11 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("UserInfoService")
 public class UserInfoService implements IUserInfoService {
     private final IUserInfoMapper userInfoMapper;
-    private final IMessageService messageService;
 
     @Transactional
     @Override
-    public void insertUserInfo(UserInfoDTO pDTO) {
+    public void insertUserInfo(UserSignupDTO pDTO) {
         userInfoMapper.insertUserInfo(pDTO);
     }
 
@@ -32,15 +29,21 @@ public class UserInfoService implements IUserInfoService {
     }
 
     @Override
-    public UserInfoDTO checkUserIdExist(UserInfoDTO pDTO) {
+    public String isIdExists(String s) {
 
-        return userInfoMapper.getUserIdExist(pDTO);
+        return userInfoMapper.getUserIdExists(s);
     }
 
     @Override
-    public UserInfoDTO checkUserEmailExist(UserInfoDTO pDTO) {
+    public String isEmailExists(String s) {
 
-        return userInfoMapper.getUserEmailExist(pDTO);
+        return userInfoMapper.getUserEmailExists(s);
+    }
+
+    @Override
+    public String isMobileExists(String s) {
+
+        return userInfoMapper.getUserMobileExists(s);
     }
 
     @Override
