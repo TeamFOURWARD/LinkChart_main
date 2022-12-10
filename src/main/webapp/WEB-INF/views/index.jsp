@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/css/popup1.css"/>
     <link rel="stylesheet" href="/css/login.css"/>
     <link rel="stylesheet" href="/css/signup.css"/>
+    <link rel="stylesheet" href="/css/inputStyle.css"/>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Handlee&family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Roboto:wght@300;400;700&display=swap");
     </style>
@@ -49,7 +50,6 @@
 </head>
 
 <body>
-
     <div class="lc_nav_wrap" id="lc_nav_wrap">
         <div class="lc_nav">
             <ul>
@@ -224,9 +224,9 @@
     <div class="wave wave2"></div>
     <div class="wave wave3"></div>
     <div class="wave wave4"></div>
-    
+
     <div class="section_01_wrap">
-    
+
         <div class="container section_01" id="bpw">
             <div class="row">
                 <div class="col-md-5 intro_content">
@@ -324,16 +324,16 @@
         <div class="container_wrap section_chart">
             <div class="container">
                 <div class="section_02_content_wrap">
-                    <form class="modal-content animate" action="/user/login" method="post">
+                    <form class="modal-content animate" onsubmit="return false">
                         <div class="inputBox">
-                            <input type="text" name="user_id" id="login_id" required>
+                            <input type="text" id="inputLoginId" required>
                             <span>
                                 ID
                             </span>
                             <i></i>
                         </div>
                         <div class="inputBox" >
-                            <input type="password" name="user_password" id="login_psw" required>
+                            <input type="password" id="inputLoginPwd" required>
                             <span>
                                 Password
                             </span>
@@ -345,7 +345,7 @@
                         </label>
 
                         <div class="buttonBox">
-                            <button type="submit">
+                            <button id="btnSubmitLoginForm" type="submit">
                                 Login
                             </button>
                             <button type="reset" class="resetbtn">
@@ -370,69 +370,94 @@
         <div class="container_wrap section_chart">
             <div class="container">
                 <div class="section_03_content_wrap">
-                    <form class="modal-content" action="/user/doSignUp" method="post" onsubmit="return validateForm()">
-                        <div class="inputBox">
-                            <input type="text" name="user_id" id="signup_id" required>
+                    <form class="modal-content" onsubmit="return false">
+                        <div>
                             <span>ID</span>
-                            <i></i>
+                            <input type="text" id="inputId" required>
                         </div>
-                        <button type="button" onclick="checkId()" class="signupcheck">아이디 중복 확인</button>
-                        <div class="inputBox">
-                            <input type="text" name="user_name" id="signup_name" required>
+                        <button id="btnSubmitId" type="button" class="signupcheck">아이디 중복 확인</button>
+                        <div>
                             <span>
                                 Name
                             </span>
-                            <i></i>
+                            <input type="text" id="inputName" required>
                         </div>
-                        <div class="inputBox">
-                            <input type="text" name="user_email" id="signup_email" required>
+                        <div>
+                           <span>
+                                Phone Number
+                           </span>
+                           <input id="inputMobile_n1" type="number" value="010" readonly required/> -
+                           <input id="inputMobile_n2" type="number" maxlength="4" oninput="maxLengthCheck(this)" required/> -
+                           <input id="inputMobile_n3" type="number" maxlength="4" oninput="maxLengthCheck(this)" required/>
+                        </div>
+                        <button id="btnSubmitMobile" type="button" class="signupcheck">전화번호 확인</button>
+                        <div>
+                            <span>
+                                Certification Number
+                            </span>
+                            <input id="inputMobilePin" size="8" type="number" required/>
+                            <button id="btnSubmitMobilePin" type="button" class="signupcheck">전송</button>
+                            <button id="btnResetMobilePin" type="button" class="signupcheck">다시 인증하기</button>
+                        </div>
+                        <div>
                             <span>
                                 Email
                             </span>
-                            <i></i>
+                            <input type="text" id="inputEmail" required>
                         </div>
-                        <button type="button" onclick="checkEmail()" class="signupcheck">이메일 중복 확인</button>
-                        <div class="inputBox">
-                            <input type="password" id="signup_psw" name="user_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                        <button id="btnSubmitEmail" type="button" class="signupcheck">이메일 확인</button>
+                        <div>
+                            <span>
+                                Certification Number
+                            </span>
+                            <input id="inputEmailPin" size="8" type="number" required/>
+                            <button id="btnSubmitEmailPin" type="button" class="signupcheck">전송</button>
+                            <button id="btnResetEmailPin" type="button" class="signupcheck">다시 인증하기</button>
+                        </div>
+                        <div>
                             <span>
                                 Password
                             </span>
-                            <i></i>
+                            <input type="password" id="inputPwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                            <div id="message">
+                                <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
+                                <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
+                                <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
+                                <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
+                            </div>
                         </div>
-                        <div class="inputBox">
-                            <input type="password" id="psw-repeat" required>
+                        <div>
                             <span>
                                 Repeat Password
                             </span>
-                            <i></i>
+                            <input type="password" id="inputPwdRepeat" required>
                         </div>
-                        <div class="inputBox">
-                            <input type="text" name="user_addr" id="addr" required>
+                        <div>
                             <span>
                                 Address
                             </span>
-                            <i></i>
+                            <input type="text" id="inputAddr" required>
                         </div>
 
                         <p>By creating an account you agree to our <a href="#" style="color:dodgerblue"><br>Terms &
                             Privacy</a>.</p>
 
                             <div class="buttonBox">
-                                <button type="submit" class="signupbtn">Sign Up</button>
+                                <button id="btnSubmitSignup" type="submit" class="signupbtn">Sign Up</button>
                                 <button type="reset" class="resetbtn">cancel</button>
+                                <button type="button" class="resetbtn">Forgot ID or Password?</button>
                             </div>
 
                         <a href="#" class="popupClose">
                             <i class="fa-solid fa-xmark"></i>
                         </a>
-
                     </form>
-                    <div id="message">
+                    <%--<div id="message">
                         <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
                         <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
                         <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
                         <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
-                    </div>
+                    </div>--%>
                     <div id="chkPsw" style="display: none">
                         <p id="pswWrong" class="invalid" style="display: none">비밀번호가 다릅니다.</p>
                         <p id="pswOk" class="valid" style="display: none">비밀번호가 일치합니다.</p>
@@ -487,6 +512,7 @@
 
             $("#lcnav01").click(function(){
                 $("#bpw").show();
+                $(".bubbles").fadeIn(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -499,6 +525,7 @@
 
             $("#lcnav02").click(function(){
                 $("#bpw").hide();
+                $(".bubbles").fadeOut(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -512,6 +539,7 @@
 
             $("#lcnav03").click(function(){
                 $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -525,6 +553,7 @@
 
             $("#lcnav04").click(function(){
                 $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -538,6 +567,7 @@
 
             $(".intro_content>a").click(function(){
                 $("#bpw").removeClass("toggleActive");
+                $(".bubbles").fadeOut(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -551,6 +581,7 @@
 
             $(".loginPart").click(function(){
                 $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -564,6 +595,7 @@
 
             $(".signupPart").click(function(){
                 $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
                 $("#popup1").removeClass("toggleActive");
                 $("#popup2").removeClass("toggleActive");
                 $("#popup3").removeClass("toggleActive");
@@ -590,7 +622,8 @@
         });
 
     </script>
-    <script type="text/javascript" src="/js/user.js"></script>
+<script type="text/javascript" src="/js/user.js"></script>
+<script type="text/javascript" src="/js/maxLengthCheck.js"></script>
 </body>
 </html>
 <script>

@@ -1,20 +1,23 @@
 package com.fourward.linkchart.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserInfoDTO {
+public class UserSignupDTO {
+    @NotBlank
     private String user_id;
+    @NotBlank
     private String user_name;
+    @NotBlank
     private String user_password;
+    @NotBlank
     private String user_email;
+    @NotBlank
     private String user_addr;
-    private String reg_dt;
-    private String pin;
+    @NotBlank
     private String mobile;
-    private String isExist;
 }

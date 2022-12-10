@@ -45,10 +45,6 @@
     <script src="/js/dateUtil.js" type="text/javascript">
         // date formatter
     </script>
-    <script src="/js/user_view.js" type="text/javascript">
-        // updateUserPsw
-    </script>
-
     <%--
     <script src="js/index.js" type="text/javascript"></script>
     --%>
@@ -60,6 +56,9 @@
             getNewsData("증시", dateToString(new Date()), false);
         }
     </script>
+    <%--    프로필툴팁--%>
+    <link rel="stylesheet" href="/css/user_view_tooltip.css"/>
+    <link rel="stylesheet" href="/css/user_view_profile.css"/>
 </head>
 
 <body>
@@ -78,7 +77,7 @@
                     </a>
                 </li>
                 <li class="lcn_list" id="lcnav02">
-                    <a href="#" onclick="toggleClass()">
+                    <a href="#">
                         <span class="lcn_icon">
                             <i class="fa-solid fa-chart-simple"></i>
                         </span>
@@ -88,7 +87,7 @@
                     </a>
                 </li>
                 <li class="lcn_list" id="lcnav03">
-                    <a href="#" onclick="toggleClass2()">
+                    <a href="#">
                         <span class="lcn_icon">
                             <i class="fa-solid fa-heart"></i>
                         </span>
@@ -252,7 +251,7 @@
             <div class="row">
                 <div class="col-md-5 intro_content">
                     <ul id="bpwrap"></ul>
-                    <a href="#" onclick="toggleClass()"></a>
+                    <a href="#"/>
                 </div>
                 <div class="col-md-7 card_wrap" id="card_wrap">
                     <div class="row">
@@ -266,16 +265,9 @@
                                 </p>
                             </div>
                         </div>
-                        <%--로그아웃 스크립트--%>
-                        <script type="text/javascript">
-                            function logout() {
-                                document.getElementById("user_logout2").submit();
-                            }
-                        </script>
                         <div class="card_content_wrap">
                             <div class="card_content">
-                                <form id="user_logout2" method="post" action="/user/logout"></form>
-                                <a href="#" onclick="logout()"></a>
+                                <a href="#" id="aLogout"></a>
                                 <h2>01</h2>
                                 <h3>LOGOUT</h3>
                                 <p>
@@ -361,62 +353,68 @@
                         <div class="panel">
                             <div class="modal-content" id="user_profile">
                                 <h4>&nbsp;</h4>
-                                <form id="user_updatePsw" method="post" action="/user/updatePsw">
-                                    <label for="profile_user_id_1"><b>ID</b></label>
-                                    <input id="profile_user_id_1" name="user_id" type="text" value="${SS_USER_ID}" readonly>
-                                    </br>
-                                    <label for="profile_user_name"><b>NAME</b></label>
-                                    <input id="profile_user_name" name="user_name" type="text" value="foobar" readonly>
-                                    <%--                                이름은 자동으로 가져와졌다가 창 나가면 지워진다 TODO--%>
-                                    </br>
-                                    <label for="profile_user_psw"><b>Password</b></label>
-                                    <input type="password" id="profile_user_psw" name="user_password"
-                                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                                           title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters required">
-                                    </br>
-                                    <label for="profile_user_psw-repeat"><b>Repeat Password</b></label>
-                                    <input type="password" placeholder="Repeat Password" id="profile_user_psw-repeat">
-                                    </br>
-                                    <div class="clearfix">
-                                        <button type="submit" class="signupbtn" onclick="return updateUserPsw()">Update Password</button>
-                                        <button type="reset" class="resetbtn">Reset</button>
-                                    </div>
-                                </form>
-                                <form id="user_updateAddr" method="post" action="/user/updateAddr">
-                                    <label for="profile_user_id_2"></label>
-                                    <input id="profile_user_id_2" name="user_id" type="text" value="${SS_USER_ID}" hidden readonly>
-                                    </br>
-                                    <label for="profile_addr"><b>Address</b></label>
-                                    <input type="text" value="" id="profile_addr" size="20">
-                                    <%--                                주소가져오기 버튼 TODO--%>
-                                    <div class="clearfix">
-                                        <button type="submit" class="signupbtn">Update Address</button>
-                                        <button type="reset" class="resetbtn">Reset</button>
-                                    </div>
-                                </form>
+                                <b>ID</b>
+                                <span id="profile_user_id"></span>
+                                <br>
+                                <b>NAME</b>
+                                <span id="profile_user_name"></span>
+                                <br>
+                                <div class="tooltip_1">
+                                    <label for="profile_update_password"><b>Password</b></label>
+                                    <input class="tooltip_a" type="password" id="profile_update_password"
+                                           placeholder="Password">
+                                    <span class="tooltip-text">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters required.
+                                </span>
+                                    <span id="profile_tooltip_password" class="tooltip-text-up">
+                                    <span class="tooltip-none" id="msgLowerCaseLetters">Most contain at least one lowercase letter.<br></span>
+                                    <span class="tooltip-none" id="msgUpperCaseLetters">Most contain at least one uppercase letter.<br></span>
+                                    <span class="tooltip-none" id="msgNumbers">Most contain at least one number.<br></span>
+                                    <span class="tooltip-none" id="msgMatchPsw">Password can be used.</span>
+                                </span>
+                                </div>
+                                <br>
+                                <label for="profile_update_password_repeat"><b>Repeat Password</b></label>
+                                <input type="password" placeholder="Repeat Password" id="profile_update_password_repeat">
+                                <br>
+                                <div class="clearfix">
+                                    <button type="button" class="signupbtn" onclick="updatePsw()">Update Password</button>
+                                    <button type="button" class="resetbtn" onclick="clearPsw()">Clear</button>
+                                </div>
+                                <b>Email Before</b>
+                                <span id="profile_user_email" style="display: inline-block;"></span>
+                                <br>
+                                <label for="profile_update_email"><b>New Email</b></label>
+                                <input type="email" id="profile_update_email" size="20">
+                                <div class="clearfix">
+                                    <button type="button" class="signupcheck" <%--TODO 이메일 검증 함수 버튼--%>>Validate Email
+                                    </button>
+                                    <button type="button" class="signupbtn" onclick="updateUserEmail()">Update Email
+                                    </button>
+<%--                                    <button type="button" class="resetbtn" onclick="clearEmailVal()">Clear</button>--%>
+                                </div>
+                                <b>Address Before</b>
+                                <span id="profile_user_addr" style="display: inline-block"></span>
+                                <br>
+                                <label for="profile_addr"><b>New Address</b></label>
+                                <input type="text" name="user_addr" id="profile_addr" size="20" required>
+                                <div class="clearfix">
+                                    <button type="button" class="signupcheck" <%--TODO 주소 검증 함수 버튼--%>>Find Addr</button>
+                                    <button type="button" class="signupbtn">Update Address</button>
+<%--                                    <button type="button" class="resetbtn" onclick="clearAddrVal()">Clear</button>--%>
+                                </div>
                                 <h4>&nbsp;</h4>
-                                <div id="message">
-                                    <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
-                                    <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
-                                    <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
-                                    <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
-                                </div>
-
-                                <div id="chkPsw" style="display: none">
-                                    <p id="pswWrong" class="invalid" style="display: none">비밀번호가 다릅니다.</p>
-                                    <p id="pswOk" class="valid" style="display: none">비밀번호가 일치합니다.</p>
-                                </div>
                             </div>
                         </div>
 
                         <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">TopicModeling</a></button>
 
                         <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">리뷰</a></button>
-                    </div>
 
-                    <a href="#" onclick="toggleClass2()" class="popupClose">
-                        <i class="fa-solid fa-xmark"></i>
-                    </a>
+                        <a href="#" class="popupClose">
+                            <i class="fa-solid fa-xmark"></i>
+                        </a>
+
+                    </div>
 
                 </div>
             </div>
@@ -485,6 +483,7 @@
 
         $("#lcnav01").click(function(){
             $("#bpw").show();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -497,6 +496,7 @@
 
         $("#lcnav02").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeOut(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -510,6 +510,7 @@
 
         $("#lcnav03").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -523,6 +524,7 @@
 
         $("#lcnav04").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -536,6 +538,7 @@
 
         $(".intro_content>a").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeOut(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -549,6 +552,7 @@
 
         $(".myPage").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -562,6 +566,7 @@
 
         $(".logout").click(function(){
             $("#bpw").hide();
+            $(".bubbles").fadeIn(500);
             $("#popup1").removeClass("toggleActive");
             $("#popup2").removeClass("toggleActive");
             $("#popup3").removeClass("toggleActive");
@@ -622,5 +627,7 @@
     }
 
 </script>
+<script type="text/javascript" src="/js/user_view.js"></script>
+<script type="text/javascript" src="/js/maxLengthCheck.js"></script>
 </body>
 </html>
