@@ -8,7 +8,6 @@ import com.fourward.linkchart.util.EncryptUtil;
 import com.fourward.linkchart.util.RandomUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -243,13 +242,6 @@ public class UserInfoController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         String pin = RandomUtil.getStr(8);
-        session.setMaxInactiveInterval(300);
-        session.setAttribute("SS_SIGNUP_MOBILE", mobile);
-        session.setAttribute("SS_SIGNUP_MOBILE_PIN", pin);
-        log.info("session sessionId : [{}]", session.getId());
-        log.info("session maxInactiveInterval : [{}]", session.getMaxInactiveInterval());
-        log.info("session SS_SIGNUP_MOBILE : [{}]", session.getAttribute("SS_SIGNUP_MOBILE"));
-        log.info("session SS_SIGNUP_MOBILE_PIN : [{}]", session.getAttribute("SS_SIGNUP_MOBILE_PIN"));
         // 전화번호는 유효하다는 가정
         MessageDTO messageDTO = new MessageDTO();
         String text = "[LinkChart]\n==========\n인증코드 : [" + pin + "]";
@@ -257,11 +249,17 @@ public class UserInfoController {
         messageDTO.setTo(mobile);
         try {
             messageService.sendMessage(messageDTO);
-        } catch (NurigoMessageNotReceivedException e) {
-            log.info("휴대폰 인증 핀 보내기 에러 | {}", e.getMessage());
         } catch (Exception e) {
             log.info("휴대폰 인증 핀 보내기 에러 | {}", e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        session.setMaxInactiveInterval(300);
+        session.setAttribute("SS_SIGNUP_MOBILE", mobile);
+        session.setAttribute("SS_SIGNUP_MOBILE_PIN", pin);
+        log.info("session sessionId : [{}]", session.getId());
+        log.info("session maxInactiveInterval : [{}]", session.getMaxInactiveInterval());
+        log.info("session SS_SIGNUP_MOBILE : [{}]", session.getAttribute("SS_SIGNUP_MOBILE"));
+        log.info("session SS_SIGNUP_MOBILE_PIN : [{}]", session.getAttribute("SS_SIGNUP_MOBILE_PIN"));
         log.info("{}.validateMobile end", this.getClass().getName());
 
         return new ResponseEntity<>(HttpStatus.OK);
