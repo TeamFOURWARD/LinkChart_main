@@ -1,5 +1,7 @@
 package com.fourward.linkchart.service;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 public interface IWordAnalysisService {
@@ -23,5 +25,5 @@ public interface IWordAnalysisService {
      * @param : 분석할문장
      * @return : 분석 결과
      * */
-    Map<String, Integer> doWordAnalysis(String text) throws Exception;
+    List<ArrayList<Object>> doWordAnalysis(String text) throws Exception;
 }

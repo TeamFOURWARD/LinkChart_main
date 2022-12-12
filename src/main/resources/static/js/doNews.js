@@ -172,19 +172,26 @@ function loadNews(data) {
 }
 
 function wordcloud(data){
-    console.log(data)
-    let b= []
-    b = [["a",1],["b",2],["c","2"]]
+    /*console.log(data)
 
-    var chart = anychart.tagCloud(b);
-
-    chart.title("My Word Cloud");
+    const obj = JSON.parse(JSON.stringify(data)); // JSON 문자열 javascript 객체로 변환
+    console.log(obj);*/
+    var a = []
+    data.forEach(b=>{
+        const c = []
+        c.push(String(b[0]))
+        c.push(parseInt(b[1]))
+        a.push(c)
+    })
+    $("#wordcloud_container").empty();
+    var chart = anychart.tagCloud(a);
+    chart.title("기사 한눈에 보기");
     chart.container("wordcloud_container");
 
     chart.hovered().fill("#8711c3");
-    chart.mode("spiral");
+    chart.mode("spiral"); // 모양
 
-    // 글자 돌아가는거 막게
+    // 글자 돌아가는거 막기
     chart.angles([0]);
 
     chart.draw();

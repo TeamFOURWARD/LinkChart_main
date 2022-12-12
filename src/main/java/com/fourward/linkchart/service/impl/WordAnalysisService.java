@@ -61,7 +61,7 @@ public class WordAnalysisService implements IWordAnalysisService {
 
             //추출 명사
             String word = CmmUtil.nvl(it.next());
-            log.info("추출 명사 : " + word);
+//            log.info("추출 명사 : " + word);
         }
         log.info(this.getClass().getName() + ".doWordAnalysis End!");
 
@@ -94,8 +94,8 @@ public class WordAnalysisService implements IWordAnalysisService {
 
             int frequency = Collections.frequency(pList, word);
 
-            log.info("word : " + word);
-            log.info("frequency : " + frequency);
+//            log.info("word : " + word);
+//            log.info("frequency : " + frequency);
 
             // 단어 , 빈도수
             rMap.put(word, frequency);
@@ -105,7 +105,7 @@ public class WordAnalysisService implements IWordAnalysisService {
     }
 
     @Override
-    public Map<String, Integer> doWordAnalysis(String text) throws Exception {
+    public List<ArrayList<Object>> doWordAnalysis(String text) throws Exception {
 
         String newContext = "";
         // 명사 추출
@@ -121,6 +121,17 @@ public class WordAnalysisService implements IWordAnalysisService {
             rMap = new HashMap<String, Integer>();
 
         }
-        return rMap;
+        log.info("rmap : " + rMap);
+
+        List<ArrayList<Object>> l = new ArrayList<>();
+        for (String s : rMap.keySet()) {
+            ArrayList<Object> a = new ArrayList<>();
+            int v = rMap.get(s);
+            a.add(s);
+            a.add(v);
+            l.add(a);
+        }
+
+        return l;
     }
 }
