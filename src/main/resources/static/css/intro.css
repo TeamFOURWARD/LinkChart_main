@@ -629,13 +629,13 @@ body{
 
 #message {
     display:none;
-    width: 105%;
+    width: 100%;
     background: #00203F;
     color: #000;
     position: absolute;
     left: 0;
     z-index: 9999;
-    padding: 10px;
+    padding: 10px 8px;
     margin-top: 10px;
 }
 

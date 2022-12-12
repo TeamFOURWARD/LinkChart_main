@@ -4,14 +4,13 @@
 
 #popup3 form{
     width: 737px;
-    height: 809px;
     position: absolute;
     left: 32%;
     top: 43%;
     margin-left: -200px;
     transform: translateY(-50%);
     background: #FCF6F5;
-    padding: 25px;
+    padding: 25px 75px;
     text-align: center;
 }
 
@@ -71,4 +70,88 @@
 .buttonBox{
     display: block;
     width: 50%;
+}
+
+.pinput_box{
+    display: flex;
+    position: relative;
+}
+
+.pinputwrap{
+    width: 250px;
+    float: left;
+}
+
+.pinputwrap span{
+    display: block;
+    width: 200px;
+    position: relative!important;
+    left: 0;
+    padding: 10px 0 5px;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    pointer-events: none;
+    letter-spacing: 0.1em;
+}
+
+.pinput{
+    float: left;
+    width: 50px;
+    text-align: center;
+}
+
+.pinput input{
+    text-align: center;
+}
+
+.pinputwrap p{
+    height: 40px;
+    border-radius: 10px;
+    background: transparent;
+    color: #00203F;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    float: left;
+    line-height: 40px;
+}
+
+.pinput:nth-child(4){
+    width: 60px;
+}
+
+.pinput:nth-child(6){
+    width: 60px;
+}
+
+#btnSubmitMobile{
+    margin: 45px 2% 2% 2%!important;
+}
+
+.cnbox{
+    display: flex;
+}
+
+.cnbox .buttonBox{
+    display: flex;
+}
+
+.emailbox{
+    display: flex;
+}
+
+.pwbox{
+    display: flex;
+}
+
+.scfbox{
+    display: flex;
+    width: 100%;
+}
+
+.scfbox button{
+    display: block;
+    width: 33.333333333333333333%;
 }

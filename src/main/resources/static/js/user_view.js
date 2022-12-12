@@ -60,7 +60,7 @@ function clearPsw() {
     psw2.value = null;
 }
 
-const lowerCaseLetters = /[a-z]/g;
+/*const lowerCaseLetters = /[a-z]/g;
 const upperCaseLetters = /[A-Z]/g;
 const numbers = /[0-9]/g;
 const msgLowerCaseLetters = document.getElementById("msgLowerCaseLetters");
@@ -88,7 +88,7 @@ psw1.onkeyup = () => {
     } else {
         msgMatchPsw.style.display = "none";
     }
-}
+}*/
 
 function updateUserEmail() {
     const email_input = document.getElementById("profile_update_email");
