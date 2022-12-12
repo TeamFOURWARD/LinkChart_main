@@ -15,16 +15,16 @@
 }
 
 .chart_news_cp{
-    width: 65%;
+    width: 65.5%;
+    border-right: 1px dashed #00203F;
 }
 
 .chart_news_np{
     width: 35%;
-    max-height: 520px;
+    max-height: 250px;
     margin-top: 20px;
     margin-bottom: 5px;
     overflow-y: scroll;
-    border-left: 1px dashed rgba(0, 0, 0, 0.25);
     padding-left: 20px;
 }
 
@@ -121,5 +121,29 @@
     margin: 0;
 }
 
-.topic{
+.topic_cover_wrap{
+    width: 35%;
+    height: 250px;
+    position: absolute;
+    right: 0;
+    bottom: 25px;
+}
+
+.topic_cover{
+    width: 100%;
+    height: 250px;
+    position: relative;
+}
+
+.topic_wrap{
+    width: 100%;
+    height: 250px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.topic_img{
+    width: 100%;
+    height: 250px;
 }
