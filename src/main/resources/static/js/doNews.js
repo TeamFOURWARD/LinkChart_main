@@ -182,7 +182,6 @@ function wordcloud(data){
         c.push(parseInt(b[1]))
         a.push(c)
     })
-    alert()
     $("#wordcloud_container").empty();
     var chart = anychart.tagCloud(a);
     chart.title("기사 한눈에 보기");
