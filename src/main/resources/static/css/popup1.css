@@ -28,6 +28,10 @@
     padding-left: 20px;
 }
 
+#imgTest{
+    width: 100%;
+}
+
 .linksection div{
     margin: 0 auto;
     text-align: center;
