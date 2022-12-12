@@ -457,12 +457,6 @@
                             <i class="fa-solid fa-xmark"></i>
                         </a>
                     </form>
-                    <%--<div id="message">
-                        <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
-                        <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
-                        <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
-                        <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
-                    </div>--%>
                     <div id="chkPsw" style="display: none">
                         <p id="pswWrong" class="invalid" style="display: none">비밀번호가 다릅니다.</p>
                         <p id="pswOk" class="valid" style="display: none">비밀번호가 일치합니다.</p>
