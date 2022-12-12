@@ -29,9 +29,9 @@ function getNewsData(keyword, date, condition) {
         success: function (data) {
             if (data.length !== 0) {
                 if (data.image) {
-                    document.getElementById('imgTest').src = data.image.img_save_path + data.image.img_save_name;
+                    // document.getElementById('imgTest').src = data.image.img_save_path + data.image.img_save_name;
                 }
-               wordcloud(data.wordcloud)
+                wordcloud(data.wordcloud)
                 return loadNews(data.newsList);
             } else if (condition) {
                 alert("표시할 뉴스가 없습니다.");
@@ -173,7 +173,6 @@ function loadNews(data) {
 
 function wordcloud(data){
     /*console.log(data)
-
     const obj = JSON.parse(JSON.stringify(data)); // JSON 문자열 javascript 객체로 변환
     console.log(obj);*/
     var a = []
@@ -183,6 +182,7 @@ function wordcloud(data){
         c.push(parseInt(b[1]))
         a.push(c)
     })
+    alert()
     $("#wordcloud_container").empty();
     var chart = anychart.tagCloud(a);
     chart.title("기사 한눈에 보기");

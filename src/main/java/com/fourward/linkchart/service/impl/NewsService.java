@@ -6,8 +6,6 @@ import com.fourward.linkchart.dto.NewsReqDTO;
 import com.fourward.linkchart.service.INewsService;
 import com.fourward.linkchart.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
