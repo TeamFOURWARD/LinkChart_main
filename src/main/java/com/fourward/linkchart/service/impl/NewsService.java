@@ -6,6 +6,8 @@ import com.fourward.linkchart.dto.NewsReqDTO;
 import com.fourward.linkchart.service.INewsService;
 import com.fourward.linkchart.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -80,6 +82,7 @@ public class NewsService implements INewsService {
                 newsGroup_map.put("news", pNewsDTO);
                 newsGroup_map.put("newsGroup_related_list", newsGroup_related_list);
                 newsGroup_list.add(newsGroup_map);
+
             }
         }
         log.info("number of news collected : [{}]", i);
@@ -89,4 +92,23 @@ public class NewsService implements INewsService {
 
         return newsGroup_list;
     }
+
+//    public Map<String, Integer> getResult(String response, String[] fileds) {
+//
+//        Map<String, Object> rtnObj = new HashMap<>();
+//
+//        log.info(this.getClass().getName() + ".getResult Start");
+//        try {
+//            JSONParser parser = new JSONParser();
+//            JSONObject result = (JSONObject) parser.parse(response);
+//            rtnObj.put("news", (long) result.get("news"));
+//        }
+//        NewsReqDTO newsReqDTO = new NewsReqDTO();
+//
+////        String newContext = this.doWordAnalysis(newsReqDTO);
+////
+////        List<String> rList = this.doWordNouns(newContext)
+//
+//        return null;
+//    }
 }

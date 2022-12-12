@@ -5,6 +5,8 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-tag-cloud.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="/css/reset.css"/>
     <link rel="stylesheet" href="/css/all.min.css"/>
@@ -20,6 +22,7 @@
     <link rel="stylesheet" href="/css/popup1.css"/>
     <link rel="stylesheet" href="/css/login.css"/>
     <link rel="stylesheet" href="/css/signup.css"/>
+    <link rel="stylesheet" href="css/wordcloud.css"/>
     <link rel="stylesheet" href="/css/inputStyle.css"/>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Handlee&family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Roboto:wght@300;400;700&display=swap");
@@ -312,7 +315,7 @@
                                 <img id="imgTest">
                             </div>
                         </div>
-
+                        <div id="wordcloud_container" align="center"></div>
                     </div>
 
                     <a href="#" class="popupClose">

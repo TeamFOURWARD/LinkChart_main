@@ -331,9 +331,11 @@
                         <div id="imageArea">
                             <img id="imgTest">
                         </div>
+
                     </div>
+                    <div id="wordcloud_container" align="center"></div>
                     <div class="topic">
-                        토픽모델링 자리
+
                     </div>
 
                     <a href="#" onclick="toggleClass()" class="popupClose">
