@@ -143,14 +143,12 @@ function checkId() {
         statusCode: {
             200: () => {
                 valId = true;
-                inputId.readOnly = true;
-                inputId.disabled = true;
-                alert("사용할 수 있는 아이디 입니다.")
+                if (!confirm("사용할 수 있는 아이디 입니다.\n사용하시겠습니까?")) {
+                    inputId.value = "";
+                }
             },
             400: () => {
                 valId = false;
-                inputId.readOnly = false;
-                inputId.disabled = false;
                 alert("사용할 수 없는 아이디 입니다.")
             }
         }
@@ -206,7 +204,7 @@ function checkMobilePin() {
                 checkCertMobile = true;
                 alert("인증에 성공하였습니다.");
             },
-            400:()=>{
+            400: () => {
                 alert("핀 번호를 확인해주세요.");
             },
             408: () => {
