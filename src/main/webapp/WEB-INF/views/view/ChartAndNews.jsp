@@ -12,6 +12,8 @@
 <html lang="en">
 <head>
     <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-tag-cloud.min.js"></script>
     <meta charset="UTF-8"/>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
@@ -339,9 +341,8 @@
                         </div>
 
                     </div>
-                    </div>
 
-                    <a href="#" onclick="toggleClass()" class="popupClose">
+                    <a href="#" class="popupClose">
                         <i class="fa-solid fa-xmark"></i>
                     </a>
 
@@ -439,7 +440,7 @@
                             <p>내가 본 뉴스</p>
                         </div>
                     </div>
-                    <a href="#" onclick="toggleClass3()" class="popupClose">
+                    <a href="#" class="popupClose">
                         <i class="fa-solid fa-xmark"></i>
                     </a>
                 </div>
