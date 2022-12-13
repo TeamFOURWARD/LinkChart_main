@@ -49,7 +49,7 @@ function validatePwd() {
 
 function updatePwd(p) {
     $.ajax({
-        url: "/user/updatePsw",
+        url: "/user/updatePwd",
         data: JSON.stringify({
             "user_id": SS_USER_ID,
             "user_password": p
