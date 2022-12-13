@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/css/intro.css"/>
     <link rel="stylesheet" href="/css/popup1.css"/>
     <link rel="stylesheet" href="/css/chartandnews.css"/>
+    <link rel="stylesheet" href="/css/inputStyle.css"/>
     <%-- 프로필툴팁 --%>
     <link rel="stylesheet" href="/css/user_view_tooltip.css"/>
     <link rel="stylesheet" href="/css/user_view_profile.css"/>
@@ -330,16 +331,16 @@
                                 <div class="id_name_cb cb">
                                     <div class="id_cb cb">
                                         <b>ID</b>
-                                        <span id="profile_user_id"></span>
+                                        <span id="prop_id"></span>
                                     </div>
                                     <div class="name_cb cb">
                                         <b>NAME</b>
-                                        <span id="profile_user_name"></span>
+                                        <span id="prop_name"></span>
                                     </div>
                                 </div>
                                     <div class="pwbox">
                                         <div class="inputBox">
-                                            <input type="password" id="inputPwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                                            <input type="password" id="prop_pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                                             <span>
                                                 New Password
                                             </span>
@@ -352,7 +353,7 @@
                                             </div>
                                         </div>
                                         <div class="inputBox">
-                                            <input type="password" id="inputPwdRepeat" required>
+                                            <input type="password" id="prop_pwd2" required>
                                             <span>
                                                 Repeat Password
                                             </span>
@@ -360,25 +361,24 @@
                                         </div>
                                     </div>
                                 <div class="clearfix">
-                                    <button type="button" class="signupbtn" onclick="updatePsw()">Update Password</button>
+                                    <button id="btnUpdatePwd" type="button" class="signupbtn">Update Password</button>
                                     <button type="button" class="resetbtn" onclick="clearPsw()">Clear</button>
                                 </div>
                                 <div class="cmail_cb cb">
                                     <b>Email Before</b>
-                                    <span id="profile_user_email" style="display: inline-block;"></span>
+                                    <span id="prop_email" style="display: inline-block;"></span>
                                 </div>
                                     <div class="inputBox emailbox">
-                                        <input type="text" id="profile_update_email" required>
+                                        <input type="email" id="prop_email2" required>
                                         <span>
                                             New Email
                                         </span>
                                         <i></i>
+                                        <input placeholder="인증번호 입력" type="number" maxlength="8" id="prop_email_pin" oninput="maxLengthCheck(this)" required>
                                     </div>
                                 <div class="clearfix">
-                                    <button type="button" class="signupcheck" <%--TODO 이메일 검증 함수 버튼--%>>Validate Email
-                                    </button>
-                                    <button type="button" class="signupbtn" onclick="updateUserEmail()">Update Email
-                                    </button>
+                                    <button type="button" class="signupcheck" id="btnCheckEmail">Check Email</button>
+                                    <button type="button" class="signupbtn" id="btnUpdateEmail">Update Email</button>
                                 </div>
                                 <div class="addr_cb cb">
                                     <b>Address Before</b>
@@ -392,16 +392,16 @@
                                     <i></i>
                                 </div>
                                 <div class="clearfix">
-                                    <button type="button" class="signupcheck" <%--TODO 집주소양식 검증 함수 버튼--%>>Find Addr</button>
-                                    <button type="button" class="signupbtn">Update Address</button>
+<%--                                    <button type="button" class="signupcheck" &lt;%&ndash;TODO 집주소양식 검증 함수 버튼&ndash;%&gt;>Find Addr</button>--%>
+                                    <button id="btnUpdateAddr" type="button" class="signupbtn">Update Address</button>
                                 </div>
                                 <h6>&nbsp;</h6>
                             </div>
                         </div>
 
-                        <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">TopicModeling</a></button>
+                        <button class="accordion"><a href="http://127.0.0.1:5000/" target="_blank">TopicModeling</a></button>
 
-                        <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">리뷰</a></button>
+                        <button class="accordion"><a href="http://127.0.0.1:5000/" target="_blank">리뷰</a></button>
 
                         <a href="#" class="popupClose">
                             <i class="fa-solid fa-xmark"></i>
@@ -448,7 +448,7 @@
         });
 
         for (i = 1; i < 100; i++) {
-            j = 30;
+            let j = 30;
             const para1 = document.createElement("li");
             const element = document.getElementById("bpwrap");
             para1.setAttribute("id", "bp" + i);
