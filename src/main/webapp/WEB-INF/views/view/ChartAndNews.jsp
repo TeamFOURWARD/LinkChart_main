@@ -361,57 +361,76 @@
                         <button class="accordion">개인정보 변경</button>
                         <div class="panel">
                             <div class="modal-content" id="user_profile">
-                                <h4>&nbsp;</h4>
-                                <b>ID</b>
-                                <span id="profile_user_id"></span>
-                                <br>
-                                <b>NAME</b>
-                                <span id="profile_user_name"></span>
-                                <br>
-                                <div class="tooltip_1">
-                                    <label for="profile_update_password"><b>Password</b></label>
-                                    <input class="tooltip_a" type="password" id="profile_update_password"
-                                           placeholder="Password">
-                                    <span class="tooltip-text">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters required.
-                                </span>
-                                    <span id="profile_tooltip_password" class="tooltip-text-up">
-                                    <span class="tooltip-none" id="msgLowerCaseLetters">Most contain at least one lowercase letter.<br></span>
-                                    <span class="tooltip-none" id="msgUpperCaseLetters">Most contain at least one uppercase letter.<br></span>
-                                    <span class="tooltip-none" id="msgNumbers">Most contain at least one number.<br></span>
-                                    <span class="tooltip-none" id="msgMatchPsw">Password can be used.</span>
-                                </span>
+                                <h6>&nbsp;</h6>
+                                <div class="id_name_cb cb">
+                                    <div class="id_cb cb">
+                                        <b>ID</b>
+                                        <span id="profile_user_id"></span>
+                                    </div>
+                                    <div class="name_cb cb">
+                                        <b>NAME</b>
+                                        <span id="profile_user_name"></span>
+                                    </div>
                                 </div>
-                                <br>
-                                <label for="profile_update_password_repeat"><b>Repeat Password</b></label>
-                                <input type="password" placeholder="Repeat Password" id="profile_update_password_repeat">
-                                <br>
+                                    <div class="pwbox">
+                                        <div class="inputBox">
+                                            <input type="password" id="profile_update_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                                            <span>
+                                                New Password
+                                            </span>
+                                            <i></i>
+                                            <div id="message">
+                                                <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
+                                                <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
+                                                <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
+                                                <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
+                                            </div>
+                                        </div>
+                                        <div class="inputBox">
+                                            <input type="password" id="profile_update_password_repeat" required>
+                                            <span>
+                                                Repeat Password
+                                            </span>
+                                            <i></i>
+                                        </div>
+                                    </div>
                                 <div class="clearfix">
                                     <button type="button" class="signupbtn" onclick="updatePsw()">Update Password</button>
                                     <button type="button" class="resetbtn" onclick="clearPsw()">Clear</button>
                                 </div>
-                                <b>Email Before</b>
-                                <span id="profile_user_email" style="display: inline-block;"></span>
-                                <br>
-                                <label for="profile_update_email"><b>New Email</b></label>
-                                <input type="email" id="profile_update_email" size="20">
+                                <div class="cmail_cb cb">
+                                    <b>Email Before</b>
+                                    <span id="profile_user_email" style="display: inline-block;"></span>
+                                </div>
+                                    <div class="inputBox emailbox">
+                                        <input type="text" id="profile_update_email" required>
+                                        <span>
+                                            New Email
+                                        </span>
+                                        <i></i>
+                                    </div>
                                 <div class="clearfix">
                                     <button type="button" class="signupcheck" <%--TODO 이메일 검증 함수 버튼--%>>Validate Email
                                     </button>
                                     <button type="button" class="signupbtn" onclick="updateUserEmail()">Update Email
                                     </button>
-<%--                                    <button type="button" class="resetbtn" onclick="clearEmailVal()">Clear</button>--%>
                                 </div>
-                                <b>Address Before</b>
-                                <span id="profile_user_addr" style="display: inline-block"></span>
-                                <br>
-                                <label for="profile_addr"><b>New Address</b></label>
-                                <input type="text" name="user_addr" id="profile_addr" size="20" required>
+                                <div class="addr_cb cb">
+                                    <b>Address Before</b>
+                                    <span id="profile_user_addr" style="display: inline-block"></span>
+                                </div>
+                                <div class="inputBox addrbox">
+                                    <input type="text" id="profile_addr" required>
+                                    <span>
+                                            New Address
+                                        </span>
+                                    <i></i>
+                                </div>
                                 <div class="clearfix">
                                     <button type="button" class="signupcheck" <%--TODO 주소 검증 함수 버튼--%>>Find Addr</button>
                                     <button type="button" class="signupbtn">Update Address</button>
-<%--                                    <button type="button" class="resetbtn" onclick="clearAddrVal()">Clear</button>--%>
                                 </div>
-                                <h4>&nbsp;</h4>
+                                <h6>&nbsp;</h6>
                             </div>
                         </div>
 
@@ -638,5 +657,6 @@
 </script>
 <script type="text/javascript" src="/js/user_view.js"></script>
 <script type="text/javascript" src="/js/maxLengthCheck.js"></script>
+    <script type="text/javascript" src="/js/afterlogin.js"></script>
 </body>
 </html>

@@ -345,7 +345,7 @@
                             </span>
                             <i></i>
                         </div>
-                        <div class="inputBox" >
+                        <div class="inputBox">
                             <input type="password" id="inputLoginPwd" required>
                             <span>
                                 Password
@@ -384,78 +384,121 @@
             <div class="container">
                 <div class="section_03_content_wrap">
                     <form class="modal-content" onsubmit="return false">
-                        <div>
-                            <span>ID</span>
-                            <input type="text" id="inputId" required>
+                        <div class="id_box inputBox_wrap">
+                            <div class="inputBox float-left">
+                                <input type="text" id="inputId" required>
+                                <span>ID</span>
+                                <i></i>
+                            </div>
+                            <div class="buttonBox float-right">
+                                <button id="btnSubmitId" type="button" class="signupcheck">아이디 중복 확인</button>
+                            </div>
                         </div>
-                        <button id="btnSubmitId" type="button" class="signupcheck">아이디 중복 확인</button>
-                        <div>
+                        <div class="inputBox">
+                            <input type="text" id="inputName" required>
                             <span>
                                 Name
                             </span>
-                            <input type="text" id="inputName" required>
+                            <i></i>
                         </div>
-                        <div>
-                           <span>
-                                Phone Number
-                           </span>
-                           <input id="inputMobile_n1" type="number" value="010" readonly required/> -
-                           <input id="inputMobile_n2" type="number" maxlength="4" oninput="maxLengthCheck(this)" required/> -
-                           <input id="inputMobile_n3" type="number" maxlength="4" oninput="maxLengthCheck(this)" required/>
-                        </div>
-                        <button id="btnSubmitMobile" type="button" class="signupcheck">전화번호 확인</button>
-                        <div>
+                        <div class="pinput_box">
+                            <div class="inputBox pinputwrap">
                             <span>
-                                Certification Number
-                            </span>
-                            <input id="inputMobilePin" size="8" type="number" required/>
-                            <button id="btnSubmitMobilePin" type="button" class="signupcheck">전송</button>
-                            <button id="btnResetMobilePin" type="button" class="signupcheck">다시 인증하기</button>
-                        </div>
-                        <div>
-                            <span>
-                                Email
-                            </span>
-                            <input type="text" id="inputEmail" required>
-                        </div>
-                        <button id="btnSubmitEmail" type="button" class="signupcheck">이메일 확인</button>
-                        <div>
-                            <span>
-                                Certification Number
-                            </span>
-                            <input id="inputEmailPin" size="8" type="number" required/>
-                            <button id="btnSubmitEmailPin" type="button" class="signupcheck">전송</button>
-                            <button id="btnResetEmailPin" type="button" class="signupcheck">다시 인증하기</button>
-                        </div>
-                        <div>
-                            <span>
-                                Password
-                            </span>
-                            <input type="password" id="inputPwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-                            <div id="message">
-                                <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
-                                <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
-                                <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
-                                <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
+                                    Phone Number
+                                </span>
+                                <div class="pinput">
+                                    <input id="inputMobile_n1" type="number" value="010" readonly required/>
+                                </div>
+                                <p>
+                                    -
+                                </p>
+                                <div class="pinput">
+                                    <input id="inputMobile_n2" type="number" maxlength="4" oninput="maxLengthCheck(this)" required/>
+                                    <i></i>
+                                </div>
+                                <p>
+                                    -
+                                </p>
+                                <div class="pinput">
+                                    <input id="inputMobile_n3" type="number" maxlength="4" oninput="maxLengthCheck(this)" required/>
+                                </div>
+                            </div>
+                            <div class="buttonBox">
+                                <button id="btnSubmitMobile" type="button" class="signupcheck">전화번호 확인</button>
                             </div>
                         </div>
-                        <div>
-                            <span>
+                        <div class="cnbox">
+                            <div class="inputBox">
+                                <input id="inputMobilePin" size="8" type="number" required/>
+                                <span>
+                                Certification Number
+                            </span>
+                                <i></i>
+                            </div>
+                            <div class="buttonBox">
+                                <button id="btnSubmitMobilePin" type="button" class="signupcheck">전송</button>
+                                <button id="btnResetMobilePin" type="button" class="signupcheck">다시 인증하기</button>
+                            </div>
+                        </div>
+                        <div class="emailbox">
+                            <div class="inputBox">
+                                <input type="text" id="inputEmail" required>
+                                <span>
+                                Email
+                            </span>
+                                <i></i>
+                            </div>
+                            <div class="buttonBox">
+                                <button id="btnSubmitEmail" type="button" class="signupcheck">이메일 확인</button>
+                            </div>
+                        </div>
+                        <div class="cnbox">
+                            <div class="inputBox">
+                                <input id="inputEmailPin" size="8" type="number" required/>
+                                <span>
+                                Certification Number
+                            </span>
+                                <i></i>
+                            </div>
+                            <div class="buttonBox">
+                                <button id="btnSubmitEmailPin" type="button" class="signupcheck">전송</button>
+                                <button id="btnResetEmailPin" type="button" class="signupcheck">다시 인증하기</button>
+                            </div>
+                        </div>
+                        <div class="pwbox">
+                            <div class="inputBox">
+                                <input type="password" id="inputPwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                                <span>
+                                    Password
+                                </span>
+                                <i></i>
+                                <div id="message">
+                                    <p id="letter" class="invalid">소문자를 최소 1개 포함하십시오.</p>
+                                    <p id="capital" class="invalid">대문자를 최소 1개 포함하십시오.</p>
+                                    <p id="number" class="invalid">숫자를 최소 1개 포함하십시오.</p>
+                                    <p id="length" class="invalid">최소 8글자 이상 입력하십시오.</p>
+                                </div>
+                            </div>
+                            <div class="inputBox">
+                                <input type="password" id="inputPwdRepeat" required>
+                                <span>
                                 Repeat Password
                             </span>
-                            <input type="password" id="inputPwdRepeat" required>
+                                <i></i>
+                            </div>
                         </div>
-                        <div>
+                        <div class="inputBox">
+                            <input type="text" id="inputAddr" required>
                             <span>
                                 Address
                             </span>
-                            <input type="text" id="inputAddr" required>
+                            <i></i>
                         </div>
 
                         <p>By creating an account you agree to our <a href="#" style="color:dodgerblue"><br>Terms &
                             Privacy</a>.</p>
 
-                            <div class="buttonBox">
+                            <div class="buttonBox scfbox">
                                 <button id="btnSubmitSignup" type="submit" class="signupbtn">Sign Up</button>
                                 <button type="reset" class="resetbtn">cancel</button>
                                 <button type="button" class="resetbtn">Forgot ID or Password?</button>
