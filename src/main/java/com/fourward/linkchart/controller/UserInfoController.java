@@ -143,20 +143,25 @@ public class UserInfoController {
     }
 
     @PostMapping(value = "/updateEmail")
-    public ResponseEntity<Void> updateEmail(HttpServletRequest request) {
+    public ResponseEntity<Void> updateEmail(@RequestBody @Valid @NotBlank UserInfoDTO userInfoDTO, HttpSession session) {
         log.info("{}.updateEmail start", this.getClass().getName());
-        UserInfoDTO pDTO = new UserInfoDTO();
-        pDTO.setUser_id(request.getParameter("user_id"));
+        if (!(session.getAttribute("SS_USER_ID").equals(userInfoDTO.getUser_id())
+                && session.getAttribute("SS_SIGNUP_EMAIL_PIN").equals("ok"))) {
+            session.invalidate();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
-            pDTO.setUser_email(EncryptUtil.encAES128CBC(request.getParameter("user_email")));
+            userInfoDTO.setUser_email(EncryptUtil.encAES128CBC((String) session.getAttribute("SS_SIGNUP_EMAIL")));
         } catch (Exception e) {
+            session.removeAttribute("SS_SIGNUP_EMAIL_PIN");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (!((userInfoService.isEmailExists(pDTO.getUser_email()).equals("0")))) {
+        if (!((userInfoService.isEmailExists(userInfoDTO.getUser_email()).equals("0")))) {
+            session.removeAttribute("SS_SIGNUP_EMAIL_PIN");
             return new ResponseEntity<>(HttpStatus.valueOf(409));
         }
-        log.info("{}updateEmail | id : [{}]", this.getClass().getName(), pDTO.getUser_id());
-        userInfoService.updateUserEmail(pDTO);
+        log.info("{}updateEmail | id : [{}]", this.getClass().getName(), userInfoDTO.getUser_id());
+        userInfoService.updateUserEmail(userInfoDTO);
 
         log.info("{}.updateEmail end", this.getClass().getName());
 
@@ -299,7 +304,7 @@ public class UserInfoController {
     }
 
     @PostMapping(value = "/validate/email")
-    public ResponseEntity<Object> validateEmail(@RequestBody UserInfoDTO userInfoDTO, HttpSession session) {
+    public ResponseEntity<Object> validateEmail(@RequestBody @Valid @NotBlank UserInfoDTO userInfoDTO, HttpSession session) {
         log.info("{}.validateEmail start", this.getClass().getName());
         String email = userInfoDTO.getUser_email();
         String pin = RandomUtil.getStr(8);
@@ -333,7 +338,7 @@ public class UserInfoController {
     }
 
     @PostMapping(value = "/validate/email/pin")
-    public ResponseEntity<Object> validateEmailPin(HttpSession session, @RequestBody UserInfoDTO userInfoDTO) {
+    public ResponseEntity<Object> validateEmailPin(@RequestBody @Valid @NotBlank UserInfoDTO userInfoDTO, HttpSession session) {
         log.info("{}.validateEmailPin start", this.getClass().getName());
         String pin = userInfoDTO.getPin();
         log.info("pin : [{}]", pin);

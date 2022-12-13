@@ -21,9 +21,9 @@ function getUserInfo() {
 // 프로파일 수정
 
 function putUserInfo(data) {
-    document.getElementById("profile_user_id").innerText = SS_USER_ID;
-    document.getElementById("profile_user_name").innerText = data.user_name;
-    document.getElementById("profile_user_email").innerText = data.user_email;
+    document.getElementById("prop_id").innerText = SS_USER_ID;
+    document.getElementById("prop_name").innerText = data.user_name;
+    document.getElementById("prop_email").innerText = data.user_email;
     document.getElementById("profile_user_addr").innerText = data.user_addr;
 }
 
@@ -114,32 +114,83 @@ psw1.onkeyup = () => {
         msgMatchPsw.style.display = "none";
     }
 }*/
+const btnCheckEmail = document.getElementById("btnCheckEmail");
+const btnUpdateEmail = document.getElementById("btnUpdateEmail");
+const email_input = document.getElementById("prop_email2");
+btnCheckEmail.addEventListener("click", () => checkEmail());
+btnUpdateEmail.addEventListener("click", () => updateUserEmail());
+
+function checkEmail() {
+    $.ajax({
+        url: "user/validate/email",
+        data: JSON.stringify({
+            "user_id": SS_USER_ID,
+            "user_email": email_input.value
+        }),
+        contentType: "application/json; charset=UTF-8",
+        type: 'POST',
+        statusCode: {
+            400: function () {
+                alert("이전과 다른 이메일을 입력해 주세요.");
+            }
+        }, success: function () {
+            alert("사용가능한 이메일입니다. 인증번호를 입력해주세요.");
+        }, error: function () {
+            alert("잘못된 이메일입니다.");
+        }, complete: function () {
+            email_input.value = "";
+            getUserInfo();
+        }
+    })
+}
+
+const prop_email_pin = document.getElementById("prop_email_pin");
 
 function updateUserEmail() {
-    const email_input = document.getElementById("profile_update_email");
-    if (email_input.value !== ("" || null || undefined)) {
-        $.ajax({
-            url: "user/updateEmail",
-            data: JSON.stringify({
-                "user_id": SS_USER_ID,
-                "user_email": document.getElementById("profile_email").value
-            }),
-            contentType: "application/json; charset=UTF-8",
-            type: 'POST',
-            statusCode: {
-                409: function () {
-                    alert("이전과 다른 이메일을 입력해 주세요.");
-                }
-            }, success: function () {
-                alert("이메일이 변경되었습니다.");
-            }, error: function () {
-                alert("이메일 변경에 실패하였습니다.");
-            }, complete: function () {
-                document.getElementById("user_updateEmail").reset();
-                getUserInfo();
+    $.ajax({
+        url: "/user/validate/email/pin",
+        data: JSON.stringify({
+            "user_id": SS_USER_ID,
+            "pin": prop_email_pin.value
+        }),
+        contentType: "application/json; charset=UTF-8",
+        type: 'POST',
+        statusCode: {
+            200: () => {
+                $.ajax({
+                    url: "/user/updateEmail",
+                    data: JSON.stringify({
+                        "user_id": SS_USER_ID,
+                    }),
+                    contentType: "application/json; charset=UTF-8",
+                    type: 'POST',
+                    statusCode: {
+                        200: () => {
+                            alert("이메일이 변경되었습니다.");
+                        },
+                        400: () => {
+                            alert("잘못된 접근입니다.");
+                        }
+                    },
+                    error: () => {
+                        alert("이메일 변경에 실패하였습니다.");
+                    },
+                    complete: () => {
+                        return getUserInfo();
+                    }
+                })
+            },
+            400: function () {
+                alert("잘못된 인증번호입니다.");
             }
-        })
-    }
+        },
+        error: function () {
+            alert("이메일 변경에 실패하였습니다.");
+        }, complete: function () {
+            prop_email_pin.value = "";
+            getUserInfo();
+        }
+    })
 }
 
 // 로그아웃
@@ -222,7 +273,7 @@ myInput.onkeyup = function () {
     }
 }
 // 비밀번호 일치 검사
-var repeatPsw = document.getElementById("inputPwdRepeat");
+var repeatPsw = document.getElementById("prop_pwd2");
 var chkRepeatPsw = false;
 
 /*repeatPsw.onfocus = () => {
