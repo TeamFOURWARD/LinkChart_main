@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Slf4j
@@ -69,7 +70,7 @@ public class UserInfoController {
 
     //로그인 전송
     @PostMapping(value = "/login")
-    public ResponseEntity<Object> login(@Valid @RequestBody UserLoginDTO userLoginDTO, HttpSession session, HttpServletRequest request) {
+    public ResponseEntity<Object> login(@Valid @NotBlank @RequestBody UserLoginDTO userLoginDTO, HttpSession session, HttpServletRequest request) {
         log.info("{}.login start", this.getClass().getName());
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setUser_id(userLoginDTO.getUser_id());
@@ -105,55 +106,58 @@ public class UserInfoController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Object> logout(HttpServletRequest request) {
-        log.info("{}.logout start", this.getClass().getName());
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            log.info("{} | invalidate session. user id : [{}]", this.getClass().getName(), session.getAttribute("SS_USER_ID"));
-            session.invalidate();
-        }
-        log.info("{}.logout end", this.getClass().getName());
+    public ResponseEntity<Object> logout(HttpSession session) {
+        log.info("{} | invalidate session. user id : [{}]", this.getClass().getName(), session.getAttribute("SS_USER_ID"));
+        session.invalidate();
+        log.info("{}.logout done", this.getClass().getName());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/updatePsw")
-    public ResponseEntity<Void> updatePsw(HttpServletRequest request) {
-        log.info("{}.updatePsw start", this.getClass().getName());
-        UserInfoDTO pDTO = new UserInfoDTO();
-        pDTO.setUser_id(request.getParameter("user_id"));
+    @PostMapping("/updatePwd")
+    public ResponseEntity<Void> updatePwd(@RequestBody @NotBlank UserInfoDTO userInfoDTO, HttpSession session) {
+        log.info("{}.updatePwd start", this.getClass().getName());
+        String id = (String) session.getAttribute("SS_USER_ID");
+        if (id == null || !id.equals(userInfoDTO.getUser_id())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
-            pDTO.setUser_password(EncryptUtil.encHashSHA256(request.getParameter("user_password")));
+            userInfoDTO.setUser_password(EncryptUtil.encHashSHA256(userInfoDTO.getUser_password()));
         } catch (Exception ignored) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (userInfoService.getUserLoginCheck(pDTO).getIsExist().equals("1")) {
+        if (userInfoService.getUserLoginCheck(userInfoDTO).getIsExist().equals("1")) {
 
             return new ResponseEntity<>(HttpStatus.valueOf(409));
         }
-        log.info("{}.updatePsw | id : [{}]", this.getClass().getName(), pDTO.getUser_id());
-        userInfoService.updateUserPsw(pDTO);
+        log.info("{}.updatePwd | id : [{}]", this.getClass().getName(), userInfoDTO.getUser_id());
+        userInfoService.updateUserPsw(userInfoDTO);
 
-        log.info("{}.updatePsw end", this.getClass().getName());
+        log.info("{}.updatePwd end", this.getClass().getName());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping(value = "/updateEmail")
-    public ResponseEntity<Void> updateEmail(HttpServletRequest request) {
+    public ResponseEntity<Void> updateEmail(@RequestBody @Valid @NotBlank UserInfoDTO userInfoDTO, HttpSession session) {
         log.info("{}.updateEmail start", this.getClass().getName());
-        UserInfoDTO pDTO = new UserInfoDTO();
-        pDTO.setUser_id(request.getParameter("user_id"));
+        if (!(session.getAttribute("SS_USER_ID").equals(userInfoDTO.getUser_id())
+                && session.getAttribute("SS_SIGNUP_EMAIL_PIN").equals("ok"))) {
+            session.invalidate();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
-            pDTO.setUser_email(EncryptUtil.encAES128CBC(request.getParameter("user_email")));
+            userInfoDTO.setUser_email(EncryptUtil.encAES128CBC((String) session.getAttribute("SS_SIGNUP_EMAIL")));
         } catch (Exception e) {
+            session.removeAttribute("SS_SIGNUP_EMAIL_PIN");
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (!((userInfoService.isEmailExists(pDTO.getUser_email()).equals("0")))) {
+        if (!((userInfoService.isEmailExists(userInfoDTO.getUser_email()).equals("0")))) {
+            session.removeAttribute("SS_SIGNUP_EMAIL_PIN");
             return new ResponseEntity<>(HttpStatus.valueOf(409));
         }
-        log.info("{}updateEmail | id : [{}]", this.getClass().getName(), pDTO.getUser_id());
-        userInfoService.updateUserEmail(pDTO);
+        log.info("{}updateEmail | id : [{}]", this.getClass().getName(), userInfoDTO.getUser_id());
+        userInfoService.updateUserEmail(userInfoDTO);
 
         log.info("{}.updateEmail end", this.getClass().getName());
 
@@ -161,18 +165,18 @@ public class UserInfoController {
     }
 
     @PostMapping(value = "/updateAddr")
-    public ResponseEntity<Void> updateAddr(HttpServletRequest request) {
+    public ResponseEntity<Void> updateAddr(@RequestBody @Valid @NotBlank UserInfoDTO userInfoDTO, HttpSession session) {
         log.info("{}.updateAddr start", this.getClass().getName());
-        UserInfoDTO pDTO = new UserInfoDTO();
-        pDTO.setUser_id(request.getParameter("user_id"));
+        if (!session.getAttribute("SS_USER_ID").equals(userInfoDTO.getUser_id())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
-            pDTO.setUser_addr(EncryptUtil.encAES128CBC(request.getParameter("user_addr")));
+            userInfoDTO.setUser_addr(EncryptUtil.encAES128CBC(userInfoDTO.getUser_addr()));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        log.info("{}.updateAddr | id : [{}]", this.getClass().getName(), pDTO.getUser_id());
-        userInfoService.updateUserAddr(pDTO);
-
+        log.info("{}.updateAddr | id : [{}]", this.getClass().getName(), userInfoDTO.getUser_id());
+        userInfoService.updateUserAddr(userInfoDTO);
         log.info("{}.updateAddr end", this.getClass().getName());
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -296,7 +300,7 @@ public class UserInfoController {
     }
 
     @PostMapping(value = "/validate/email")
-    public ResponseEntity<Object> validateEmail(@RequestBody UserInfoDTO userInfoDTO, HttpSession session) {
+    public ResponseEntity<Object> validateEmail(@RequestBody @Valid @NotBlank UserInfoDTO userInfoDTO, HttpSession session) {
         log.info("{}.validateEmail start", this.getClass().getName());
         String email = userInfoDTO.getUser_email();
         String pin = RandomUtil.getStr(8);
@@ -330,7 +334,7 @@ public class UserInfoController {
     }
 
     @PostMapping(value = "/validate/email/pin")
-    public ResponseEntity<Object> validateEmailPin(HttpSession session, @RequestBody UserInfoDTO userInfoDTO) {
+    public ResponseEntity<Object> validateEmailPin(@RequestBody @Valid @NotBlank UserInfoDTO userInfoDTO, HttpSession session) {
         log.info("{}.validateEmailPin start", this.getClass().getName());
         String pin = userInfoDTO.getPin();
         log.info("pin : [{}]", pin);

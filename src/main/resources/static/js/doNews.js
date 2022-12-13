@@ -171,12 +171,12 @@ function loadNews(data) {
     document.getElementById('newsMain').appendChild(table);
 }
 
-function wordcloud(data){
+function wordcloud(data) {
     /*console.log(data)
     const obj = JSON.parse(JSON.stringify(data)); // JSON 문자열 javascript 객체로 변환
     console.log(obj);*/
     var a = []
-    data.forEach(b=>{
+    data.forEach(b => {
         const c = []
         c.push(String(b[0]))
         c.push(parseInt(b[1]))
