@@ -70,7 +70,7 @@ public class UserInfoController {
 
     //로그인 전송
     @PostMapping(value = "/login")
-    public ResponseEntity<Object> login(@Valid @RequestBody UserLoginDTO userLoginDTO, HttpSession session, HttpServletRequest request) {
+    public ResponseEntity<Object> login(@Valid @NotBlank @RequestBody UserLoginDTO userLoginDTO, HttpSession session, HttpServletRequest request) {
         log.info("{}.login start", this.getClass().getName());
         UserInfoDTO userInfoDTO = new UserInfoDTO();
         userInfoDTO.setUser_id(userLoginDTO.getUser_id());
@@ -106,21 +106,17 @@ public class UserInfoController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Object> logout(HttpServletRequest request) {
-        log.info("{}.logout start", this.getClass().getName());
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            log.info("{} | invalidate session. user id : [{}]", this.getClass().getName(), session.getAttribute("SS_USER_ID"));
-            session.invalidate();
-        }
-        log.info("{}.logout end", this.getClass().getName());
+    public ResponseEntity<Object> logout(HttpSession session) {
+        log.info("{} | invalidate session. user id : [{}]", this.getClass().getName(), session.getAttribute("SS_USER_ID"));
+        session.invalidate();
+        log.info("{}.logout done", this.getClass().getName());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/updatePsw")
-    public ResponseEntity<Void> updatePsw(@RequestBody @NotBlank UserInfoDTO userInfoDTO, HttpServletRequest request, HttpSession session) {
-        log.info("{}.updatePsw start", this.getClass().getName());
+    @PostMapping("/updatePwd")
+    public ResponseEntity<Void> updatePwd(@RequestBody @NotBlank UserInfoDTO userInfoDTO, HttpSession session) {
+        log.info("{}.updatePwd start", this.getClass().getName());
         String id = (String) session.getAttribute("SS_USER_ID");
         if (id == null || !id.equals(userInfoDTO.getUser_id())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -134,10 +130,10 @@ public class UserInfoController {
 
             return new ResponseEntity<>(HttpStatus.valueOf(409));
         }
-        log.info("{}.updatePsw | id : [{}]", this.getClass().getName(), userInfoDTO.getUser_id());
+        log.info("{}.updatePwd | id : [{}]", this.getClass().getName(), userInfoDTO.getUser_id());
         userInfoService.updateUserPsw(userInfoDTO);
 
-        log.info("{}.updatePsw end", this.getClass().getName());
+        log.info("{}.updatePwd end", this.getClass().getName());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
