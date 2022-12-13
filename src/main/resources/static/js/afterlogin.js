@@ -18,6 +18,8 @@ function getUserInfo() {
     })
 }
 
+// 프로파일 수정
+
 function putUserInfo(data) {
     document.getElementById("profile_user_id").innerText = SS_USER_ID;
     document.getElementById("profile_user_name").innerText = data.user_name;
@@ -25,49 +27,62 @@ function putUserInfo(data) {
     document.getElementById("profile_user_addr").innerText = data.user_addr;
 }
 
-const psw1 = document.getElementById("inputPwd");
-const psw2 = document.getElementById("inputPwdRepeat");
-const regExPsw = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+const btnUpdatePwd = document.getElementById("btnUpdatePwd");
+btnUpdatePwd.addEventListener("click", () => validatePwd())
 
-function updatePsw() {
-    if (psw1.value.match(regExPsw)) {
-        if (psw1.value === psw2.value) {
-            return updatePsw_();
+const pwd1 = document.getElementById("prop_pwd");
+const pwd2 = document.getElementById("prop_pwd2");
+const regExPwd = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
+
+function validatePwd() {
+    if (!pwd1.value.match(regExPwd)) {
+        return alert("비밀번호 양식을 확인해주세요.");
+    } else {
+        if (pwd1.value === pwd2.value) {
+            return updatePwd(pwd1.value);
         } else {
             alert("비밀번호가 다릅니다.");
             return false;
         }
-    } else {
-        alert("비밀번호 양식을 확인해주세요.");
     }
 }
 
-function updatePsw_() {
+function updatePwd(p) {
     $.ajax({
-        url: 'user/updatePsw',
-        data: {
+        url: "/user/updatePsw",
+        data: JSON.stringify({
             "user_id": SS_USER_ID,
-            "user_password": psw1.value
-        },
+            "user_password": p
+        }),
+        contentType: "application/json; charset=UTF-8",
         type: 'POST',
         async: false,
         statusCode: {
+            200: () => {
+                alert("비밀번호가 변경되었습니다.");
+                pwd1.value = "";
+                pwd2.value = "";
+            },
+            400: () => {
+                alert("유효하지 않은 접근입니다.");
+                return logout();
+            },
             409: () => {
                 alert("이전과 다른 비밀번호를 입력해 주세요.");
+            },
+            500: () => {
+                alert("서버에 장애가 발생하였습니다");
             }
-        }, success: () => {
-            alert("비밀번호가 변경되었습니다.");
-            psw1.value = null;
-            psw2.value = null;
-        }, error: () => {
+        },
+        error: () => {
             alert("비밀번호 변경에 실패하였습니다.");
         }
     });
 }
 
 function clearPsw() {
-    psw1.value = null;
-    psw2.value = null;
+    pwd1.value = null;
+    pwd2.value = null;
 }
 
 /*const lowerCaseLetters = /[a-z]/g;
@@ -105,10 +120,11 @@ function updateUserEmail() {
     if (email_input.value !== ("" || null || undefined)) {
         $.ajax({
             url: "user/updateEmail",
-            data: {
+            data: JSON.stringify({
                 "user_id": SS_USER_ID,
                 "user_email": document.getElementById("profile_email").value
-            },
+            }),
+            contentType: "application/json; charset=UTF-8",
             type: 'POST',
             statusCode: {
                 409: function () {
@@ -148,7 +164,7 @@ function logout() {
 }
 
 //password script
-var myInput = document.getElementById("inputPwd");
+var myInput = document.getElementById("prop_pwd");
 var letter = document.getElementById("letter");
 var capital = document.getElementById("capital");
 var number = document.getElementById("number");

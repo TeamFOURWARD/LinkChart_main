@@ -339,7 +339,7 @@
                                 </div>
                                     <div class="pwbox">
                                         <div class="inputBox">
-                                            <input type="password" id="inputPwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                                            <input type="password" id="prop_pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                                             <span>
                                                 New Password
                                             </span>
@@ -352,7 +352,7 @@
                                             </div>
                                         </div>
                                         <div class="inputBox">
-                                            <input type="password" id="inputPwdRepeat" required>
+                                            <input type="password" id="prop_pwd2" required>
                                             <span>
                                                 Repeat Password
                                             </span>
@@ -360,7 +360,7 @@
                                         </div>
                                     </div>
                                 <div class="clearfix">
-                                    <button type="button" class="signupbtn" onclick="updatePsw()">Update Password</button>
+                                    <button id="btnUpdatePwd" type="button" class="signupbtn">Update Password</button>
                                     <button type="button" class="resetbtn" onclick="clearPsw()">Clear</button>
                                 </div>
                                 <div class="cmail_cb cb">
@@ -399,9 +399,9 @@
                             </div>
                         </div>
 
-                        <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">TopicModeling</a></button>
+                        <button class="accordion"><a href="http://127.0.0.1:5000/" target="_blank">TopicModeling</a></button>
 
-                        <button class="accordion"><a href="http://127.0.0.1:5000/" targer="_blank">리뷰</a></button>
+                        <button class="accordion"><a href="http://127.0.0.1:5000/" target="_blank">리뷰</a></button>
 
                         <a href="#" class="popupClose">
                             <i class="fa-solid fa-xmark"></i>
@@ -448,7 +448,7 @@
         });
 
         for (i = 1; i < 100; i++) {
-            j = 30;
+            let j = 30;
             const para1 = document.createElement("li");
             const element = document.getElementById("bpwrap");
             para1.setAttribute("id", "bp" + i);

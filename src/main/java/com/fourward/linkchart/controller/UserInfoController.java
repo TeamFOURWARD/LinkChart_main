@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Slf4j
@@ -118,21 +119,23 @@ public class UserInfoController {
     }
 
     @PostMapping("/updatePsw")
-    public ResponseEntity<Void> updatePsw(HttpServletRequest request) {
+    public ResponseEntity<Void> updatePsw(@RequestBody @NotBlank UserInfoDTO userInfoDTO, HttpServletRequest request, HttpSession session) {
         log.info("{}.updatePsw start", this.getClass().getName());
-        UserInfoDTO pDTO = new UserInfoDTO();
-        pDTO.setUser_id(request.getParameter("user_id"));
+        String id = (String) session.getAttribute("SS_USER_ID");
+        if (id == null || !id.equals(userInfoDTO.getUser_id())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
-            pDTO.setUser_password(EncryptUtil.encHashSHA256(request.getParameter("user_password")));
+            userInfoDTO.setUser_password(EncryptUtil.encHashSHA256(userInfoDTO.getUser_password()));
         } catch (Exception ignored) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if (userInfoService.getUserLoginCheck(pDTO).getIsExist().equals("1")) {
+        if (userInfoService.getUserLoginCheck(userInfoDTO).getIsExist().equals("1")) {
 
             return new ResponseEntity<>(HttpStatus.valueOf(409));
         }
-        log.info("{}.updatePsw | id : [{}]", this.getClass().getName(), pDTO.getUser_id());
-        userInfoService.updateUserPsw(pDTO);
+        log.info("{}.updatePsw | id : [{}]", this.getClass().getName(), userInfoDTO.getUser_id());
+        userInfoService.updateUserPsw(userInfoDTO);
 
         log.info("{}.updatePsw end", this.getClass().getName());
 
