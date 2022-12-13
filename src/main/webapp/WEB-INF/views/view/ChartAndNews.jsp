@@ -9,17 +9,18 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="js/vanilla-tilt.js"></script>
+    <script src="/js/vanilla-tilt.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/reset.css"/>
     <link rel="stylesheet" href="/css/all.min.css"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/intro.css"/>
     <link rel="stylesheet" href="/css/popup1.css"/>
     <link rel="stylesheet" href="/css/chartandnews.css"/>
     <link rel="stylesheet" href="/css/inputStyle.css"/>
+    <link rel="stylesheet" href="/css/wordcloud.css"/>
     <%-- 프로필툴팁 --%>
     <link rel="stylesheet" href="/css/user_view_tooltip.css"/>
     <link rel="stylesheet" href="/css/user_view_profile.css"/>
@@ -623,7 +624,7 @@
     <script src="/js/dateUtil.js" type="text/javascript">
         // date formatter
     </script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
     <script src="/js/doChart.js" type="text/javascript">
         // getChartData
         // loadChart
@@ -641,7 +642,7 @@
             getNewsData("증시", dateToString(new Date()), false);
         })
     </script>
-    <script type="text/javascript" src="/js/maxLengthCheck.js"></script>
-    <script type="text/javascript" src="/js/afterlogin.js"></script>
+    <script src="/js/maxLengthCheck.js" type="text/javascript"></script>
+    <script src="/js/afterlogin.js" type="text/javascript"></script>
 </body>
 </html>
