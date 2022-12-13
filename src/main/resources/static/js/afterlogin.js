@@ -193,6 +193,41 @@ function updateUserEmail() {
     })
 }
 
+const btnUpdateAddr = document.getElementById("btnUpdateAddr");
+const profile_addr = document.getElementById("profile_addr");
+btnUpdateAddr.addEventListener("click", () => updateUserAddr())
+function updateUserAddr() {
+    $.ajax({
+        url: "/user/updateAddr",
+        data: JSON.stringify({
+            "user_id": SS_USER_ID,
+            "user_addr": profile_addr.value
+        }),
+        contentType: "application/json; charset=UTF-8",
+        type: 'POST',
+        statusCode: {
+            200: () => {
+                alert("주소가 변경되었습니다.");
+                profile_addr.value = "";
+                return getUserInfo();
+            },
+            400: () => {
+                alert("잘못된 접근입니다.");
+            },
+            500: () => {
+                alert("서버에 문제가 발생하였습니다.")
+            }
+        },
+        error: () => {
+            alert("주소 변경에 실패하였습니다.");
+        },
+        complete: () => {
+            return getUserInfo();
+        }
+    })
+}
+
+
 // 로그아웃
 
 const aLogout = document.getElementById("aLogout");

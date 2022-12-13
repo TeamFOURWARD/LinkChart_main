@@ -392,8 +392,8 @@
                                     <i></i>
                                 </div>
                                 <div class="clearfix">
-                                    <button type="button" class="signupcheck" <%--TODO 집주소양식 검증 함수 버튼--%>>Find Addr</button>
-                                    <button type="button" class="signupbtn">Update Address</button>
+<%--                                    <button type="button" class="signupcheck" &lt;%&ndash;TODO 집주소양식 검증 함수 버튼&ndash;%&gt;>Find Addr</button>--%>
+                                    <button id="btnUpdateAddr" type="button" class="signupbtn">Update Address</button>
                                 </div>
                                 <h6>&nbsp;</h6>
                             </div>

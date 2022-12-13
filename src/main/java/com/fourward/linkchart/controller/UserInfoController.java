@@ -169,18 +169,18 @@ public class UserInfoController {
     }
 
     @PostMapping(value = "/updateAddr")
-    public ResponseEntity<Void> updateAddr(HttpServletRequest request) {
+    public ResponseEntity<Void> updateAddr(@RequestBody @Valid @NotBlank UserInfoDTO userInfoDTO, HttpSession session) {
         log.info("{}.updateAddr start", this.getClass().getName());
-        UserInfoDTO pDTO = new UserInfoDTO();
-        pDTO.setUser_id(request.getParameter("user_id"));
+        if (!session.getAttribute("SS_USER_ID").equals(userInfoDTO.getUser_id())) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         try {
-            pDTO.setUser_addr(EncryptUtil.encAES128CBC(request.getParameter("user_addr")));
+            userInfoDTO.setUser_addr(EncryptUtil.encAES128CBC(userInfoDTO.getUser_addr()));
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        log.info("{}.updateAddr | id : [{}]", this.getClass().getName(), pDTO.getUser_id());
-        userInfoService.updateUserAddr(pDTO);
-
+        log.info("{}.updateAddr | id : [{}]", this.getClass().getName(), userInfoDTO.getUser_id());
+        userInfoService.updateUserAddr(userInfoDTO);
         log.info("{}.updateAddr end", this.getClass().getName());
 
         return new ResponseEntity<>(HttpStatus.OK);
