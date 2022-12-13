@@ -196,6 +196,7 @@ function updateUserEmail() {
 const btnUpdateAddr = document.getElementById("btnUpdateAddr");
 const profile_addr = document.getElementById("profile_addr");
 btnUpdateAddr.addEventListener("click", () => updateUserAddr())
+
 function updateUserAddr() {
     $.ajax({
         url: "/user/updateAddr",
