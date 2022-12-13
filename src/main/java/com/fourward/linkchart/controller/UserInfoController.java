@@ -36,7 +36,7 @@ public class UserInfoController {
 
             return new ResponseEntity<>(HttpStatus.REQUEST_TIMEOUT);
         }
-        if (!(mp.equals("ok") && ep.equals("ok"))) {
+        if (!(mp.equals("ok") && ep.equals("ok") && (session.getAttribute("SS_SIGNUP_ID").equals(userInfoDTO.getUser_id())))) {
 
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -199,12 +199,15 @@ public class UserInfoController {
     }
 
     @PostMapping(value = "/validate/id")
-    public ResponseEntity<Object> validateId(@RequestBody UserInfoDTO userInfoDTO) {
+    public ResponseEntity<Object> validateId(@RequestBody UserInfoDTO userInfoDTO, HttpSession session) {
         log.info("{}.validateId start", this.getClass().getName());
+        session.removeAttribute("SS_SIGNUP_ID");
         if (!((userInfoService.isIdExists(userInfoDTO.getUser_id()).equals("0")))) {
             // 중복 아이디
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        session.setAttribute("SS_SIGNUP_ID", userInfoDTO.getUser_id());
+
         log.info("{}.validateId end", this.getClass().getName());
 
         return new ResponseEntity<>(HttpStatus.OK);
