@@ -5,19 +5,13 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-tag-cloud.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/vanilla-tilt.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <link rel="stylesheet" href="/css/reset.css"/>
     <link rel="stylesheet" href="/css/all.min.css"/>
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="js/vanilla-tilt.js"></script>
     <link rel="stylesheet" href="/css/intro.css"/>
     <link rel="stylesheet" href="/css/popup1.css"/>
     <link rel="stylesheet" href="/css/login.css"/>
@@ -28,28 +22,6 @@
         @import url("https://fonts.googleapis.com/css2?family=Handlee&family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Roboto:wght@300;400;700&display=swap");
     </style>
     <title>LINK CHART</title>
-    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/js/doChart.js" type="text/javascript">
-        // getChartData
-        // loadChart
-    </script>
-    <script src="js/doNews.js" type="text/javascript">
-        // getNewsData
-        // loadNews
-        // getNews_click
-    </script>
-    <script src="/js/dateUtil.js" type="text/javascript">
-        // date formatter
-    </script>
-
-    <script type="text/javascript">
-        // 초기 로딩시 보여줄 데이터
-        window.addEventListener("load", () => {
-            getStockData("코스피", false);
-            getNewsData("증시", dateToString(new Date()), false);
-        })
-    </script>
 </head>
 
 <body>
@@ -234,7 +206,7 @@
             <div class="row">
                 <div class="col-md-5 intro_content">
                     <ul id="bpwrap"></ul>
-                    <a href="#" onclick="toggleClass()"></a>
+                    <a href="#"></a>
                 </div>
                 <div class="col-md-7 card_wrap" id="card_wrap">
                     <div class="row">
@@ -517,8 +489,7 @@
         </div>
     </div>
 
-
-    <script>
+    <script type="text/javascript">
         VanillaTilt.init(document.querySelectorAll(".intro_content"), {
             max: 25,
             speed: 400,
@@ -670,17 +641,29 @@
             });
 
         });
-
     </script>
-<script type="text/javascript" src="/js/user.js"></script>
-<script type="text/javascript" src="/js/maxLengthCheck.js"></script>
+    <script src="/js/dateUtil.js" type="text/javascript">
+        // date formatter
+    </script>
+    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-tag-cloud.min.js"></script>
+    <script src="/js/doChart.js" type="text/javascript">
+        // getChartData
+        // loadChart
+    </script>
+    <script src="js/doNews.js" type="text/javascript">
+        // getNewsData
+        // loadNews
+        // getNews_click
+    </script>
+    <script type="text/javascript">
+        window.addEventListener("load", () => {// 초기 로딩시 보여줄 데이터
+            getStockData("코스피", false);
+            getNewsData("증시", dateToString(new Date()), false);
+        })
+    </script>
+    <script type="text/javascript" src="/js/maxLengthCheck.js"></script>
+    <script type="text/javascript" src="/js/beforelogin.js"></script>
 </body>
 </html>
-<script>
-    if ("${user_id}" !== "") {
-        alert("${user_id} 님 회원가입을 축하합니다.\n로그인 해주세요.");
-    }
-    if ("${error_type}" !== "") {
-        alert("요청 오류 : ${error_type}");
-    }
-</script>
