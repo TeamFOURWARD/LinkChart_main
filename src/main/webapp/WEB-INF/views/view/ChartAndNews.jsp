@@ -3,64 +3,29 @@
 <script type="text/javascript">
     const SS_USER_ID = "<%=session.getAttribute("SS_USER_ID")%>";
 </script>
-<script type="text/javascript">
-    if (SS_USER_ID !== "") {
-        alert('로그인한 사용자 : ' + SS_USER_ID);
-    }
-</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
-    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-tag-cloud.min.js"></script>
     <meta charset="UTF-8"/>
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <script type="text/javascript" src="/js/jquery-3.6.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/vanilla-tilt.js"></script>
     <link rel="stylesheet" href="/css/reset.css"/>
     <link rel="stylesheet" href="/css/all.min.css"/>
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/intro.css"/>
     <link rel="stylesheet" href="/css/popup1.css"/>
     <link rel="stylesheet" href="/css/chartandnews.css"/>
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="js/vanilla-tilt.js"></script>
+    <%-- 프로필툴팁 --%>
+    <link rel="stylesheet" href="/css/user_view_tooltip.css"/>
+    <link rel="stylesheet" href="/css/user_view_profile.css"/>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Handlee&family=Jua&family=Nanum+Gothic:wght@400;700;800&family=Roboto:wght@300;400;700&display=swap");
     </style>
     <title>LINK CHART</title>
-    <script src="/js/doChart.js" type="text/javascript">
-        // getChartData
-        // loadChart
-    </script>
-    <script src="/js/doNews.js" type="text/javascript">
-        // getNewsData
-        // loadNews
-        // getNews_click
-    </script>
-    <script src="/js/dateUtil.js" type="text/javascript">
-        // date formatter
-    </script>
-    <%--
-    <script src="js/index.js" type="text/javascript"></script>
-    --%>
-
-    <script type="text/javascript">
-        // 초기 로딩시 보여줄 데이터
-        window.addEventListener("load", () => {
-            getStockData("코스피", false);
-            getNewsData("증시", dateToString(new Date()), false);
-        })
-    </script>
-    <%--    프로필툴팁--%>
-    <link rel="stylesheet" href="/css/user_view_tooltip.css"/>
-    <link rel="stylesheet" href="/css/user_view_profile.css"/>
 </head>
 
 <body>
@@ -374,7 +339,7 @@
                                 </div>
                                     <div class="pwbox">
                                         <div class="inputBox">
-                                            <input type="password" id="profile_update_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+                                            <input type="password" id="inputPwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
                                             <span>
                                                 New Password
                                             </span>
@@ -387,7 +352,7 @@
                                             </div>
                                         </div>
                                         <div class="inputBox">
-                                            <input type="password" id="profile_update_password_repeat" required>
+                                            <input type="password" id="inputPwdRepeat" required>
                                             <span>
                                                 Repeat Password
                                             </span>
@@ -427,7 +392,7 @@
                                     <i></i>
                                 </div>
                                 <div class="clearfix">
-                                    <button type="button" class="signupcheck" <%--TODO 주소 검증 함수 버튼--%>>Find Addr</button>
+                                    <button type="button" class="signupcheck" <%--TODO 집주소양식 검증 함수 버튼--%>>Find Addr</button>
                                     <button type="button" class="signupbtn">Update Address</button>
                                 </div>
                                 <h6>&nbsp;</h6>
@@ -467,196 +432,216 @@
         </div>
     </div>--%>
 
-<script>
-    VanillaTilt.init(document.querySelectorAll(".intro_content"), {
-        max: 25,
-        speed: 400,
-        glare: true,
-        "max-glare": 1,
-    });
+    <script>
+        VanillaTilt.init(document.querySelectorAll(".intro_content"), {
+            max: 25,
+            speed: 400,
+            glare: true,
+            "max-glare": 1,
+        });
 
-    VanillaTilt.init(document.querySelectorAll(".card_content_wrap"), {
-        max: 25,
-        speed: 400,
-        glare: true,
-        "max-glare": 1,
-    });
+        VanillaTilt.init(document.querySelectorAll(".card_content_wrap"), {
+            max: 25,
+            speed: 400,
+            glare: true,
+            "max-glare": 1,
+        });
 
-    for (i = 1; i < 100; i++) {
-        j = 30;
-        const para1 = document.createElement("li");
-        const element = document.getElementById("bpwrap");
-        para1.setAttribute("id", "bp" + i);
-        element.appendChild(para1);
-
-        const para2 = document.createElement("div");
-        para2.setAttribute("id", "line" + i);
-        para1.appendChild(para2);
-
-        para2.setAttribute("class", "bpf");
-
-        document.getElementById("bp" + i).style.left = j * i - 40 + "px";
-    }
-
-    function myInterval() {
         for (i = 1; i < 100; i++) {
-            document.getElementById("line" + i).style.height =
-                Math.floor(Math.random() * 100) + 1 + "%";
-        }
-    }
+            j = 30;
+            const para1 = document.createElement("li");
+            const element = document.getElementById("bpwrap");
+            para1.setAttribute("id", "bp" + i);
+            element.appendChild(para1);
 
-    setInterval("myInterval()", 1500);
+            const para2 = document.createElement("div");
+            para2.setAttribute("id", "line" + i);
+            para1.appendChild(para2);
 
-    $(document).ready(function(){
+            para2.setAttribute("class", "bpf");
 
-        $("#lcnav01").click(function(){
-            $("#bpw").show();
-            $(".bubbles").fadeIn(500);
-            $("#popup1").removeClass("toggleActive");
-            $("#popup2").removeClass("toggleActive");
-            $("#popup3").removeClass("toggleActive");
-            $("#lcnav01").removeClass("toggleActive");
-            $("#lcnav02").removeClass("toggleActive");
-            $("#lcnav03").removeClass("toggleActive");
-            $("#lcnav04").removeClass("toggleActive");
-            $(this).addClass("toggleActive");
-        });
-
-        $("#lcnav02").click(function(){
-            $("#bpw").hide();
-            $(".bubbles").fadeOut(500);
-            $("#popup1").removeClass("toggleActive");
-            $("#popup2").removeClass("toggleActive");
-            $("#popup3").removeClass("toggleActive");
-            $("#lcnav01").removeClass("toggleActive");
-            $("#lcnav02").removeClass("toggleActive");
-            $("#lcnav03").removeClass("toggleActive");
-            $("#lcnav04").removeClass("toggleActive");
-            $(this).addClass("toggleActive");
-            $("#popup1").addClass("toggleActive");
-        });
-
-        $("#lcnav03").click(function(){
-            $("#bpw").hide();
-            $(".bubbles").fadeIn(500);
-            $("#popup1").removeClass("toggleActive");
-            $("#popup2").removeClass("toggleActive");
-            $("#popup3").removeClass("toggleActive");
-            $("#lcnav01").removeClass("toggleActive");
-            $("#lcnav02").removeClass("toggleActive");
-            $("#lcnav03").removeClass("toggleActive");
-            $("#lcnav04").removeClass("toggleActive");
-            $(this).addClass("toggleActive");
-            $("#popup2").addClass("toggleActive");
-        });
-
-        $("#lcnav04").click(function(){
-            $("#bpw").hide();
-            $(".bubbles").fadeIn(500);
-            $("#popup1").removeClass("toggleActive");
-            $("#popup2").removeClass("toggleActive");
-            $("#popup3").removeClass("toggleActive");
-            $("#lcnav01").removeClass("toggleActive");
-            $("#lcnav02").removeClass("toggleActive");
-            $("#lcnav03").removeClass("toggleActive");
-            $("#lcnav04").removeClass("toggleActive");
-            $(this).addClass("toggleActive");
-            $("#popup3").addClass("toggleActive");
-        });
-
-        $(".intro_content>a").click(function(){
-            $("#bpw").hide();
-            $(".bubbles").fadeOut(500);
-            $("#popup1").removeClass("toggleActive");
-            $("#popup2").removeClass("toggleActive");
-            $("#popup3").removeClass("toggleActive");
-            $("#lcnav01").removeClass("toggleActive");
-            $("#lcnav02").removeClass("toggleActive");
-            $("#lcnav03").removeClass("toggleActive");
-            $("#lcnav04").removeClass("toggleActive");
-            $("#lcnav02").addClass("toggleActive");
-            $("#popup1").addClass("toggleActive");
-        });
-
-        $(".myPage").click(function(){
-            $("#bpw").hide();
-            $(".bubbles").fadeIn(500);
-            $("#popup1").removeClass("toggleActive");
-            $("#popup2").removeClass("toggleActive");
-            $("#popup3").removeClass("toggleActive");
-            $("#lcnav01").removeClass("toggleActive");
-            $("#lcnav02").removeClass("toggleActive");
-            $("#lcnav03").removeClass("toggleActive");
-            $("#lcnav04").removeClass("toggleActive");
-            $("#lcnav03").addClass("toggleActive");
-            $("#popup2").addClass("toggleActive");
-        });
-
-        $(".logout").click(function(){
-            $("#bpw").hide();
-            $(".bubbles").fadeIn(500);
-            $("#popup1").removeClass("toggleActive");
-            $("#popup2").removeClass("toggleActive");
-            $("#popup3").removeClass("toggleActive");
-            $("#lcnav01").removeClass("toggleActive");
-            $("#lcnav02").removeClass("toggleActive");
-            $("#lcnav03").removeClass("toggleActive");
-            $("#lcnav04").removeClass("toggleActive");
-            $("#lcnav04").addClass("toggleActive");
-            $("#popup3").addClass("toggleActive");
-        });
-
-        $(".popupClose").click(function(){
-            $("#bpw").show();
-            $("#popup1").removeClass("toggleActive");
-            $("#popup2").removeClass("toggleActive");
-            $("#popup3").removeClass("toggleActive");
-            $("#lcnav01").removeClass("toggleActive");
-            $("#lcnav02").removeClass("toggleActive");
-            $("#lcnav03").removeClass("toggleActive");
-            $("#lcnav04").removeClass("toggleActive");
-            $("#lcnav01").addClass("toggleActive");
-        });
-
-    });
-
-    const navlist = document.querySelectorAll(".lcn_list");
-
-    function activeLink() {
-        navlist.forEach((item) => item.classList.remove("active"));
-        this.classList.add("active");
-
-        if ($("#popup1").hasClass("toggleActive")) {
-            $(".lcn_list").classList.remove("active");
-            $(".lcn_list:nth-child(2)").classList.add("active");
+            document.getElementById("bp" + i).style.left = j * i - 40 + "px";
         }
 
-        if ($("#popup2").hasClass("toggleActive2")) {
-            $(".lcn_list").classList.remove("active");
-            $(".lcn_list:nth-child(4)").classList.add("active");
-        }
-    }
-
-    navlist.forEach((item) => item.addEventListener("click", activeLink));
-
-    var acc = document.getElementsByClassName("accordion");
-    var i;
-
-    for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-                panel.style.maxHeight = null;
-            } else {
-                panel.style.maxHeight = panel.scrollHeight + "px";
+        function myInterval() {
+            for (i = 1; i < 100; i++) {
+                document.getElementById("line" + i).style.height =
+                    Math.floor(Math.random() * 100) + 1 + "%";
             }
-        });
-    }
+        }
 
-</script>
-<script type="text/javascript" src="/js/user_view.js"></script>
-<script type="text/javascript" src="/js/maxLengthCheck.js"></script>
+        setInterval("myInterval()", 1500);
+
+        $(document).ready(function(){
+
+            $("#lcnav01").click(function(){
+                $("#bpw").show();
+                $(".bubbles").fadeIn(500);
+                $("#popup1").removeClass("toggleActive");
+                $("#popup2").removeClass("toggleActive");
+                $("#popup3").removeClass("toggleActive");
+                $("#lcnav01").removeClass("toggleActive");
+                $("#lcnav02").removeClass("toggleActive");
+                $("#lcnav03").removeClass("toggleActive");
+                $("#lcnav04").removeClass("toggleActive");
+                $(this).addClass("toggleActive");
+            });
+
+            $("#lcnav02").click(function(){
+                $("#bpw").hide();
+                $(".bubbles").fadeOut(500);
+                $("#popup1").removeClass("toggleActive");
+                $("#popup2").removeClass("toggleActive");
+                $("#popup3").removeClass("toggleActive");
+                $("#lcnav01").removeClass("toggleActive");
+                $("#lcnav02").removeClass("toggleActive");
+                $("#lcnav03").removeClass("toggleActive");
+                $("#lcnav04").removeClass("toggleActive");
+                $(this).addClass("toggleActive");
+                $("#popup1").addClass("toggleActive");
+            });
+
+            $("#lcnav03").click(function(){
+                $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
+                $("#popup1").removeClass("toggleActive");
+                $("#popup2").removeClass("toggleActive");
+                $("#popup3").removeClass("toggleActive");
+                $("#lcnav01").removeClass("toggleActive");
+                $("#lcnav02").removeClass("toggleActive");
+                $("#lcnav03").removeClass("toggleActive");
+                $("#lcnav04").removeClass("toggleActive");
+                $(this).addClass("toggleActive");
+                $("#popup2").addClass("toggleActive");
+            });
+
+            $("#lcnav04").click(function(){
+                $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
+                $("#popup1").removeClass("toggleActive");
+                $("#popup2").removeClass("toggleActive");
+                $("#popup3").removeClass("toggleActive");
+                $("#lcnav01").removeClass("toggleActive");
+                $("#lcnav02").removeClass("toggleActive");
+                $("#lcnav03").removeClass("toggleActive");
+                $("#lcnav04").removeClass("toggleActive");
+                $(this).addClass("toggleActive");
+                $("#popup3").addClass("toggleActive");
+            });
+
+            $(".intro_content>a").click(function(){
+                $("#bpw").hide();
+                $(".bubbles").fadeOut(500);
+                $("#popup1").removeClass("toggleActive");
+                $("#popup2").removeClass("toggleActive");
+                $("#popup3").removeClass("toggleActive");
+                $("#lcnav01").removeClass("toggleActive");
+                $("#lcnav02").removeClass("toggleActive");
+                $("#lcnav03").removeClass("toggleActive");
+                $("#lcnav04").removeClass("toggleActive");
+                $("#lcnav02").addClass("toggleActive");
+                $("#popup1").addClass("toggleActive");
+            });
+
+            $(".myPage").click(function(){
+                $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
+                $("#popup1").removeClass("toggleActive");
+                $("#popup2").removeClass("toggleActive");
+                $("#popup3").removeClass("toggleActive");
+                $("#lcnav01").removeClass("toggleActive");
+                $("#lcnav02").removeClass("toggleActive");
+                $("#lcnav03").removeClass("toggleActive");
+                $("#lcnav04").removeClass("toggleActive");
+                $("#lcnav03").addClass("toggleActive");
+                $("#popup2").addClass("toggleActive");
+            });
+
+            $(".logout").click(function(){
+                $("#bpw").hide();
+                $(".bubbles").fadeIn(500);
+                $("#popup1").removeClass("toggleActive");
+                $("#popup2").removeClass("toggleActive");
+                $("#popup3").removeClass("toggleActive");
+                $("#lcnav01").removeClass("toggleActive");
+                $("#lcnav02").removeClass("toggleActive");
+                $("#lcnav03").removeClass("toggleActive");
+                $("#lcnav04").removeClass("toggleActive");
+                $("#lcnav04").addClass("toggleActive");
+                $("#popup3").addClass("toggleActive");
+            });
+
+            $(".popupClose").click(function(){
+                $("#bpw").show();
+                $("#popup1").removeClass("toggleActive");
+                $("#popup2").removeClass("toggleActive");
+                $("#popup3").removeClass("toggleActive");
+                $("#lcnav01").removeClass("toggleActive");
+                $("#lcnav02").removeClass("toggleActive");
+                $("#lcnav03").removeClass("toggleActive");
+                $("#lcnav04").removeClass("toggleActive");
+                $("#lcnav01").addClass("toggleActive");
+            });
+
+        });
+
+        const navlist = document.querySelectorAll(".lcn_list");
+
+        function activeLink() {
+            navlist.forEach((item) => item.classList.remove("active"));
+            this.classList.add("active");
+
+            if ($("#popup1").hasClass("toggleActive")) {
+                $(".lcn_list").classList.remove("active");
+                $(".lcn_list:nth-child(2)").classList.add("active");
+            }
+
+            if ($("#popup2").hasClass("toggleActive2")) {
+                $(".lcn_list").classList.remove("active");
+                $(".lcn_list:nth-child(4)").classList.add("active");
+            }
+        }
+
+        navlist.forEach((item) => item.addEventListener("click", activeLink));
+
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                }
+            });
+        }
+
+    </script>
+    <script src="/js/dateUtil.js" type="text/javascript">
+        // date formatter
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/js/doChart.js" type="text/javascript">
+        // getChartData
+        // loadChart
+    </script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-tag-cloud.min.js"></script>
+    <script src="/js/doNews.js" type="text/javascript">
+        // getNewsData
+        // loadNews
+        // getNews_click
+    </script>
+    <script type="text/javascript">
+        window.addEventListener("load", () => {// 초기 로딩시 보여줄 데이터
+            getStockData("코스피", false);
+            getNewsData("증시", dateToString(new Date()), false);
+        })
+    </script>
+    <script type="text/javascript" src="/js/maxLengthCheck.js"></script>
     <script type="text/javascript" src="/js/afterlogin.js"></script>
 </body>
 </html>
