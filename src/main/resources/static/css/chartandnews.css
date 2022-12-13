@@ -1,12 +1,16 @@
 #popup2 .section_02_content_wrap{
     width: 50%;
+    height: 100%;
     position: relative;
     margin: 0 auto;
-    margin-top: 250px;
 }
 
 .accordion_wrap{
     width: 100%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #popup2 .accordion {
@@ -69,7 +73,7 @@
 
 .inputBox input:valid ~ span,.inputBox input:focus ~ span{
     color: #00203F;
-    transform: translateY(-16px);
+    transform: translateY(-12px);
     font-size: 0.65em;
 }
 
@@ -175,4 +179,41 @@
 
 #user_updateAddr label:nth-child(1){
     display: none;
+}
+
+#popup2 .pwbox{
+    display: flex;
+}
+
+#popup2 .pwbox input{
+    width: 100%;
+}
+
+.id_name_cb{
+    display: flex;
+}
+
+.id_name_cb .cb{
+    width: 250px;
+}
+
+.emailbox input{
+    width: 100%;
+}
+
+.addrbox input{
+    width: 100%;
+}
+
+#message {
+    display:none;
+    width: 100%;
+    background: #00203F;
+    color: #000;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 9999;
+    padding: 10px 8px;
+    margin-top: 10px;
 }

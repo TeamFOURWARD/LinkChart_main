@@ -3,7 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
-    <property name="log_dir" value="/data/logs/LinkChart"/>
+    <property name="log_dir" value="/home/ubuntu/data/logs/LinkChart"/>
 
     <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${log_dir}/LinkChart_main.log</file>

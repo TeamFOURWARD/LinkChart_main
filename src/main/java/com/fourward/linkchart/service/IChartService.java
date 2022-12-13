@@ -1,17 +1,17 @@
 package com.fourward.linkchart.service;
 
-import com.fourward.linkchart.dto.StockDTO;
+import com.fourward.linkchart.dto.StockInfoDTO;
+import com.fourward.linkchart.dto.StockReqDTO;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.List;
 
 public interface IChartService {
-    List<StockDTO> getStockData(StockDTO pDTO);
+    StockReqDTO setCondition(StockReqDTO pDTO) throws ParseException;
 
-    void insertStockData(StockDTO pDTO) throws Exception;
+    void insertStockData(StockReqDTO pDTO) throws URISyntaxException, MalformedURLException, ParseException;
 
-    String getStockCodeByName(StockDTO pDTO);
-
-    StockDTO getStockData_dateRange(StockDTO pDTO);
-
-    StockDTO setDate(StockDTO pDTO) throws Exception;
+    List<StockInfoDTO> getStockData(StockReqDTO pDTO) throws Exception;
 }

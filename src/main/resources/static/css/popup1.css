@@ -6,7 +6,7 @@
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
     border-radius: 20px;
-    padding: 10px;
+    padding: 15px 30px;
 }
 
 .chart_news_wrap{
@@ -15,14 +15,17 @@
 }
 
 .chart_news_cp{
-    width: 65%;
+    width: 65.5%;
+    border-right: 1px dashed #00203F;
 }
 
 .chart_news_np{
     width: 35%;
-    max-height: 60vh;
-    margin-top: 85px;
+    max-height: 250px;
+    margin-top: 20px;
+    margin-bottom: 5px;
     overflow-y: scroll;
+    padding-left: 20px;
 }
 
 .linksection div{
@@ -65,11 +68,14 @@
 .chart_search_wrap{
     display: flex;
     width: 100%;
+    position: relative;
+    z-index: 9999;
 }
 
 .chart_search_wrap label{
     height: 30px;
     line-height: 30px;
+    margin-right: 10px;
 }
 
 .chart_search_wrap input{
@@ -82,7 +88,6 @@
     box-shadow: none;
     font-size: 1em;
     letter-spacing: 0.1em;
-    margin-right: 1%;
 }
 
 .chart_search_wrap button{
@@ -116,5 +121,29 @@
     margin: 0;
 }
 
-.topic{
+.topic_cover_wrap{
+    width: 35%;
+    height: 250px;
+    position: absolute;
+    right: 0;
+    bottom: 25px;
+}
+
+.topic_cover{
+    width: 100%;
+    height: 250px;
+    position: relative;
+}
+
+.topic_wrap{
+    width: 100%;
+    height: 250px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.topic_img{
+    width: 100%;
+    height: 250px;
 }

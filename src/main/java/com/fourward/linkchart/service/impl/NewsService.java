@@ -2,6 +2,7 @@ package com.fourward.linkchart.service.impl;
 
 import com.fourward.linkchart.dto.NewsDTO;
 import com.fourward.linkchart.dto.NewsRelatedDTO;
+import com.fourward.linkchart.dto.NewsReqDTO;
 import com.fourward.linkchart.service.INewsService;
 import com.fourward.linkchart.util.DateUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +13,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,107 +24,89 @@ import static java.util.Calendar.DATE;
 @Service("NewsService")
 public class NewsService implements INewsService {
     @Override
-    public List<Map<String, Object>> getNewsContents(NewsDTO rDTO) {
-        log.info(this.getClass().getName() + ".getNewsContents start");
-
+    public List<Map<String, Object>> getNewsContents(NewsReqDTO rDTO) throws Exception {
+        log.info("{}.getNewsContents start", this.getClass().getName());
         // 날짜 null 일때 기본값 오늘
-        String ifNull_end_date = rDTO.getEnd_date();
-        if (ifNull_end_date.equals("")) {
-            ifNull_end_date = DateUtil.getNowDate();
+        if (rDTO.getDate().equals("")) {
+            rDTO.setDate(DateUtil.getNowDate());
         }
-        final String keyword = rDTO.getName();
-        final String end_date = ifNull_end_date;
-        final String start_date;
-        try {
-            start_date = DateUtil.changeDate(end_date, DATE, -5);
-        } catch (ParseException e) {
+        rDTO.setDate_begin(DateUtil.changeDate(rDTO.getDate(), DATE, -5));
 
-            return null;
-        }
-
-        log.info("검색 요청 키워드 : {}", keyword);
-        log.info("검색 요청 날짜 : {}", ifNull_end_date);
-        final String connUrl = "https://search.naver.com/search.naver?where=news&query=" + keyword + "&pd=3&ds=" + start_date + "&de=" + end_date;
-        final String USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36";
+        StringBuilder url = new StringBuilder("https://search.naver.com/search.naver?where=news&pd=3");
+        url.append("&query=");
+        url.append(rDTO.getKeyword());
+        url.append("&ds=");
+        url.append(rDTO.getDate_begin());
+        url.append("&de=");
+        url.append(rDTO.getDate());
+        log.info("get news url ~~~~~~~~ : [{}]", url);
+        Document doc = (
+                Jsoup.connect(url.toString()).header("Content-Type", "application/json;charset=UTF-8")
+                        .userAgent(USER_AGENT).method(Connection.Method.GET)
+                        .ignoreContentType(true)
+        ).get();
 
         int i = 1, j = 1;//수집된 기사 개수
-        Connection conn = Jsoup.connect(connUrl).header("Content-Type", "application/json;charset=UTF-8").userAgent(USER_AGENT).method(Connection.Method.GET).ignoreContentType(true);
-
-        //get 가져오기부분
-        Document doc;
-        try {
-            doc = conn.get();
-        } catch (IOException ex) {
-
-            return null;
-        }
-
         List<Map<String, Object>> newsGroup_list = new ArrayList<>();
-        //뉴스 박스 각각을 리스트로
-        Elements newsGroup_elements = doc.select("div.group_news ul li.bx");
-        for (Element newsGroup : newsGroup_elements) {
-            //날짜
-            String date = newsGroup.select("div.info_group span.info").text();
+        {//뉴스 박스 각각을 리스트로
+            Elements newsGroup_elements = doc.select("div.group_news ul li.bx");
+            for (Element newsGroup : newsGroup_elements) {
+                NewsDTO pNewsDTO = new NewsDTO();
+                pNewsDTO.setDate(newsGroup.select("div.info_group span.info").text());
+                pNewsDTO.setHead(newsGroup.selectFirst("a.news_tit").attr("title"));
+                pNewsDTO.setLink(newsGroup.selectFirst("a.news_tit").attr("abs:href"));
+                pNewsDTO.setPublisher(newsGroup.select("a.info.press").text().replace("언론사 선정", ""));
+                pNewsDTO.setSummary(newsGroup.selectFirst("div.dsc_wrap a").text());
+                pNewsDTO.setRank(Integer.toString(i++));
 
-            //헤드 텍스트 & 링크
-            String head_text = newsGroup.selectFirst("a.news_tit").attr("title");
-            String head_link = newsGroup.selectFirst("a.news_tit").attr("abs:href");
+                Element element_thumb = newsGroup.selectFirst("a.dsc_thumb img");
+                if (element_thumb != null) {
+                    pNewsDTO.setThumb(element_thumb.attr("abs:src"));
+                }
+                //연관 뉴스그룹 저장
+                List<NewsRelatedDTO> newsGroup_related_list = new ArrayList<>();
+                Elements newsRelated_elements = newsGroup.select("div.news_cluster ul.list_cluster li.sub_bx");
+                for (Element newsRelated : newsRelated_elements) {
+                    NewsRelatedDTO pNewsRelatedDTO = new NewsRelatedDTO();
+                    pNewsRelatedDTO.setDate_related(newsRelated.select("span.sub_txt").text());
+                    pNewsRelatedDTO.setLink_related(newsRelated.selectFirst("a.elss.sub_tit").attr("abs:href"));
+                    pNewsRelatedDTO.setHead_related(newsRelated.selectFirst("a.elss.sub_tit").attr("title"));
+                    pNewsRelatedDTO.setPublisher_related(newsRelated.selectFirst("cite.sub_txt").attr("title"));
+                    pNewsRelatedDTO.setRank_related(Integer.toString(j++));
 
-            //내용 요약
-            String summary = newsGroup.selectFirst("div.dsc_wrap a").text();
+                    newsGroup_related_list.add(pNewsRelatedDTO);
+                }
+                Map<String, Object> newsGroup_map = new HashMap<>();
+                newsGroup_map.put("news", pNewsDTO);
+                newsGroup_map.put("newsGroup_related_list", newsGroup_related_list);
+                newsGroup_list.add(newsGroup_map);
 
-            //작성 언론사
-            String publisher = newsGroup.select("a.info.press").text().replace("언론사 선정", "");
-
-            //뉴스그룹 저장
-            NewsDTO pNewsDTO = new NewsDTO();
-            pNewsDTO.setDate(date);
-            pNewsDTO.setHead(head_text);
-            pNewsDTO.setLink(head_link);
-            pNewsDTO.setPublisher(publisher);
-            pNewsDTO.setSummary(summary);
-            pNewsDTO.setRank(Integer.toString(i++));
-
-            //썸네일
-            Element element_thumb = newsGroup.selectFirst("a.dsc_thumb img");
-            if (element_thumb != null) {
-                String thumb = element_thumb.attr("abs:src");
-                pNewsDTO.setThumb(thumb);
             }
-
-            //연관 뉴스그룹 저장
-            List<NewsRelatedDTO> newsGroup_related_list = new ArrayList<>();
-            Elements newsRelated_elements = newsGroup.select("div.news_cluster ul.list_cluster li.sub_bx");
-            for (Element newsRelated : newsRelated_elements) {
-                //연관기사 날짜
-                String date_related = newsRelated.select("span.sub_txt").text();
-
-                //연관기사 헤드(링크)
-                String head_link_related = newsRelated.selectFirst("a.elss.sub_tit").attr("abs:href");
-                String head_text_related = newsRelated.selectFirst("a.elss.sub_tit").attr("title");
-
-                //연관기사 해당 언론사
-                String publisher_related = newsRelated.selectFirst("cite.sub_txt").attr("title");
-
-                NewsRelatedDTO pNewsRelatedDTO = new NewsRelatedDTO();
-                pNewsRelatedDTO.setDate_related(date_related);
-                pNewsRelatedDTO.setLink_related(head_link_related);
-                pNewsRelatedDTO.setHead_related(head_text_related);
-                pNewsRelatedDTO.setPublisher_related(publisher_related);
-                pNewsRelatedDTO.setRank_related(Integer.toString(j++));
-
-                newsGroup_related_list.add(pNewsRelatedDTO);
-            }
-            Map<String, Object> newsGroup_map = new HashMap<>();
-            newsGroup_map.put("news", pNewsDTO);
-            newsGroup_map.put("newsGroup_related_list", newsGroup_related_list);
-            newsGroup_list.add(newsGroup_map);
         }
-        log.info("수집된 기사 개수 : " + i);
-        log.info("수집된 연관 기사 개수 : " + j);
+        log.info("number of news collected : [{}]", i);
+        log.info("number of related news collected : [{}]", j);
 
-        log.info(this.getClass().getName() + ".getNewsContents end");
+        log.info("{}.getNewsContents end", this.getClass().getName());
 
         return newsGroup_list;
     }
+
+//    public Map<String, Integer> getResult(String response, String[] fileds) {
+//
+//        Map<String, Object> rtnObj = new HashMap<>();
+//
+//        log.info(this.getClass().getName() + ".getResult Start");
+//        try {
+//            JSONParser parser = new JSONParser();
+//            JSONObject result = (JSONObject) parser.parse(response);
+//            rtnObj.put("news", (long) result.get("news"));
+//        }
+//        NewsReqDTO newsReqDTO = new NewsReqDTO();
+//
+////        String newContext = this.doWordAnalysis(newsReqDTO);
+////
+////        List<String> rList = this.doWordNouns(newContext)
+//
+//        return null;
+//    }
 }

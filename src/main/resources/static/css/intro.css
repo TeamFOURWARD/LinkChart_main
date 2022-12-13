@@ -6,9 +6,13 @@ font-family: 'Roboto', sans-serif;
 */
 
 body{
-    background: #343148;
+    background: #6A7BA2;
     overflow: hidden;
     font-family: 'Nanum Gothic', sans-serif;
+}
+
+.container{
+    max-width: 1400px!important;
 }
 
 .lc_nav_wrap{
@@ -51,8 +55,13 @@ body{
     border-bottom-left-radius: 20px;
 }
 
+.lc_nav ul li:hover{
+    font-weight: 900;
+}
+
 .lc_nav ul li.toggleActive{
-    background: #343148;
+    background: #6A7BA2;
+    font-weight: 900;
 }
 
 .lc_nav ul li.toggleActive a::before{
@@ -63,7 +72,7 @@ body{
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    box-shadow: 15px 15px 0 #343148;
+    box-shadow: 15px 15px 0 #6A7BA2;
 }
 
 .lc_nav ul li.toggleActive a::after{
@@ -74,14 +83,14 @@ body{
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    box-shadow: 15px -15px 0 #343148;
+    box-shadow: 15px -15px 0 #6A7BA2;
 }
 
 .lc_nav ul li a{
     position: relative;
     display: block;
     width: 100%;
-    color: #343148;
+    color: #6A7BA2;
     clear: both;
     text-decoration: none;
 }
@@ -197,14 +206,14 @@ body{
     background: #ADEFD1;
     margin: 0 4px;
     border-radius: 50%;
-    box-shadow: 0 0 0 10px #343148, 0 0 50px #ADEFD1, 0 0 100px #ADEFD1;
+    box-shadow: 0 0 0 10px #6A7BA2, 0 0 50px #ADEFD1, 0 0 100px #ADEFD1;
     animation: bubbles 15s linear infinite;
     animation-duration: calc(125s / var(--i));
 }
 
 .bubbles span:nth-child(even){
     background: #ed6f63;
-    box-shadow: 0 0 0 10px #343148, 0 0 50px #ed6f63, 0 0 100px #ed6f63;
+    box-shadow: 0 0 0 10px #6A7BA2, 0 0 50px #ed6f63, 0 0 100px #ed6f63;
 }
 
 @keyframes bubbles {
@@ -309,7 +318,6 @@ body{
     width: 100%;
     height: 100vh;
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
-    background: #343148;
     visibility: hidden;
     opacity: 0;
     transition: 0.5s;
@@ -319,6 +327,14 @@ body{
     visibility: visible;
     opacity: 1;
     transition: 0.5s;
+}
+
+#chart_div>div>div:nth-child(1){
+    height: 500px!important;
+}
+
+#chart_div>div>div>div:nth-child(1){
+    top: -30px!important;
 }
 
 #popup2{
@@ -603,7 +619,7 @@ body{
 
 .popupClose{
     position: absolute;
-    right: 10px;
+    right: 15px;
     top: 10px;
 }
 
@@ -613,37 +629,42 @@ body{
 
 #message {
     display:none;
-    background: #f1f1f1;
+    width: 100%;
+    background: #00203F;
     color: #000;
-    position: relative;
-    padding: 20px;
+    position: absolute;
+    left: 0;
+    z-index: 9999;
+    padding: 10px 8px;
     margin-top: 10px;
 }
 
 #message p {
-    padding: 10px 35px;
-    font-size: 18px;
+    padding: 5px;
+    font-size: 15px;
+    text-align: left;
+    margin: 0;
 }
 
 /* Add a green text color and a checkmark when the requirements are right */
 .valid {
-    color: green;
+    color: #8AAAE5;
 }
 
 .valid:before {
     position: relative;
-    left: -35px;
+    left: -5px;
     content: "✔";
 }
 
 /* Add a red text color and an "x" when the requirements are wrong */
 .invalid {
-    color: red;
+    color: #ed6f63;
 }
 
 .invalid:before {
     position: relative;
-    left: -35px;
+    left: -5px;
     content: "✖";
 }
 
