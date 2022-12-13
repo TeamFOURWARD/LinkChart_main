@@ -1,7 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@ page
 contentType="text/html; charset=utf-8" %> <%@ page
-import="com.fourward.linkchart.dto.StockDTO" %> <%@ page import="java.util.List"
-%> <%--deprecated--%>
+import="com.fourward.linkchart.dto.StockInfoDTO" %> <%@ page import="java.util.List"
+%>
+<%@ page import="com.fourward.linkchart.dto.StockInfoDTO" %> <%--deprecated--%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -38,21 +39,21 @@ import="com.fourward.linkchart.dto.StockDTO" %> <%@ page import="java.util.List"
           let tmpList
 
           <%
-          List<StockDTO> rList = (List<StockDTO>) request.getAttribute("rList");
+          List<StockInfoDTO> rList = (List<StockInfoDTO>) request.getAttribute("rList");
           if (rList == null) {
           %>
           tmpList = [null, 0, 0, 0, 0]
           list.push(tmpList)
           <%
           }else{
-          for(StockDTO stockDTO: rList){
-              String y = stockDTO.getDate().substring(0,4);
-              String m = stockDTO.getDate().substring(4,6);
-              String d = stockDTO.getDate().substring(6);
-              String low = stockDTO.getLow();
-              String high = stockDTO.getHigh();
-              String open = stockDTO.getOpen();
-              String close = stockDTO.getClose();
+          for(StockInfoDTO stockInfoDTO: rList){
+              String y = stockInfoDTO.getDate().substring(0,4);
+              String m = stockInfoDTO.getDate().substring(4,6);
+              String d = stockInfoDTO.getDate().substring(6);
+              String low = stockInfoDTO.getLow();
+              String high = stockInfoDTO.getHigh();
+              String open = stockInfoDTO.getOpen();
+              String close = stockInfoDTO.getClose();
           %>
           tmpList = [new Date(<%=y%>, (<%=m%>-1), <%=d%>), parseInt(<%=low%>), parseInt(<%=open%>), parseInt(<%=close%>), parseInt(<%=high%>)]
           //tmpList = [(<%=y%>+'년' + (<%=m%>-1) + '월' + <%=d%>+'일'), parseInt(<%=low%>), parseInt(<%=open%>), parseInt(<%=close%>), parseInt(<%=high%>)]

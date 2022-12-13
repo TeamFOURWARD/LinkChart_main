@@ -1,0 +1,219 @@
+#popup2 .section_02_content_wrap{
+    width: 50%;
+    height: 100%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.accordion_wrap{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#popup2 .accordion {
+    background-color: #FCF6F5;
+    color: #444;
+    cursor: pointer;
+    padding: 0;
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    text-align: center;
+}
+
+#popup2 .accordion:nth-child(1){
+    padding: 18px;
+}
+
+#popup2 button a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 18px;
+    text-decoration: none;
+}
+
+#popup2 .active, .accordion:hover {
+    background-color: #FCF6F5;
+}
+
+.inputBox{
+    position: relative;
+    width: 250px;
+    margin-bottom: 20px;
+}
+
+.inputBox input{
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    background: transparent;
+    color: #00203F;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+}
+
+.inputBox span{
+    position: absolute;
+    left: 0;
+    padding: 10px 0 5px;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    pointer-events: none;
+    letter-spacing: 0.1em;
+}
+
+.inputBox input:valid ~ span,.inputBox input:focus ~ span{
+    color: #00203F;
+    transform: translateY(-12px);
+    font-size: 0.65em;
+}
+
+.inputBox i{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.inputBox i::before{
+    content: '';
+    position: absolute;
+    left: -100%;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #ed6f63, #8AAAE5, #ed6f63);
+    animation: barani 2s linear infinite;
+    transition: 0.5s;
+}
+
+@keyframes barani{
+    0%{
+        background-position-x: 0;
+    }
+    100%{
+        background-position-x: 250px;
+    }
+}
+
+.inputBox input:valid ~ i::before,.inputBox input:focus ~ i::before{
+    left: 0;
+}
+
+.card_content_wrap:nth-child(1){
+    width: 58%;
+}
+
+.card_content_wrap:nth-child(3){
+    width: 40%;
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+.modal-content{
+    border: none;
+}
+
+.panel label{
+    width: 25%;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+.panel input{
+    float: right;
+    width: 65%;
+    border-radius: 10px;
+    background: transparent;
+    color: #00203F;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+    text-indent: 5px;
+}
+
+#profile_user_id_1{
+    border: none;
+}
+
+#profile_user_name{
+    border: none;
+}
+
+.clearfix{
+    display: flex;
+}
+
+.clearfix button{
+    width: 50%;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    outline: none;
+    margin: 1%;
+    background: transparent;
+}
+
+.clearfix button:hover{
+    background: #00203F;
+    color: #FCF6F5;
+}
+
+#user_updateAddr label:nth-child(1){
+    display: none;
+}
+
+#popup2 .pwbox{
+    display: flex;
+}
+
+#popup2 .pwbox input{
+    width: 100%;
+}
+
+.id_name_cb{
+    display: flex;
+}
+
+.id_name_cb .cb{
+    width: 250px;
+}
+
+.emailbox input{
+    width: 100%;
+}
+
+.addrbox input{
+    width: 100%;
+}
+
+#message {
+    display:none;
+    width: 100%;
+    background: #00203F;
+    color: #000;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 9999;
+    padding: 10px 8px;
+    margin-top: 10px;
+}

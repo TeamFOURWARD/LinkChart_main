@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DateUtil {
-    public static String date(String date, int x, int k) throws ParseException {
+    public static String changeDate(String date, int x, int k) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         Calendar c1 = Calendar.getInstance();
         Date date1 = sdf.parse(date);

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class StockDTO {
+public class StockInfoDTO {
     private String code;
     private String name;
     private String date;
@@ -16,9 +16,5 @@ public class StockDTO {
     private String low;
     private String close;
     private String volume;
-
-    private String startDate_exist;
-    private String endDate_exist;
-    private String startDate_req;
-    private String endDate_req;
+    private String timeframe;
 }

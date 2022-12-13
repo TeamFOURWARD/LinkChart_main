@@ -1,4 +1,8 @@
-// Date to string yyyyMMdd
+/**
+ *
+ * @param date 현재날짜
+ * @returns {string} 현재 날짜의 문자열 표시
+ */
 function dateToString(date = new Date()) {
     const Y = date.getFullYear();
     const m = date.getMonth() + 1;
@@ -9,11 +13,18 @@ function dateToString(date = new Date()) {
     return Y + '' + M + '' + D;
 }
 
-// String yyyyMMdd to Date
-function stringToDate(s) {
+/**
+ *
+ * @param s 입력받은 날짜 String
+ * @param t day 생략
+ * @returns {Date}
+ */
+function stringToDate(s, t) {
     const y = s.substring(0, 4);
     const m = s.substring(4, 6);
     const d = s.substring(6);
-
-    return new Date(y, m-1, d);
+    if (t) {
+        return new Date(y, m, null);
+    }
+    return new Date(y, m - 1, d);
 }

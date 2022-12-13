@@ -6,6 +6,7 @@
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
     border-radius: 20px;
+    padding: 15px 30px;
 }
 
 .chart_news_wrap{
@@ -14,13 +15,17 @@
 }
 
 .chart_news_cp{
-    width: 65%;
-    padding-bottom: 50px;
+    width: 65.5%;
+    border-right: 1px dashed #00203F;
 }
 
 .chart_news_np{
     width: 35%;
-    max-height: 60vh;
+    max-height: 250px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    overflow-y: scroll;
+    padding-left: 20px;
 }
 
 .linksection div{
@@ -28,10 +33,117 @@
     text-align: center;
 }
 
-.chart_search_wrap{
-    margin: 0 auto;
-    text-align: center;
+.linksection div label{
+    margin-right: 1%;
 }
 
-#newsMain table{
+.linksection div input{
+    margin-right: 1%;
+    width: 100px;
+    height: 30px;
+    background: transparent;
+    color: #00203F;
+    border: none;
+    border-bottom: 1px solid #00203F;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+}
+
+.linksection div button{
+    width: 50px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    outline: none;
+    margin: 1%;
+    background: transparent;
+}
+
+.linksection div button:hover{
+    background: #00203F;
+    color: #FCF6F5;
+}
+
+.chart_search_wrap{
+    display: flex;
+    width: 100%;
+    position: relative;
+    z-index: 9999;
+}
+
+.chart_search_wrap label{
+    height: 30px;
+    line-height: 30px;
+    margin-right: 10px;
+}
+
+.chart_search_wrap input{
+    height: 30px;
+    background: transparent;
+    color: #00203F;
+    border: none;
+    border-bottom: 1px solid #00203F;
+    outline: none;
+    box-shadow: none;
+    font-size: 1em;
+    letter-spacing: 0.1em;
+}
+
+.chart_search_wrap button{
+    width: 50px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    outline: none;
+    margin: 1%;
+    background: transparent;
+}
+
+.chart_search_wrap button:hover{
+    background: #00203F;
+    color: #FCF6F5;
+}
+
+.newsMain_div{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.newsMain_div td:nth-child(1){
+    margin-right: 2%;
+}
+
+.chart_news_np td{
+    margin: 0;
+}
+
+.chart_news_np ul{
+    margin: 0;
+}
+
+.topic_cover_wrap{
+    width: 35%;
+    height: 250px;
+    position: absolute;
+    right: 0;
+    bottom: 25px;
+}
+
+.topic_cover{
+    width: 100%;
+    height: 250px;
+    position: relative;
+}
+
+.topic_wrap{
+    width: 100%;
+    height: 250px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.topic_img{
+    width: 100%;
+    height: 250px;
 }

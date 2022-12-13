@@ -1,0 +1,36 @@
+.tooltip-text, .tooltip-text-up {
+    display: none;
+    position: absolute;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 0.8em;
+    color: #a15a5a;
+    background: #a1abcf85;
+    right: 1px;
+    width: 337px;
+}
+
+.tooltip-text {
+    top: 213px;
+}
+
+.tooltip-text-up {
+    bottom: 606px;
+}
+
+.tooltip_1 {
+    display: inline;
+}
+
+.tooltip-none {
+    display: none;
+}
+
+.tooltip_1:hover .tooltip-text, .tooltip_1:hover .tooltip-text-up {
+    display: block;
+}
+
+.tooltip_a {
+    display: inline-block;
+}

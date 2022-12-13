@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fourward.linkchart.persistence.mapper.IUserInfoMapper">
+    <insert id="insertUserInfo" parameterType="UserSignupDTO">
+        INSERT INTO USER_INFO
+        (ID,
+         EMAIL,
+         NAME,
+         PASSWORD,
+         ADDR,
+         MOBILE,
+         REG_DATE)
+        VALUES (#{user_id},
+                #{user_email},
+                #{user_name},
+                #{user_password},
+                #{user_addr},
+                #{mobile},
+                TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MI:SS'))
+    </insert>
+    <select id="getUserIdExists" parameterType="String" resultType="String">
+        SELECT COUNT(1) AS C
+        FROM USER_INFO
+        WHERE ID = #{user_id}
+    </select>
+    <select id="getUserEmailExists" parameterType="String" resultType="String">
+        SELECT COUNT(1) AS C
+        FROM USER_INFO
+        WHERE EMAIL = #{user_email}
+    </select>
+    <select id="getUserMobileExists" parameterType="String" resultType="String">
+        SELECT COUNT(1) AS C
+        FROM USER_INFO
+        WHERE MOBILE = #{mobile}
+    </select>
+    <select id="getUserLoginCheck" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+        SELECT COUNT(*) AS isExist
+        FROM USER_INFO
+        WHERE ID = #{user_id}
+          AND PASSWORD = #{user_password}
+    </select>
+    <update id="updateUserPsw" parameterType="UserInfoDTO">
+        UPDATE USER_INFO
+        SET PASSWORD = #{user_password}
+        WHERE ID = #{user_id}
+    </update>
+    <update id="updateUserEmail" parameterType="UserInfoDTO">
+        UPDATE USER_INFO
+        SET EMAIL = #{user_email}
+        WHERE ID = #{user_id}
+    </update>
+    <update id="updateUserAddr" parameterType="UserInfoDTO">
+        UPDATE USER_INFO
+        SET ADDR = #{user_addr}
+        WHERE ID = #{user_id}
+    </update>
+    <select id="getUserInfo" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+        SELECT NAME  AS user_name,
+               EMAIL AS user_email,
+               ADDR  AS user_addr
+        FROM USER_INFO
+        WHERE ID = #{user_id}
+    </select>
+</mapper>

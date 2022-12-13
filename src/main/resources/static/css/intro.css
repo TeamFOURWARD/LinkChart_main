@@ -6,25 +6,27 @@ font-family: 'Roboto', sans-serif;
 */
 
 body{
+    background: #6A7BA2;
     overflow: hidden;
+    font-family: 'Nanum Gothic', sans-serif;
 }
 
-/**/
+.container{
+    max-width: 1400px!important;
+}
 
 .lc_nav_wrap{
-    position: absolute;
+    position: fixed;
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 9999;
-    visibility: hidden;
-    opacity: 0;
     transition: 0.5s;
 }
 
 .lc_nav{
     position: relative;
-    height: 420px;
+    height: 300px;
     width: 80px;
     background: #FCF6F5;
     overflow: hidden;
@@ -53,11 +55,16 @@ body{
     border-bottom-left-radius: 20px;
 }
 
-.lc_nav ul li.active{
-    background: #343148;
+.lc_nav ul li:hover{
+    font-weight: 900;
 }
 
-.lc_nav ul li.active a::before{
+.lc_nav ul li.toggleActive{
+    background: #6A7BA2;
+    font-weight: 900;
+}
+
+.lc_nav ul li.toggleActive a::before{
     content: '';
     position: absolute;
     top: -30px;
@@ -65,10 +72,10 @@ body{
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    box-shadow: 15px 15px 0 #343148;
+    box-shadow: 15px 15px 0 #6A7BA2;
 }
 
-.lc_nav ul li.active a::after{
+.lc_nav ul li.toggleActive a::after{
     content: '';
     position: absolute;
     bottom: -30px;
@@ -76,19 +83,19 @@ body{
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    box-shadow: 15px -15px 0 #343148;
+    box-shadow: 15px -15px 0 #6A7BA2;
 }
 
 .lc_nav ul li a{
     position: relative;
     display: block;
     width: 100%;
-    color: #343148;
+    color: #6A7BA2;
     clear: both;
     text-decoration: none;
 }
 
-.lc_nav ul li.active a{
+.lc_nav ul li.toggleActive a{
     color: #FCF6F5;
 }
 
@@ -106,6 +113,7 @@ body{
     position: relative;
     font-size: 1.5em;
     z-index: 1;
+    line-height: 60px;
 }
 
 .lc_nav ul li a .lcn_text{
@@ -125,12 +133,6 @@ body{
 }
 
 /**/
-
-/**/
-
-body{
-    background: #343148;
-}
 
 .wave{
     position: absolute;
@@ -204,14 +206,14 @@ body{
     background: #ADEFD1;
     margin: 0 4px;
     border-radius: 50%;
-    box-shadow: 0 0 0 10px #343148, 0 0 50px #ADEFD1, 0 0 100px #ADEFD1;
+    box-shadow: 0 0 0 10px #6A7BA2, 0 0 50px #ADEFD1, 0 0 100px #ADEFD1;
     animation: bubbles 15s linear infinite;
     animation-duration: calc(125s / var(--i));
 }
 
 .bubbles span:nth-child(even){
     background: #ed6f63;
-    box-shadow: 0 0 0 10px #343148, 0 0 50px #ed6f63, 0 0 100px #ed6f63;
+    box-shadow: 0 0 0 10px #6A7BA2, 0 0 50px #ed6f63, 0 0 100px #ed6f63;
 }
 
 @keyframes bubbles {
@@ -232,7 +234,6 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    /*background: url("../img/intro_bg_1.jpg") center fixed;*/
     background-size: cover;
     font-family: 'Roboto', sans-serif;
 }
@@ -317,7 +318,6 @@ body{
     width: 100%;
     height: 100vh;
     box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
-    background: #343148;
     visibility: hidden;
     opacity: 0;
     transition: 0.5s;
@@ -329,15 +329,63 @@ body{
     transition: 0.5s;
 }
 
+#chart_div>div>div:nth-child(1){
+    height: 500px!important;
+}
+
+#chart_div>div>div>div:nth-child(1){
+    top: -30px!important;
+}
+
+#popup2{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+    /*background: #343148;*/
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+#popup2.toggleActive{
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+#popup3{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+    /*background: #343148;*/
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+#popup3.toggleActive{
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+}
+
 .card_wrap{
     position: absolute;
     right: -10px;
-    top: 5px;
+    top: 50%;
+    transform: translateY(50%);
 }
 
 .card_wrap .row{
     transform: translateX(50px);
     display: flex;
+    height: 220px;
 }
 
 .card_content_wrap{
@@ -350,6 +398,7 @@ body{
     backdrop-filter: blur(5px);
     box-sizing: border-box;
     margin: 0.5%;
+    height: 100%;
 }
 
 .card_content_wrap:nth-child(1){
@@ -435,7 +484,7 @@ body{
     color: #6E6E6D;
 }
 
-.card_content_wrap>button{
+.card_content_wrap a{
     display: block;
     width: 100%!important;
     height: 100%;
@@ -481,35 +530,14 @@ body{
 
 /*section_chart*/
 
-#popup1 .section_chart{
+.section_chart{
     font-family: 'Nanum Gothic', sans-serif;
     height: 100vh;
     position: relative;
     box-sizing: border-box;
 }
 
-#popup1 .bubbles span{
-    position: relative;
-    width: 15px;
-    height: 15px;
-    background: #ADEFD1;
-    margin: 0 4px;
-    border-radius: 50%;
-    box-shadow: 0 0 0 10px #343148, 0 0 50px #ADEFD1, 0 0 100px #ADEFD1;
-    animation: bubbles2 60s linear infinite;
-    animation-duration: calc(1000s / var(--i));
-}
-
-@keyframes bubbles2 {
-    0%{
-        transform: translateY(100vh) scale(0);
-    }
-    100%{
-        transform: translateY(-10vh) scale(1);
-    }
-}
-
-#popup1 .section_chart .container{
+.section_chart .container{
     height: 100%;
     position: relative;
 }
@@ -591,11 +619,56 @@ body{
 
 .popupClose{
     position: absolute;
-    right: 30px;
+    right: 15px;
     top: 10px;
 }
 
 /*news_part*/
+
+/*password*/
+
+#message {
+    display:none;
+    width: 100%;
+    background: #00203F;
+    color: #000;
+    position: absolute;
+    left: 0;
+    z-index: 9999;
+    padding: 10px 8px;
+    margin-top: 10px;
+}
+
+#message p {
+    padding: 5px;
+    font-size: 15px;
+    text-align: left;
+    margin: 0;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: #8AAAE5;
+}
+
+.valid:before {
+    position: relative;
+    left: -5px;
+    content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: #ed6f63;
+}
+
+.invalid:before {
+    position: relative;
+    left: -5px;
+    content: "✖";
+}
+
+/*password*/
 
 /**/
 
