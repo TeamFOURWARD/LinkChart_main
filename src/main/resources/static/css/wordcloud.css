@@ -1,0 +1,44 @@
+#container {
+    width : 500px;
+    hight : 800px;
+    margin: 0;
+    padding: 0;
+    position: center;
+}
+
+#img {
+    margin-top : 50px;
+}
+
+.w-btn-outline{
+    position:relative;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family : "paybooc-Light", sans-serif;
+    box-shadow:0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+.w-btn-outline{
+    border: 3px solid #8AAAE5;
+    color: #6e6e6e;
+}
+
+.w-btn-outline:hover {
+    background-color: #ff5f2e;
+    color: #e1eef6;
+    cursor: pointer;
+}
+
+#txt {
+    width: 200px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(233,233,233);
+}

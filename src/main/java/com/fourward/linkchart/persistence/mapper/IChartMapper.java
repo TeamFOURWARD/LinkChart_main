@@ -1,20 +1,20 @@
 package com.fourward.linkchart.persistence.mapper;
 
-import com.fourward.linkchart.dto.StockDTO;
+import com.fourward.linkchart.dto.StockInfoDTO;
+import com.fourward.linkchart.dto.StockReqDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface IChartMapper {
-    // jsp 에 일자별 주식 가격 리스트 가져옴
-    List<StockDTO> getStockData(StockDTO pDTO) throws Exception;
+    void insertStockData(StockInfoDTO pDTO);
 
-    int insertStockData(StockDTO pDTO) throws Exception;
+    List<StockInfoDTO> getStockData(StockReqDTO pDTO) throws Exception;
 
-    StockDTO getStockCodeByName(StockDTO pDTO) throws Exception;
+    String getStockCodeByName(StockReqDTO pDTO);
 
-    StockDTO getStockData_dateStart(StockDTO pDTO) throws Exception;
+    String getStockData_dateStart(StockReqDTO pDTO);
 
-    StockDTO getStockData_dateEnd(StockDTO pDTO) throws Exception;
+    String getStockData_dateEnd(StockReqDTO pDTO);
 }
